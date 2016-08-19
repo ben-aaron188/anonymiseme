@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-html{
-  font-family: monospace;
-  font-size: 1.5vw;
-}
-.highlighted {
-    font-weight: bold;
-}
-.persons {
-    color: Red;
-}
-.locations {
-    color: Blue;
-}
-.dates {
-    color: Green;
-}
-.values {
-    color: Yellow;
-}
-.non_highlighted {
-    font-weight: light;
-}
-=======
 body {
     font-family: "HelveticaNeue-Light";
     overflow: hidden;
@@ -91,5 +67,3 @@ body {
     top: 60%;
     left: 50%;
 }
-
->>>>>>> layout
