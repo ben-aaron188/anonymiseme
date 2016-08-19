@@ -1,0 +1,18 @@
+.highlighted {
+    font-weight: bold;
+}
+.persons {
+    color: Red;
+}
+.locations {
+    color: Blue;
+}
+.dates {
+    color: Green;
+}
+.values {
+    color: Yellow;
+}
+.non_highlighted {
+    font-weight: light;
+}

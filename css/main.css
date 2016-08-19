@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html{
   font-family: monospace;
   font-size: 1.5vw;
@@ -20,3 +21,75 @@ html{
 .non_highlighted {
     font-weight: light;
 }
+=======
+body {
+    font-family: "HelveticaNeue-Light";
+    overflow: hidden;
+}
+
+#main_wrapper {
+    position: absolute;
+    width: 98%;
+    height: 98%;
+    border: 1px solid black;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+
+#header {
+    position: absolute;
+    width: 100%;
+    border-bottom: 0.2vw solid black;
+    height: 10%;
+    text-align: center;
+    font-size: 4vw;
+}
+
+#drop_wrapper {
+    position: absolute;
+    width: 40%;
+    height: 50%;
+    border: 1px solid black;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+
+#drop_wrapper_header {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    border-bottom: 1px solid black;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+#drop_wrapper_arrow {
+    position: absolute;
+    width: 10%;
+    height: 20%;
+    text-align: center;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 20%;
+    left: 50%;
+    font-size: 3vw;
+}
+
+#drop_wrapper_dropbox {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border: 3px solid red;
+    text-align: center;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 60%;
+    left: 50%;
+}
+
+>>>>>>> layout
