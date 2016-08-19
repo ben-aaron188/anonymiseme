@@ -8,12 +8,6 @@ nlp = window.nlp_compromise;
 // set example string
 string_input = "I'll be flying to London next week with my two friends Paul and Mike.";
 
-
-setTimeout(function() {
-    $("#ex1").text(string_input);
-}, 500);
-
-
 // pre-processing
 // 1. normalisation
 processed_text = string_input.normalize();

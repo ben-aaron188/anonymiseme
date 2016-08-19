@@ -26,6 +26,7 @@ function on_file_drop() {
 
 function anonymise(file) {
     // nlp
+    // from nlp directory
 }
 
 function write_file(file) {
