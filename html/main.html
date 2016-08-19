@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../js/nlp_compromise.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/utils.js"></script>
+    <LINK href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <noscript>Sorry, your browser does not support JavaScript.</noscript>
+
+<button onclick="source_text.highlight_single('locations')">highlight locations</button>
+<button onclick="source_text.highlight_single('persons')">highlight persons</button>
+<button onclick="source_text.highlight_single('dates')">highlight dates</button>
+<button onclick="source_text.highlight_single('values')">highlight values</button>
+<button onclick="source_text.highlight_all()">highlight all</button>
+
+<button onclick="source_text.replace1_single('locations')">replace1 locations</button>
+<button onclick="source_text.replace1_single('persons')">replace1 persons</button>
+<button onclick="source_text.replace1_single('dates')">replace1 dates</button>
+<button onclick="source_text.replace1_single('values')">replace1 values</button>
+
+<button onclick="source_text.replace1_all()">replace1 all</button>
+
+
+<p id="ex1">
+
+</p>
+
+<p id="ex2">
+
+</p>
+
+
+<div>
+<div id='persons'>
+  persons
+</div>
+<div id='locations'>
+  locations
+</div>
+<div id='dates'>
+  dates
+</div>
+</div>
+
+</body>
+
+
+</html>
