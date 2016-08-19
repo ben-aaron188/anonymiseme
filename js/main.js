@@ -28,6 +28,7 @@ function on_file_drop() {
 
 function anonymise(file) {
     // nlp
+    // pipeline: preprocess - anonymise - output
     // from nlp directory
 }
 
