@@ -11,6 +11,9 @@ html{
 .locations {
     color: Blue;
 }
+.organizations {
+    color: Orange;
+}
 .dates {
     color: Green;
 }

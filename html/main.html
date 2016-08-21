@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../js/nlp_compromise.min.js"></script>
-    <script src="../js/nlp.js"></script>
-    <script src="../js/utils.js"></script>
+    <script src="../js/nlp_init.js"></script>
+    <script src="../js/nlp_highlighter.js"></script>
+    <script src="../js/nlp_replacer.js"></script>
+    <script src="../js/nlp_utils.js"></script>
     <LINK href="../css/nlp.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -19,13 +21,11 @@
 <button onclick="highlight_single_entities(temp_prep, 'values')">highlight values</button>
 <button onclick="highlight_all(temp_prep)">highlight all</button>
 
-
 <button onclick="replace1_single(temp_prep, 'locations')">replace1 locations</button>
 <button onclick="replace1_single(temp_prep, 'persons')">replace1 persons</button>
 <button onclick="replace1_single(temp_prep, 'dates')">replace1 dates</button>
 <button onclick="replace1_single(temp_prep, 'values')">replace1 values</button>
 <button onclick="replace1_all(temp_prep)">replace1 all</button>
-
 
 <p id="ex1">
 
@@ -35,20 +35,10 @@
 
 </p>
 
+<p id="ex3">
 
-<div>
-<div id='persons'>
-  persons
-</div>
-<div id='locations'>
-  locations
-</div>
-<div id='dates'>
-  dates
-</div>
-</div>
+</p>
 
 </body>
-
 
 </html>
