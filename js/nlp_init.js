@@ -7,7 +7,7 @@ nlp = window.nlp_compromise;
 lexicon = nlp.lexicon();
 
 // set example string
-string_input = "Paul spent ten dollar for WWF in Brazil last Tuesday.";
+string_input = "Sarah spent ten dollar for WWF in Brazil last Tuesday.";
 
 setTimeout(function() {
     $('#ex1').text(string_input);
