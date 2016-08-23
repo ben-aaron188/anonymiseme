@@ -2,6 +2,7 @@
 // @author: b.a.r.kleinberg@uva.nl
 // ------------------------------------
 var temp_replacers = [];
+var replaced_arr = [];
 
 function replace1_single(preprocessed_object, entity) {
     var span_wrap = [];
@@ -60,79 +61,34 @@ function replace1_single(preprocessed_object, entity) {
     });
 }
 
-
 // repetitions
 function replace1_all(preprocessed_object) {
     var span_wrap = [];
-    var preprocessed_object2 = set_replacers(preprocessed_object);
-    $(preprocessed_object2.terms).each(function(i, el) {
-      // console.log(eligible_for_replacement(el.normal));
-      // if(temp_replacers.length > 0){
-      //   $(temp_replacers).each(function(j, el2) {
-      //     if(el2.original != el.normal){
-            if (el.pos.Person && el.pos.Pronoun !== true) {
-                span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-                add_to_temp(el.normal, el.replacement);
-            } else if (el.pos.Value || el.pos.Currency) {
-                span_wrap.push('<span class="highlighted values">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-                add_to_temp(el.normal, el.replacement);
-            } else if (el.pos.Date) {
-                span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-                add_to_temp(el.normal, el.replacement);
-            } else if (el.pos.Organization) {
-                span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-                add_to_temp(el.normal, el.replacement);
-            } else if (el.pos.Place) {
-                span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-                add_to_temp(el.normal, el.replacement);
-            } else {
-                span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            }
-      //     } else {
-      //       if (el.pos.Person && el.pos.Pronoun !== true) {
-      //           span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el2.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //           // add_to_temp(el.normal, el.replacement);
-      //       } else if (el.pos.Value || el.pos.Currency) {
-      //           span_wrap.push('<span class="highlighted values">' + el.whitespace.preceding + el2.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //           // add_to_temp(el.normal, el.replacement);
-      //       } else if (el.pos.Date) {
-      //           span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + el2.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //           // add_to_temp(el.normal, el.replacement);
-      //       } else if (el.pos.Organization) {
-      //           span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el2.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //           // add_to_temp(el.normal, el.replacement);
-      //       } else if (el.pos.Place) {
-      //           span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el2.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //           // add_to_temp(el.normal, el.replacement);
-      //       } else {
-      //           span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       }
-      //     }
-      //   });
-      // } else {
-      //   if (el.pos.Person && el.pos.Pronoun !== true) {
-      //       span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       add_to_temp(el.normal, el.replacement);
-      //   } else if (el.pos.Value || el.pos.Currency) {
-      //       span_wrap.push('<span class="highlighted values">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       add_to_temp(el.normal, el.replacement);
-      //   } else if (el.pos.Date) {
-      //       span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       add_to_temp(el.normal, el.replacement);
-      //   } else if (el.pos.Organization) {
-      //       span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       add_to_temp(el.normal, el.replacement);
-      //   } else if (el.pos.Place) {
-      //       span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //       add_to_temp(el.normal, el.replacement);
-      //   } else {
-      //       span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      //   }
-      // }
-
-      // } else {
-      //   span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-      // }
+    // var preprocessed_object2 = set_replacers(preprocessed_object);
+    $(preprocessed_object.terms).each(function(i, el) {
+        if (el.pos.Person && el.pos.Pronoun !== true) {
+            define_replacement(el);
+            span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Value || el.pos.Currency) {
+            define_replacement(el);
+            span_wrap.push('<span class="highlighted values">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Date) {
+            define_replacement(el);
+            span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Organization) {
+            define_replacement(el);
+            span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Place) {
+            define_replacement(el);
+            span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            add_to_temp(el.normal, el.replacement);
+        } else {
+            span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+        }
     });
     $('#ex3').text('');
     $(span_wrap).each(function(i, el) {
@@ -158,24 +114,43 @@ function get_replacement(category, special_spelling) {
     return replacer;
 }
 
-
-function set_replacers(preprocessed_object) {
-    $(preprocessed_object.terms).each(function(i, el) {
-        if (el.pos.Person || el.pos.Value || el.pos.Currency || el.pos.Date || el.pos.Organization || el.pos.Place) {
-            if (term_is_capitalised(el.text)) {
-              // el.replacement = eligible_for_replacement(el.normal, el.tag, 'capitalise');
-                el.replacement = get_replacement(el.tag, 'capitalise');
-            } else if (el.is_acronym()) {
-              // el.replacement = eligible_for_replacement(el.normal, el.tag, 'acronym');
-                el.replacement = get_replacement(el.tag, 'acronym');
-            } else {
-              // el.replacement = eligible_for_replacement(el.normal, el.tag, 'none');
-                el.replacement = get_replacement(el.tag, 'none');
-            }
+function define_replacement(term_object, preprocessed_object) {
+    if($.inArray(term_object.normal, replaced_arr) < 0){
+          if (term_is_capitalised(term_object.text)) {
+              term_object.replacement = get_replacement(term_object.tag, 'capitalise');
+          } else if (term_object.is_acronym()) {
+              term_object.replacement = get_replacement(term_object.tag, 'acronym');
+          } else {
+              term_object.replacement = get_replacement(term_object.tag, 'none');
           }
-    });
-    return preprocessed_object;
+    } else {
+      var selected_from_object = temp_replacers.filter(function(x) {
+        return x.original === term_object.normal;
+      });
+      term_object.replacement = selected_from_object[0].replacement;
+    }
 }
+
+
+// function set_replacers(preprocessed_object) {
+//     $(preprocessed_object.terms).each(function(i, el) {
+//         //   console.log(el.normal, replaced_arr, $.inArray(el.normal, replaced_arr));
+//         //   if($.inArray(el.normal, replaced_arr) < 0){
+//         if (el.pos.Person || el.pos.Value || el.pos.Currency || el.pos.Date || el.pos.Organization || el.pos.Place) {
+//             if (term_is_capitalised(el.text)) {
+//                 // el.has_been_replaced = true;
+//                 el.replacement = get_replacement(el.tag, 'capitalise');
+//             } else if (el.is_acronym()) {
+//                 // el.has_been_replaced = true;
+//                 el.replacement = get_replacement(el.tag, 'acronym');
+//             } else {
+//                 // el.has_been_replaced = true;
+//                 el.replacement = get_replacement(el.tag, 'none');
+//             }
+//         }
+//     });
+//     return preprocessed_object;
+// }
 
 function capitalise_string(stringinput) {
     var string_old = stringinput;
@@ -209,27 +184,15 @@ function add_to_temp(original, replacement) {
         replacement: replacement
     };
     temp_replacers.push(temp_obj);
+    replaced_arr.push(temp_obj.original);
 }
 
-function eligible_for_replacement(stringinput) {
-    var eligible;
-    $(temp_replacers).each(function(i, el) {
-      if(el.original != stringinput){
-        console.log(true);
-      } else {
-        console.log(false);
-      }
-    });
-
-    // return out;
-    // if ($.inArray(stringinput, arr_temp) === 0) {
-    //     eligible = false;
-    // } else {
-    //     eligible = true;
-    // }
-    // return eligible;
-}
-
-// $(temp_prep.terms).each(function(i, el){
-//   console.log(get_term_terminator(el.text))
-// })
+// function eligible_for_replacement(stringinput) {
+//     var eligible;
+//     $(temp_replacers).each(function(i, el) {
+//         if (el.original != stringinput) {
+//             console.log(true);
+//         } else {
+//             console.log(false);
+//         }
+//     });
