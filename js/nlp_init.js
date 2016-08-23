@@ -7,7 +7,9 @@ nlp = window.nlp_compromise;
 lexicon = nlp.lexicon();
 
 // set example string
-string_input = "Sarah spent ten dollar for WWF in Brazil last Tuesday.";
+// string_input = "A weekend away in Paris sightseeing, travelling from Stansted Airport.-I'm not going there to meet anyone, I'm going there for a short weekend break.-Flight was first, then accommodation, then parking at WWF for my car at the airport.-The hotel was hardest to plan, hard to book a hotel cheap enough for my needs.-Not sure about what the most pleasant event I expect to happen will be, I haven't got anything major planned for the weekend.-The flight and traveling as I don't enjoy flying and traveling.-I will read a book or meditate while I'm waiting for the flight.-I will take public transport to get to the hotel from the airport.-Check in to my hotel and relax for a while before going out for dinner.-Probably sleep as I will be very tired after the weekend away.";
+
+string_input = "I will meet Mike in Paris! Then Mike and I will move on to London.";
 
 setTimeout(function() {
     $('#ex1').text(string_input);
