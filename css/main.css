@@ -5,65 +5,171 @@ body {
 
 #main_wrapper {
     position: absolute;
-    width: 98%;
-    height: 98%;
+    width: 100%;
+    height: 100%;
     border: 1px solid black;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
+
 }
 
 #header {
     position: absolute;
     width: 100%;
-    border-bottom: 0.2vw solid black;
-    height: 10%;
+    height: 15%;
+    background-color: white;
+}
+
+#header_left {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    padding-left: 2vw;
+    font-size: 6vw;
+}
+
+#header_right {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 50%;
+    font-size: 2vw;
     text-align: center;
-    font-size: 4vw;
+    margin-top: 3vw;
+}
+
+#header_right_about {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    text-align: right;
+}
+
+#header_right_source {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 50%;
+}
+
+#content {
+    position: absolute;
+    width: 100%;
+    top: 15%;
+    height: 75%;
+    background-color: grey;
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
 }
 
 #drop_wrapper {
     position: absolute;
-    width: 40%;
-    height: 50%;
-    border: 1px solid black;
+    width: 80%;
+    height: 60%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     left: 50%;
-    top: 50%;
+    top: 35%;
+}
+
+#download_wrapper {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 78%;
 }
 
 #drop_wrapper_header {
     position: absolute;
     width: 100%;
     height: 10%;
-    border-bottom: 1px solid black;
-    text-align: center;
+    text-align: left;
     font-size: 2vw;
     font-weight: bold;
 }
 
-#drop_wrapper_arrow {
-    position: absolute;
-    width: 10%;
-    height: 20%;
-    text-align: center;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    top: 20%;
-    left: 50%;
-    font-size: 3vw;
-}
-
 #drop_wrapper_dropbox {
     position: absolute;
-    width: 50%;
-    height: 50%;
-    border: 3px solid red;
+    width: 100%;
+    height: 80%;
+    border: 0.1vw solid black;
     text-align: center;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     top: 60%;
     left: 50%;
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+}
+
+#drop_wrapper_dropbox_head {
+    margin-top: 6vw;
+    font-size: 3vw;
+}
+
+#drop_wrapper_dropbox_detail {
+    font-size: 2vw;
+}
+
+#download {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: bold;
+    font-size: 4vw;
+    text-decoration: none;
+}
+
+#warning {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    z-index: 2;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: bold;
+    font-size: 3vw;
+    text-decoration: none;
+    text-align: center;
+    display: none;
+}
+
+#download:hover {
+    text-decoration: underline;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    top: 90%;
+    height: 10%;
+    background-color: white;
+}
+
+#footer_copyright {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2vw;
+}
+
+.on_drag {
+    background-color: #2B2922;
+    color: white;
 }
