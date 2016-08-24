@@ -13,10 +13,9 @@ $(document).ready(function () {
 
     build();
 
-    var drop_box = document.getElementById('drop_wrapper_dropbox');
-
-    drop_box.addEventListener('dragover', drag_handler, false);
-    drop_box.addEventListener('drop', drop_handler, false);
+    document.getElementById('drop_wrapper_dropbox').addEventListener('dragover', drag_handler, false);
+    document.getElementById('drop_wrapper_dropbox').addEventListener('drop', drop_handler, false);
+    document.getElementById('files').addEventListener('change', choose_from_dir, false);
     document.addEventListener("dragleave", drag_leave, false);
 });
 
@@ -30,11 +29,20 @@ function drop_handler(event) {
     event.stopPropagation();
     event.preventDefault();
 
-    var files = event.dataTransfer.files;
-
-    read_files(files);
+    read_files(event.dataTransfer.files);
 }
 
+/**
+ *
+ * @param event
+ */
+function choose_from_dir(event) {
+    read_files(event.target.files);
+}
+
+/**
+ *
+ */
 function drag_leave() {
     $('#drop_wrapper_dropbox').removeClass("on_drag");
 }
@@ -93,7 +101,6 @@ function drag_handler(event) {
 function manage_anon(files) {
 
     if (files.length == 1) {
-
         var file_string = files[0][1].currentTarget.result;
         var replaced = replace1_all(preprocess_string(file_string));
 
@@ -113,6 +120,11 @@ function manage_anon(files) {
     }
 }
 
+/**
+ *
+ * @param file_name
+ * @returns {string}
+ */
 function cut_name(file_name) {
     return file_name.substring(0, file_name.indexOf(".txt")) + "_anonymised.txt"
 }
@@ -133,6 +145,9 @@ function return_modified(file_name, blob, download_type) {
     $("#download").css("display", "block");
 }
 
+/**
+ *
+ */
 function warning() {
 
     $("#download").css("display", "none");

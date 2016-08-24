@@ -106,7 +106,7 @@ function replace1_all(preprocessed_object) {
         } else {
             //span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
 
-            replaced += el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing;
+            replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
         }
         //     } else {
         //       if (el.pos.Person && el.pos.Pronoun !== true) {
@@ -154,6 +154,8 @@ function replace1_all(preprocessed_object) {
         //   span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
         // }
     });
+
+    console.log(replaced);
 
     return replaced;
 
@@ -215,6 +217,9 @@ function term_is_capitalised(stringinput) {
 }
 
 function get_term_terminator(stringinput) {
+
+    console.log(stringinput);
+
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
     var terminator;

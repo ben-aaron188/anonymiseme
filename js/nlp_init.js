@@ -11,7 +11,7 @@ lexicon = nlp.lexicon();
 
 string_input = "I will meet Mike in Paris! Then Mike and I will move on to London.";
 
-setTimeout(function() {
+setTimeout(function () {
     $('#ex1').text(string_input);
 }, 500);
 

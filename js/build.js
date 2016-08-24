@@ -36,6 +36,11 @@ function build() {
         '</div>'
     );
 
+    $('#drop_wrapper_dropbox').prepend(
+        '<div id="choose_from_directory">' +
+        '<input type="file" id="files" name="files[]" multiple />'
+    );
+
     $("#footer").prepend(
         '<div id="footer_copyright">&copy; 2016</div>'
     );

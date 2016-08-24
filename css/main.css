@@ -173,3 +173,13 @@ body {
     background-color: #2B2922;
     color: white;
 }
+
+#choose_from_directory {
+    position: absolute;
+    width: 16%;
+    top: 80%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
