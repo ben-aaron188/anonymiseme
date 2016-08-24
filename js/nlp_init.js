@@ -6,10 +6,7 @@
 nlp = window.nlp_compromise;
 lexicon = nlp.lexicon();
 
-// set example string
-// string_input = "A weekend away in Paris sightseeing, travelling from Stansted Airport.-I'm not going there to meet anyone, I'm going there for a short weekend break.-Flight was first, then accommodation, then parking at WWF for my car at the airport.-The hotel was hardest to plan, hard to book a hotel cheap enough for my needs.-Not sure about what the most pleasant event I expect to happen will be, I haven't got anything major planned for the weekend.-The flight and traveling as I don't enjoy flying and traveling.-I will read a book or meditate while I'm waiting for the flight.-I will take public transport to get to the hotel from the airport.-Check in to my hotel and relax for a while before going out for dinner.-Probably sleep as I will be very tired after the weekend away.";
-
-string_input = "I will meet Michael and Mike in Paris! Then Mike, Michael and I will move on to London and Paris.";
+string_input = "Shelby, the oldest of three siblings in a family of Palestinian descent, was working and planning to start college in the fall. Her mother, Darlene Farah, had been nervous when her daughter started as a manager of the Metro PCS branch, which was in a high-crime part of town, miles from their home near the beach. But Shelby told her mother she felt comfortable in the neighborhood; she’d gone to high school nearby, attending a magnet program on criminal justice. She was nicknamed “peacemaker” in middle school because she couldn’t stand to see kids argue. An accomplished cheerleader, she volunteered for two seasons as a coach for a group of girls instead of pursuing a chance to make the cheerleading squad for the Jaguars football team.";
 
 setTimeout(function() {
     $('#ex1').text(string_input);
