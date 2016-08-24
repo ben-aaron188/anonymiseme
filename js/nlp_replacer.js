@@ -11,10 +11,10 @@ function replace1_all(preprocessed_object) {
             define_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Value || el.pos.Currency) {
-            define_replacement(el);
-            replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
-            add_to_temp(el.normal, el.replacement);
+        // } else if (el.pos.Value || el.pos.Currency) {
+        //     define_replacement(el);
+        //     replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
+        //     add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Date) {
             define_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
@@ -28,7 +28,7 @@ function replace1_all(preprocessed_object) {
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
         } else {
-            replaced += el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing;
+            replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
         }
     });
     return replaced;
@@ -60,7 +60,7 @@ function replace1_all_(preprocessed_object) {
             span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
             add_to_temp(el.normal, el.replacement);
         } else {
-            span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
+            span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + el.whitespace.trailing + '</span>');
         }
     });
     $('#ex3').text('');
