@@ -7,7 +7,7 @@ var replaced_arr = [];
 function replace1_all(preprocessed_object) {
     var replaced = "";
     $(preprocessed_object.terms).each(function(i, el) {
-        if (el.pos.Person && el.pos.Pronoun !== true) {
+        if (el.pos.Person && el.pos.Pronoun !== true  && term_is_capitalised(el.text)) {
             define_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
