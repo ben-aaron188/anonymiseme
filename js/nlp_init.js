@@ -8,7 +8,9 @@ lexicon = nlp.lexicon();
 
 // set example string
 
-string_input = "I will meet Mike in Paris! Then Mike and I will move on to London before we leave for Rome on first of April 2016.";
+//string_input = "I will meet Mike in Paris! Then Mike and I will move on to London before we leave for Rome on first of April 2016.";
+//string_input = "I will meet Mike in Paris! Then Mike and I will move on to London before we leave for Rome on Friday with 2 Friends.";
+string_input = "234th x 11th x 100th x Second x Third x Tenth x 13/12/2014 x 11/10/2145";
 
 setTimeout(function () {
     $('#ex1').text(string_input);
