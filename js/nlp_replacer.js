@@ -9,7 +9,7 @@ function replace1_all(preprocessed_object) {
     var replaced = "";
     $(preprocessed_object.terms).each(function (i, el) {
         if (el.pos.Person && el.pos.Pronoun !== true && term_is_capitalised(el.text)) {
-            define_replacement(el);
+            generate_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
             // } else if (el.pos.Value || el.pos.Currency) {
@@ -21,11 +21,11 @@ function replace1_all(preprocessed_object) {
             replaced += el.whitespace.preceding + check_date(el.text, el.replacement) + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Organization) {
-            define_replacement(el);
+            generate_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Place) {
-            define_replacement(el);
+            generate_replacement(el);
             replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
             add_to_temp(el.normal, el.replacement);
         } else {
@@ -41,7 +41,7 @@ function replace1_all_(preprocessed_object) {
         // && (el.tag == 'MalePerson' || el.tag == 'FemalePerson')
         // capital as requirement for names
         if (el.pos.Person && el.pos.Pronoun !== true && term_is_capitalised(el.text)) {
-            define_replacement(el);
+            generate_replacement(el);
             span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
             add_to_temp(el.normal, el.replacement);
             // } else if (el.pos.Value || el.pos.Currency) {
@@ -50,15 +50,14 @@ function replace1_all_(preprocessed_object) {
             //     add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Date || el.pos.Value) {
             define_replacement(el);
-
             span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + check_date(el.text, el.replacement) + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
             add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Organization) {
-            define_replacement(el);
+            generate_replacement(el);
             span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
             add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Place) {
-            define_replacement(el);
+            generate_replacement(el);
             span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
             add_to_temp(el.normal, el.replacement);
         } else {
@@ -71,6 +70,14 @@ function replace1_all_(preprocessed_object) {
     });
 }
 
+function generate_replacement(el) {
+    define_replacement(el);
+
+    if (el.replacement == el.text) {
+        generate_replacement(el);
+    }
+
+}
 
 function get_replacement(category, special_spelling) {
     var alt_array = [];
