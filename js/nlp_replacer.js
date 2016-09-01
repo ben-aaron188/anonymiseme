@@ -275,19 +275,30 @@ function has_numeric(date) {
 }
 
 function return_numeric(date) {
-
     var split = date.split(" ");
 
     for (var i = 0; i < split.length; i++) {
+        var current = split[i];
 
-        if (!isNaN(parseInt(split[i]))) {
-            split[i] = get_numeric(split[i]);
+        if (!isNaN(parseInt(current))) {
+            var replaced = get_numeric(current);
+            split[i] = replaced;
+
+            if (replaced == 1 && isNaN(parseInt(split[i + 1]))) {
+                var next = split[i + 1];
+
+                if (next.substring(next.length - 1) == "s") {
+                    if (next.substring(next.length - 3) == "ies") {
+                        split[i + 1] = next.substring(0, next.length - 3) + "y";
+                    } else {
+                        split[i + 1] = next.substring(0, next.length - 1);
+                    }
+                }
+            }
         }
-
     }
 
     return split.join().replace(/,/g, " ");
-    ;
 }
 
 function get_numeric(number) {
