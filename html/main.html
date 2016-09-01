@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../lexicon/male.js"></script>
+    <script src="../lexicon/female.js"></script>
+    <script src="../lexicon/cities_only.js"></script>
     <script src="../js/nlp_compromise.min.js"></script>
     <script src="../js/nlp_init.js"></script>
     <script src="../js/nlp_highlighter.js"></script>
@@ -14,7 +17,7 @@
 </head>
 
 <body>
-    <noscript>Sorry, your browser does not support JavaScript.</noscript>
+<noscript>Sorry, your browser does not support JavaScript.</noscript>
 
 <button onclick="highlight_single_entities(temp_prep, 'locations')">highlight locations</button>
 <button onclick="highlight_single_entities(temp_prep, 'persons')">highlight persons</button>
@@ -22,7 +25,10 @@
 <button onclick="highlight_single_entities(temp_prep, 'values')">highlight values</button>
 <button onclick="highlight_all(temp_prep)">highlight all</button>
 
-<button onclick="replace1_all_(temp_prep)">replace1 all</button>
+<button onclick="replace1_all_(temp_prep, 0)">replace1 all (XXX, XXX)</button>
+<button onclick="replace1_all_(temp_prep, 1)">replace1 all (XXX, YYY, ZZZ, ...)</button>
+<button onclick="replace1_all_(temp_prep, 2)">replace1 all (Person1, Person2, Location1, ...)</button>
+<button onclick="replace1_all_(temp_prep, 3)">replace1 all (FULL)</button>
 
 <p id="ex1">
 
