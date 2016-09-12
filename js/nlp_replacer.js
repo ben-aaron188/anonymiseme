@@ -284,7 +284,7 @@ function return_numeric(date) {
             var replaced = get_numeric(current);
             split[i] = replaced;
 
-            if (replaced == 1 && split.length > 1) {
+            if (replaced == 1 && split.length > 1 && i < split.length - 1) {
                 if (isNaN(parseInt(split[i + 1]))) {
                     var next = split[i + 1];
 
