@@ -9,27 +9,41 @@
 
 var node_ner = require('node-ner');
 var fs = require('fs')
-
+var file = process.argv[2];
 var ner = new node_ner({
     install_path: 'stanford-ner-2014-10-26'
 });
 
-var file = process.argv[2];
-
-if (!file || file.indexOf(".txt") != -1) {
-    throw new Error("Type in a correct filename (no .txt ending)!");
-}
-
+/**
+ * Extracts all entities from the text within the given text file.
+ *
+ * @param {String} file The name of the given file name
+ */
 get_entities = function (file) {
     ner.fromFile(file + ".txt", function (entities) {
         replace_entities(entities);
     });
 }
 
+/**
+ * Replaces all occurrences of a given substring with another given substring in the given string.
+ *
+ * @param {String} target The considered string
+ * @param {String} search The substring to be replaced
+ * @param {String} replacement The replacement
+ * @returns {string} The modified string
+ */
 replace_all = function (target, search, replacement) {
     return target.split(search).join(replacement);
 }
 
+/**
+ * Checks whtether the given element is in the array.
+ *
+ * @param {String|Number} element The search element
+ * @param {Array} array The given array
+ * @returns {boolean}
+ */
 in_array = function (element, array) {
     for (var i = 0; i < array.length; i++) {
         if (array[i] == element) {
@@ -40,6 +54,12 @@ in_array = function (element, array) {
     return false;
 }
 
+/**
+ * Checks whether the given string contains a special character and returns this character if true, false otherwise.
+ *
+ * @param {String} element The considered string
+ * @returns {*}
+ */
 get_extension = function (element) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
 
@@ -55,7 +75,7 @@ get_extension = function (element) {
 /**
  * Normalizes the given input.
  *
- * @param {String} stringinput The text message
+ * @param {String} stringinput The string to be adjusted
  * @returns {string}
  */
 adjust_term = function (stringinput) {
@@ -70,9 +90,17 @@ adjust_term = function (stringinput) {
 
 }
 
+/**
+ * Replaces all the recognised entities within a given text.
+ *
+ * @param {String} entities The recognised entities
+ */
 replace_entities = function (entities) {
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
+
         var textinput = data.split(" ");
 
         for (var property in entities) {
@@ -95,14 +123,23 @@ replace_entities = function (entities) {
     });
 }
 
+/**
+ * Writes the anonymised file to a new textfile and stores it in the current working directory.
+ *
+ * @param {String} anonymised The anonymised text
+ */
 write_anon = function (anonymised) {
     fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
     });
 }
 
-
-get_entities(file);
+// Running the Script
+if (!file || file.indexOf(".txt") != -1) {
+    throw new Error("Type in a correct filename (no .txt ending)!");
+} else {
+    get_entities(file);
+}
 
