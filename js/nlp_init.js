@@ -11,7 +11,9 @@ lexicon = nlp.lexicon();
 //string_input = "I will meet Mike in Paris! Then Mike and I will move on to London before we leave for Rome on first of April 2016.";
 //string_input = "I will meet Mike in Paris! Then Mike and I will move on to London before we leave for Rome on Friday with 2 Friends.";
 //string_input = "234th x 11th x 100th x Second x Third x Tenth x 13/12/2014 x 11/10/2145 x Amsterdam x Peter x Peter";
-string_input = "On 06/18/2014 Alfred and I went to the bookstore in Amsterdam. We spent 3 hours there and I bought 3 new books about Birmingham. After that we went to Melbourne for 3 weeks.";
+//string_input = "On 06/18/2014 Alfred and I went to the bookstore in Amsterdam. We spent 1 hour there and I bought 3 new books about Birmingham. After that we went to Melbourne for 3 weeks.";
+
+string_input = "My friends and I traveled to the Ukraine last year during the Summer break. We arrived in southern Spain late in the evening and thus did not have the time to discover the city a bit more in detail that night. The next morning, we took a cab to Barcelona and discovered the city. After a long and interesting day, we took another cab back to Malaga in order to recover at the Hotel. The days after we travelled along the Adriatic Coast, visiting as much cities as possible. We went to a lot of cities, amongst others Rome, Dresden and Lisbon. All in all, I can look back to a successful holiday and to a great experience where I was able to really discover the Swedish culture and way of living.";
 
 setTimeout(function () {
     $('#ex1').text(string_input);

@@ -19,5 +19,6 @@ function shuffle(array) {
         newarr[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
+
     return newarr;
 }

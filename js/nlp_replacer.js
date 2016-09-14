@@ -104,10 +104,15 @@ function generate_replacement(el, type, entity, counts) {
 }
 
 function get_replacement(category, special_spelling) {
-
     var alt_array = [];
     var replacer;
+
+    if (category == "Place") {
+        category = "City";
+    }
+
     $.each(lexicon, function (key, value) {
+
         if (value == category) {
             alt_array.push(key);
         }
@@ -132,6 +137,7 @@ function define_replacement(term_object, type, entity, counts) {
     } else {
 
         if ($.inArray(term_object.normal, replaced_arr) < 0) {
+
             if (term_is_capitalised(term_object.text)) {
                 term_object.replacement = get_replacement(term_object.tag, 'capitalise');
             } else if (term_object.is_acronym()) {
@@ -147,6 +153,7 @@ function define_replacement(term_object, type, entity, counts) {
         }
 
     }
+
 }
 
 function replace_entity_dependent(type, entity, counts) {
@@ -243,10 +250,13 @@ function add_to_temp(original, replacement) {
 }
 
 function check_date(date, replacement) {
-
     date = remove_term_terminator(date);
 
-    if (has_numeric(date)) {
+    if (not_replacable(date)) {
+        return date;
+    } else if (is_numeric(date)) {
+        return create_numeric(date);
+    } else if (has_numeric(date)) {
         return return_numeric(date);
     } else if (is_weekday(date)) {
         return return_weekday(date);
@@ -257,6 +267,30 @@ function check_date(date, replacement) {
     }
 
     return replacement;
+}
+
+function not_replacable(date) {
+    var irreplacables = ["hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
+
+    if ($.inArray(date, irreplacables) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function is_numeric(date) {
+    return date.length == 1 && !isNaN(nlp.value(date).number) && nlp.value(date).number != "" && !is_weekday(date) && !is_ordinal(date);
+}
+
+function create_numeric(date) {
+    var number = nlp.value(date).number;
+
+    if (number == 1) {
+        return date;
+    } else {
+        return get_numeric(number, 2);
+    }
 }
 
 function has_numeric(date) {
@@ -281,20 +315,27 @@ function return_numeric(date) {
         var current = split[i];
 
         if (!isNaN(parseInt(current))) {
-            var replaced = get_numeric(current);
+            var origin = split[i];
+            var replaced = get_numeric(current, 1);
             split[i] = replaced;
 
-            if (replaced == 1 && split.length > 1 && i < split.length - 1) {
-                if (isNaN(parseInt(split[i + 1]))) {
-                    var next = split[i + 1];
+            if (split.length > 1 && i < split.length - 1) {
+                var next = split[i + 1];
 
-                    if (next.substring(next.length - 1) == "s") {
-                        if (next.substring(next.length - 3) == "ies") {
-                            split[i + 1] = next.substring(0, next.length - 3) + "y";
-                        } else {
-                            split[i + 1] = next.substring(0, next.length - 1);
+                if (replaced == 1) {
+                    if (isNaN(parseInt(split[i + 1]))) {
+
+
+                        if (next.substring(next.length - 1) == "s") {
+                            if (next.substring(next.length - 3) == "ies") {
+                                split[i + 1] = next.substring(0, next.length - 3) + "y";
+                            } else {
+                                split[i + 1] = next.substring(0, next.length - 1);
+                            }
                         }
                     }
+                } else if (parseInt(origin) == 1) {
+                    split[i + 1] = nlp.noun(next).pluralize();
                 }
             }
         }
@@ -303,11 +344,11 @@ function return_numeric(date) {
     return split.join().replace(/,/g, " ");
 }
 
-function get_numeric(number) {
+function get_numeric(number, pl) {
     var numeric;
 
     if (number < 10) {
-        numeric = Math.floor(Math.random() * 10) + 1;
+        numeric = Math.floor(Math.random() * 10) + pl;
     } else if (number < 100) {
         numeric = Math.floor(Math.random() * 100) + 1;
     } else if (number < 500) {
@@ -315,11 +356,19 @@ function get_numeric(number) {
     } else if (number < 1000) {
         numeric = Math.floor(Math.random() * 1000) + 1;
     } else {
-        numeric = Math.floor(Math.random() * 10000) + 1;
+        if (number < 2100) {
+            if (number > parseInt(new Date().getFullYear())) {
+                numeric = number + Math.floor(Math.random() * 10) + 1;
+            } else {
+                numeric = number - Math.floor(Math.random() * 5) + 1;
+            }
+        } else {
+            numeric = Math.floor(Math.random() * 10000) + 1;
+        }
     }
 
     if (numeric == number) {
-        return get_numeric(number);
+        return get_numeric(number, pl);
     } else {
         return numeric;
     }
@@ -329,7 +378,7 @@ function get_numeric(number) {
 function is_weekday(date) {
 
     for (var i = 0; i < weekdays.length; i++) {
-        if (weekdays[i] == date || (weekdays[i].toLowerCase()) == date) {
+        if (weekdays[i].toLowerCase() == date.toLowerCase() || (weekdays[i].toLowerCase() == date.substring(0, date.length - 1).toLowerCase() && date.substring(date.length - 1) == "s")) {
             return true;
         }
     }
@@ -338,14 +387,15 @@ function is_weekday(date) {
 }
 
 function return_weekday(date) {
-
     var weekday = weekdays[Math.floor(Math.random() * weekdays.length)];
 
-    if (weekday == date || weekday.toLowerCase() == date) {
+    if (weekday.toLowerCase() == date.toLowerCase()) {
         return return_weekday(date);
+    } else if (date.substring(date.length - 1) == "s") {
+        return weekday + "s";
+    } else {
+        return weekday;
     }
-
-    return weekday;
 }
 
 function is_numeric_date(date) {
@@ -470,7 +520,7 @@ function return_ordinal(string) {
         value = nlp.value(string).number;
     }
 
-    ordinal = get_numeric(value);
+    ordinal = get_numeric(value, 1);
 
     switch (ordinal % 10) {
         case 1:
