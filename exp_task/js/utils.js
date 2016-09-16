@@ -3,10 +3,10 @@ var slider_moved_array = [];
 function check_fields(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             // if($(this).attr('type') == 'text'){
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -21,16 +21,24 @@ function check_fields(classname) {
     }
 }
 
+function has_second_language() {
+    if ($("#bilingual_sel").val() == "1") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function define_keys(ID, allowedInput, allowedMax) {
     if (allowedInput == "number") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code != 8 && code !== 0 && (code < 48 || code > 57)) {
                 return false;
             }
         });
     } else if (allowedInput == "text") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code > 32 && (code < 65 || code > 90) &&
                 (code < 97 || code > 122)) {
@@ -68,15 +76,15 @@ function shuffle(array) {
     return newarr;
 }
 
-var now = (function() {
+var now = (function () {
     var performance = window.performance || {};
-    performance.now = (function() {
+    performance.now = (function () {
         return performance.now ||
             performance.webkitNow ||
             performance.msNow ||
             performance.oNow ||
             performance.mozNow ||
-            function() {
+            function () {
                 return new Date().getTime();
             };
     })();
@@ -113,7 +121,7 @@ function check_input(ID) {
     tester_array = [];
     tester2 = 0;
     textin = ID.val().toLowerCase().split(" ");
-    $.each(keywords, function(index, val) {
+    $.each(keywords, function (index, val) {
         tester = $.inArray(val, textin);
         if (tester < 0) {
             tester2 = 0;
@@ -141,7 +149,7 @@ function check_text(ID, desiredLength) {
 
 function sum(arr) {
     var r = 0;
-    $.each(arr, function(i, v) {
+    $.each(arr, function (i, v) {
         r += v;
     });
     return r;
@@ -149,7 +157,7 @@ function sum(arr) {
 
 function record_elapsed_start(ID) {
     elapsed = 0;
-    ID.keypress(function(e) {
+    ID.keypress(function (e) {
         time1 = now();
     });
 }
@@ -169,7 +177,7 @@ function get_length(ID) {
 function record_deletes(ID) {
     var listen = true;
     deletions_arr = [];
-    ID.keydown(function(e) {
+    ID.keydown(function (e) {
         if (listen === true) {
             var code = e.keyCode || e.which;
             if (code == 8) {
@@ -183,7 +191,7 @@ function record_gaps(ID) {
     var listen = true;
     elapsed_arr = [];
     var t0 = now();
-    ID.keydown(function(e) {
+    ID.keydown(function (e) {
         if (listen === true) {
             var t1 = now();
             var elapsed = t1 - t0;
@@ -218,13 +226,13 @@ function q_meta_retrieve(ID, abbrev_q_code) {
     window[length_proxy] = id_length;
     window[elapsed_proxy] = elapsed.toFixed(2);
     window[deletions_proxy] = deletions_arr.length;
-    window[gaps_proxy_100] = elapsed_arr.filter(function(x) {
+    window[gaps_proxy_100] = elapsed_arr.filter(function (x) {
         return x > 100;
     }).length;
-    window[gaps_proxy_200] = elapsed_arr.filter(function(x) {
+    window[gaps_proxy_200] = elapsed_arr.filter(function (x) {
         return x > 200;
     }).length;
-    window[gaps_proxy_300] = elapsed_arr.filter(function(x) {
+    window[gaps_proxy_300] = elapsed_arr.filter(function (x) {
         return x > 300;
     }).length;
 }
@@ -234,7 +242,7 @@ function init_data() {
 }
 
 function simple_transition(current_div, next_div) {
-    current_div.hide(function() {
+    current_div.hide(function () {
         next_div.show();
     });
 }
@@ -248,7 +256,7 @@ function send_to_server() {
 }
 
 function getIP() {
-    $.get("http://ipinfo.io", function(response) {
+    $.get("http://ipinfo.io", function (response) {
         window.clientip = response.ip;
     }, "jsonp");
 }
@@ -262,7 +270,7 @@ function capitalise_string(stringinput) {
 function check_slider(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             class_values.push($(this).val().length);
             score = $.inArray(15, class_values);

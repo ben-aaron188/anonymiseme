@@ -256,6 +256,8 @@ function check_date(date, replacement) {
         return date;
     } else if (is_numeric(date)) {
         return create_numeric(date);
+    } else if (is_weekday_abbrev(date)) {
+        return return_weekday_abbrev(date);
     } else if (has_numeric(date)) {
         return return_numeric(date);
     } else if (is_weekday(date)) {
@@ -269,8 +271,39 @@ function check_date(date, replacement) {
     return replacement;
 }
 
+function is_weekday_abbrev(date) {
+    var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+    for (var i = 0; i < abbrev.length; i++) {
+        if (date.toLowerCase() == abbrev[i]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function return_weekday_abbrev(date) {
+    var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+    var index = Math.floor(Math.random() * abbrev.length);
+    var new_abbrev = abbrev[index];
+
+    if (date.toLowerCase() == new_abbrev) {
+        return return_abbrev(date);
+    } else {
+        if (date.toLowerCase() != date) {
+            var first = new_abbrev.substring(0, 1).toUpperCase();
+            new_abbrev = first + new_abbrev.substring(1);
+        }
+
+        return new_abbrev;
+    }
+
+
+}
+
 function not_replacable(date) {
-    var irreplacables = ["hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
+    var irreplacables = ["One", "one", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
 
     if ($.inArray(date, irreplacables) != -1) {
         return true;

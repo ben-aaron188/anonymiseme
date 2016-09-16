@@ -1,6 +1,13 @@
 // globals
 var time_langtask1 = 90000;
 var time_instr = 30000;
+var data_array = [];
+var data_statement1;
+var data_statement2;
+var data_statement3;
+var data_statement4;
+var data_example1;
+var data_example2;
 
 // task flow
 $(document).ready(function () {
@@ -25,7 +32,7 @@ function get_content(category) {
         return get_content(category);
     }
 
-    return statement.content;
+    return statement;
 }
 
 function to_informed_consent() {
@@ -34,10 +41,18 @@ function to_informed_consent() {
 }
 
 function to_statement_evaluation() {
-    $('body').prepend('<div id="statement_explanation">Explanation here?</div>');
+    $('body').prepend('<div id="statement_explanation">' +
+        'Explanation</br>' +
+        'You will now first read two example statements to test whether you correctly understood the definitions we want you to apply to the main statements.</br>' +
+        'Please adhere to the following two definitions of plausibility and detailedness.</br>' +
+        'Plausibility = the coherency of the statement in terms of not containing logical inconsistencies or contradictions.</br>' +
+        'Detailedness = the inclusion of specific descriptions of place, time, persons, objects and events.</br>' +
+        'After the two examples, you get feedback and will then proceed to the four main statements.</br>' +
+        '</div>'
+    );
 
     simple_transition($("#informed_consent"), $("#statement_explanation"));
-    $("#next").attr('onclick', 'to_statement1()');
+    $("#next").attr('onclick', 'to_example1()');
 }
 
 function set_plaus_slider_value(number) {
@@ -54,10 +69,16 @@ function set_vivid_slider_value(number) {
     document.getElementById(output).value = document.getElementById(input).value;
 }
 
-function add_statement(number) {
+function add_statement(number, example) {
+    if (!example) {
+        var header = "Statement " + number + "/4";
+    } else {
+        var header = example;
+    }
+
     $('body').prepend(
         '<div class="statement_wrapper" id="statement' + number + '_wrapper">' +
-        '<div class="statement_header" id="statement' + number + '_header">Statement ' + number + '/4</div>' +
+        '<div class="statement_header" id="statement' + number + '_header">' + header + '</div>' +
         '<div class="statement_content" id="statement' + number + '_content"></div>' +
         '<div class="statement_evaluation" id="statement' + number + '_evaluation">' +
         '<div class="statement_evaluation_slider" id="statement' + number + '_evaluation_plausibility">' +
@@ -80,41 +101,190 @@ function add_statement(number) {
     );
 }
 
-function to_statement1() {
-    add_statement(1);
+function to_example1() {
+    data_example1 = examples[0];
 
-    $("#statement1_content").text(get_content(1));
-    simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
+    add_statement(5, "Example 1");
+
+    $("#statement5_content").text(data_example1.content);
+    simple_transition($("#statement_explanation"), $("#statement5_wrapper"));
+
+    $("#next").attr('onclick', 'to_example2()');
+}
+
+function to_example2() {
+    data_example2 = examples[1];
+
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_example1,
+            evaluation: {
+                plausibility: $("#statement5_evaluation_plausibility_value").val(),
+                vividness: $("#statement5_evaluation_vividness_value").val(),
+            }
+        })
+
+        add_statement(6, "Example 2");
+
+        $("#statement6_content").text(data_example2.content);
+        simple_transition($("#statement5_wrapper"), $("#statement6_wrapper"));
+        $("#next").attr('onclick', 'verify_examples()');
+    }
+}
+
+function verify_examples() {
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_example2,
+            evaluation: {
+                plausibility: $("#statement6_evaluation_plausibility_value").val(),
+                vividness: $("#statement6_evaluation_vividness_value").val(),
+            }
+        });
+
+        check_example_validation();
+    }
+
+}
+
+function check_example_validation() {
+    var expected = 8;
+
+    var plaus_example1 = $("#statement5_evaluation_plausibility_value").val();
+    var vivid_example1 = $("#statement5_evaluation_vividness_value").val();
+    var plaus_example2 = $("#statement6_evaluation_plausibility_value").val();
+    var vivid_example2 = $("#statement6_evaluation_vividness_value").val();
+
+    if (Math.abs(plaus_example1 - expected) > 2 ||
+        Math.abs(vivid_example1 - expected) > 2 ||
+        Math.abs(plaus_example2 - expected) > 2 ||
+        Math.abs(vivid_example2 - expected) > 2
+    ) {
+        wrong_evaluation();
+    } else {
+        well_done();
+    }
+}
+
+function wrong_evaluation() {
+    $('body').prepend(
+        '<div id="show_example_validation">' +
+        'Your evaluation was not like we expected it to be.<br>' +
+        'For both examples, we expected a plausibility of 8 and a vividness of 8.<br>' +
+        '<hr/>' +
+        'You can now start with the main task!<br>' +
+        '</div>'
+    );
+
+    simple_transition($("#statement6_wrapper"), $("#show_example_validation"));
+    $("#next").attr('onclick', 'to_main_statements()');
+}
+
+function well_done() {
+    $('body').prepend(
+        '<div id="well_done">' +
+        'Well done!<br>' +
+        'Your evaluation was just as we expected it to be.<br>' +
+        '<hr/>' +
+        'You can now start with the main task.<br>' +
+        '</div>'
+    );
+
+    simple_transition($("#statement6_wrapper"), $("#well_done"));
+    $("#next").attr('onclick', 'to_main_statements()');
+}
+
+function to_main_statements() {
+    $("#show_example_validation").css('display', 'none');
+    $("#well_done").css('display', 'none');
+
+    to_statement1();
+}
+
+function to_statement1() {
+    data_statement1 = get_content(1);
+
+    add_statement(1, null);
+
+    $("#statement1_content").text(data_statement1.content);
+    simple_transition($("#statement6_wrapper"), $("#statement1_wrapper"));
+
     $("#next").attr('onclick', 'to_statement2()');
 }
 
-function to_statement2() {
-    add_statement(2);
+function to_statement2(prev_data) {
+    data_statement2 = get_content(2);
 
-    $("#statement2_content").text(get_content(2));
-    simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
-    $("#next").attr('onclick', 'to_statement3()');
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_statement1,
+            evaluation: {
+                plausibility: $("#statement1_evaluation_plausibility_value").val(),
+                vividness: $("#statement1_evaluation_vividness_value").val(),
+            }
+        })
+
+        add_statement(2, null);
+
+        $("#statement2_content").text(data_statement2.content);
+        simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
+
+        $("#next").attr('onclick', "to_statement3('data')");
+    }
 }
 
-function to_statement3() {
-    add_statement(3);
+function to_statement3(prev_data) {
+    data_statement3 = get_content(3);
 
-    $("#statement3_content").text(get_content(3));
-    simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
-    $("#next").attr('onclick', 'to_statement4()');
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_statement2,
+            evaluation: {
+                plausibility: $("#statement2_evaluation_plausibility_value").val(),
+                vividness: $("#statement2_evaluation_vividness_value").val(),
+            }
+        })
+        add_statement(3, null);
+
+        $("#statement3_content").text(data_statement3.content);
+        simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
+        $("#next").attr('onclick', "to_statement4('data')");
+    }
 }
 
-function to_statement4() {
-    add_statement(4);
+function to_statement4(prev_data) {
+    data_statement4 = get_content(4);
 
-    $("#statement4_content").text(get_content(4));
-    simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
-    $("#next").attr('onclick', 'to_transition()');
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_statement3,
+            evaluation: {
+                plausibility: $("#statement3_evaluation_plausibility_value").val(),
+                vividness: $("#statement3_evaluation_vividness_value").val(),
+            }
+        })
+        add_statement(4, null);
+
+        $("#statement4_content").text(data_statement4.content);
+        simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
+        $("#next").attr('onclick', "to_transition(data)");
+    }
 }
 
-function to_transition() {
-    simple_transition($("#statement4_wrapper"), $("#transition1"));
-    $("#next").attr('onclick', 'to_demographics1()');
+function to_transition(prev_data) {
+
+    if (check_slider($(".slider_io_output"))) {
+        data_array.push({
+            content: data_statement4,
+            evaluation: {
+                plausibility: $("#statement4_evaluation_plausibility_value").val(),
+                vividness: $("#statement4_evaluation_vividness_value").val(),
+            }
+        });
+        simple_transition($("#statement4_wrapper"), $("#transition1"));
+        $("#next").attr('onclick', 'to_demographics1()');
+    }
+
 }
 
 function to_demographics1() {
@@ -138,6 +308,7 @@ function to_outro() {
         simple_transition($("#demographics2"), $("#outro"));
         $("#partcode").text(unid);
         // $("#next").show();
+
         $("#next").text('SEND');
         $("#next").attr('onclick', 'send_to_server()');
     }
@@ -149,93 +320,8 @@ function get_data() {
     data.browserversion = $.browser.version;
     data.ts_time = moment().format('LTS');
     data.ts_date = moment().format('l');
-    data.contact = $("#contact").val();
     data.unidin = $("#unidin").val();
     data.crowdf = $("#crowdf").val();
-    data.flying_bool_sel = $("#flying_bool_sel").val();
-    data.flying_weeks_sel = $("#flying_weeks_sel").val();
-    data.flying_purpose_sel = $("#flying_purpose_sel").val();
-    data.flying_destination_sel = $("#flying_destination_sel").val();
-    data.flying_purpose_manip = selected_purpose;
-    data.flying_destination_manip = selected_destination;
-    data.flying_frequency_sel = $("#flying_frequency_sel").val();
-    data.q1_text = $("#tbq1").val();
-    data.q1_length = q1_length;
-    data.q1_deletions = q1_deletions;
-    data.q1_elapsed = q1_elapsed;
-    data.q1_gaps_100 = q1_gaps_100;
-    data.q1_gaps_200 = q1_gaps_200;
-    data.q1_gaps_300 = q1_gaps_300;
-    data.q2_text = $("#tbq2").val();
-    data.q2_length = q2_length;
-    data.q2_deletions = q2_deletions;
-    data.q2_elapsed = q2_elapsed;
-    data.q2_gaps_100 = q2_gaps_100;
-    data.q2_gaps_200 = q2_gaps_200;
-    data.q2_gaps_300 = q2_gaps_300;
-    data.q3_text = $("#tbq3").val();
-    data.q3_length = q3_length;
-    data.q3_deletions = q3_deletions;
-    data.q3_elapsed = q3_elapsed;
-    data.q3_gaps_100 = q3_gaps_100;
-    data.q3_gaps_200 = q3_gaps_200;
-    data.q3_gaps_300 = q3_gaps_300;
-    data.q4_text = $("#tbq4").val();
-    data.q4_length = q4_length;
-    data.q4_deletions = q4_deletions;
-    data.q4_elapsed = q4_elapsed;
-    data.q4_gaps_100 = q4_gaps_100;
-    data.q4_gaps_200 = q4_gaps_200;
-    data.q4_gaps_300 = q4_gaps_300;
-    data.q5_text = $("#tbq5").val();
-    data.q5_length = q5_length;
-    data.q5_deletions = q5_deletions;
-    data.q5_elapsed = q5_elapsed;
-    data.q5_gaps_100 = q5_gaps_100;
-    data.q5_gaps_200 = q5_gaps_200;
-    data.q5_gaps_300 = q5_gaps_300;
-    data.q6_text = $("#tbq6").val();
-    data.q6_length = q6_length;
-    data.q6_deletions = q6_deletions;
-    data.q6_elapsed = q6_elapsed;
-    data.q6_gaps_100 = q6_gaps_100;
-    data.q6_gaps_200 = q6_gaps_200;
-    data.q6_gaps_300 = q6_gaps_300;
-    data.q7_text = $("#tbq7").val();
-    data.q7_length = q7_length;
-    data.q7_deletions = q7_deletions;
-    data.q7_elapsed = q7_elapsed;
-    data.q7_gaps_100 = q7_gaps_100;
-    data.q7_gaps_200 = q7_gaps_200;
-    data.q7_gaps_300 = q7_gaps_300;
-    data.q8_text = $("#tbq8").val();
-    data.q8_length = q8_length;
-    data.q8_deletions = q8_deletions;
-    data.q8_elapsed = q8_elapsed;
-    data.q8_gaps_100 = q8_gaps_100;
-    data.q8_gaps_200 = q8_gaps_200;
-    data.q8_gaps_300 = q8_gaps_300;
-    data.q9_text = $("#tbq9").val();
-    data.q9_length = q9_length;
-    data.q9_deletions = q9_deletions;
-    data.q9_elapsed = q9_elapsed;
-    data.q9_gaps_100 = q9_gaps_100;
-    data.q9_gaps_200 = q9_gaps_200;
-    data.q9_gaps_300 = q9_gaps_300;
-    data.q10_text = $("#tbq10").val();
-    data.q10_length = q10_length;
-    data.q10_deletions = q10_deletions;
-    data.q10_elapsed = q10_elapsed;
-    data.q10_gaps_100 = q10_gaps_100;
-    data.q10_gaps_200 = q10_gaps_200;
-    data.q10_gaps_300 = q10_gaps_300;
-    data.q11_text = $("#tbq11").val();
-    data.q11_length = q11_length;
-    data.q11_deletions = q11_deletions;
-    data.q11_elapsed = q11_elapsed;
-    data.q11_gaps_100 = q11_gaps_100;
-    data.q11_gaps_200 = q11_gaps_200;
-    data.q11_gaps_300 = q11_gaps_300;
     data.gender = $("#gender_sel").val();
     data.age = $("#age_sel").val();
     data.education = $("#education_sel").val();
@@ -243,26 +329,46 @@ function get_data() {
     data.bilingual_sel = $("#bilingual_sel").val();
     data.lang1_sel = $("#lang1_sel").val();
     data.lang2_sel = $("#lang2_sel").val();
-    data.langprof1_sel = $("#langprof1_sel").val();
-    data.langprof2_sel = $("#langprof2_sel").val();
-    data.finq1val = $("#finq1val").val();
-    data.finq2val = $("#finq2val").val();
-    data.finq3val = $("#finq3val").val();
-    data.finq4val = $("#finq4val").val();
-    data.finq5val = $("#finq5val").val();
-    data.finq6val = $("#finq6val").val();
-    data.finq7val = $("#finq7val").val();
-    data.finq8val = $("#finq8val").val();
-    data.finq9val = $("#finq9val").val();
-    data.finq10val = $("#finq10val").val();
-    data.finq11val = $("#finq11val").val();
-    data.finq12val = $("#finq12val").val();
-    // lextale comes automatically
-    data.tbwordprod = $("#tbwordprod").val();
-    data.cond1 = cond1;
-    data.cond2 = cond2;
-    // data.cond2_control = cond2_control;
-    data.cond3 = cond3;
-    data.control = $("#final_control1_val").val();
+
+    data.example1_category = data_array[0].content.category;
+    data.example1_content = data_array[0].content.content;
+    data.example1_plausibility = data_array[0].content.plausibility;
+    data.example1_vividness = data_array[0].content.vividness;
+    data.example1_type = data_array[0].content.type;
+    data.example1_eval_plausibility = data_array[0].evaluation.plausibility;
+    data.example1_eval_vividness = data_array[0].evaluation.vividness;
+
+    data.example2_category = data_array[1].content.category;
+    data.example2_content = data_array[1].content.content;
+    data.example2_plausibility = data_array[1].content.plausibility;
+    data.example2_vividness = data_array[1].content.vividness;
+    data.example2_type = data_array[1].content.type;
+    data.example2_eval_plausibility = data_array[1].evaluation.plausibility;
+    data.example2_eval_vividness = data_array[1].evaluation.vividness;
+
+    data.statement2_category = data_array[3].content.category;
+    data.statement2_content = data_array[3].content.content;
+    data.statement2_plausibility = data_array[3].content.plausibility;
+    data.statement2_vividness = data_array[3].content.vividness;
+    data.statement2_type = data_array[3].content.type;
+    data.statement2_eval_plausibility = data_array[3].evaluation.plausibility;
+    data.statement2_eval_vividness = data_array[3].evaluation.vividness;
+
+    data.statement3_category = data_array[4].content.category;
+    data.statement3_content = data_array[4].content.content;
+    data.statement3_plausibility = data_array[4].content.plausibility;
+    data.statement3_vividness = data_array[4].content.vividness;
+    data.statement3_type = data_array[4].content.type;
+    data.statement3_eval_plausibility = data_array[4].evaluation.plausibility;
+    data.statement3_eval_vividness = data_array[4].evaluation.vividness;
+
+    data.statement4_category = data_array[5].content.category;
+    data.statement4_content = data_array[5].content.content;
+    data.statement4_plausibility = data_array[5].content.plausibility;
+    data.statement4_vividness = data_array[5].content.vividness;
+    data.statement4_type = data_array[5].content.type;
+    data.statement4_eval_plausibility = data_array[5].evaluation.plausibility;
+    data.statement4_eval_vividness = data_array[5].evaluation.vividness;
+
 }
 
