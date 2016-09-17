@@ -133,3 +133,27 @@ function get_unid(val_score) {
         unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_X";
     }
 }
+
+// source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
+$.fn.stretch_text = function(){
+    var elmt          = $(this),
+        cont_width    = elmt.width(),
+        txt           = elmt.html(),
+        one_line      = $('<span class="stretch_it">' + txt + '</span>'),
+        nb_char       = elmt.text().length,
+        spacing       = cont_width/nb_char,
+        txt_width;
+
+    elmt.html(one_line);
+    txt_width = one_line.width();
+
+    if (txt_width < cont_width){
+        var  char_width     = txt_width/nb_char,
+             ltr_spacing    = spacing - char_width + (spacing - char_width)/nb_char ;
+
+        one_line.css({'letter-spacing': ltr_spacing});
+    } else {
+        one_line.contents().unwrap();
+        elmt.addClass('justify');
+    }
+};

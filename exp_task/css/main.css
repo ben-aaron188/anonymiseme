@@ -275,20 +275,6 @@ h2 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 
-/*#uvafooter{
-  width: 40%;
-  padding: 1%;
-  margin: 0;
-  position: absolute;
-  text-align: center;
-  font-size: 0.9vw;
-  top: 90%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}*/
-
 .textbox {
     height: 40%;
     width: 80%;
@@ -414,28 +400,45 @@ h2 {
 .slider_io_slider {
     /*border: 0.2vw solid white;*/
     /*background: red;*/
-    width: 75%;
+    width: 70%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.0vw;
-    top: 70%;
+    font-size: 1.2vw;
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
 
 .slider_io_output {
-    /*border: 0.2vw solid white;*/
-    width: 85%;
+    width: 80%;
     margin: 0;
     position: absolute;
     text-align: center;
     font-size: 1.5vw;
-    top: 85%;
+    top: 90%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.slider_io_output_labels {
+    width: 95%;
+    margin: 0;
+    position: absolute;
+    font-size: 1.1vw;
+    top: 70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.stretch_it{
+    white-space: nowrap;
+}
+.justify{
+    text-align:justify;
 }
 
 .permanent_instr {
@@ -531,7 +534,7 @@ h2 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 
-.statement_evaluation_vividness {
+.statement_evaluation_detailedness {
     border-left: 0.3vw solid #FFBF00;
     position: absolute;
     left: 50%;
