@@ -1,30 +1,130 @@
 var data_statements = [
     {
         category: 1,
-        content: "I have finished High School in 2009 in Rotterdam. After High School, I went to the Hogere Hotelschool The Hague. In my second year, I have been to Bali to work in a hotel, named Kelapa Retreat and Spa as an internship. I worked there as a receptionist and learned how to surf, because the hotel was on the beach. In my last year, I have been to Buenos Aires to work at the Melia Recoleta Plaza Hotel as a chef cook, also as an internship. I finished the Hotelschool in 2013, and after that I have worked on different locations of the Hilton Hotel, such as Amsterdam, Dubai, New York and Rome. I have worked there as a chef cook. Last year, I got a job offer from the Kelapa Retreat and Spa on Bali, to work there as the hotel manager. ",
+        content: "In 2011, I graduated from the Christelijk College Nassau-Veluwe high school in 2011. I was more than happy to do so, since my graduation meant that I could finally leave Harderwijk, the small and boring home town where I grew up. In February 2012, I decided to move to Granada, Spain, to learn Spanish. Studying here for four months, I was able to wander a lot through the city, and discover all its gems, like the Alhambra palace, the beautiful Generalife gardens, and the Albaicín quarter. A few months after my return to Harderwijk, in September 2012, I chose to study Political Science at the University of Amsterdam. After one year, I started studying Psychology as well. During my student life, I took several jobs as a waitress in bars and restaurants. In 2012 I worked at De Notenkraker, a bit of a shabby but charming, old café serving great soups and pies, with a lot of weird customers in the east of Amsterdam. One year later, in 2013, I started working at Cafe Snoek, a brewery with home-crafted beers, steaks and burgers, and sometimes yuppie customers.",
         type: 0,
         plausibility: "high",
-        detailedness: "high"
+        detailedness: "high",
+        sheet_id: 5
+    },
+    {
+        category: 1,
+        content: "In 2008, I graduated from the Myspace high school in 2010. I was more than happy to do so, since my graduation meant that I could finally leave Harderwijk, the small and boring zagreb where I grew up. In February 2009, I decided to move to Granada, Burundi, to learn Spanish. Studying here for armistice day, I was able to wander a lot through the city, and discover all its gems, like the Alhambra palace, the beautiful Generalife gardens, and the Albaicín quarter. Sep after my return to Harderwijk, in September 2009, I chose to study Political Science at the Manila. After thursdays, I started studying Psychology as well. During my student life, I took several jobs as a waitress in bars and restaurants. In 2010 I worked at De Notenkraker, a bit of a shabby but charming, old café serving great soups and pies, with a lot of weird customers in the east of Ulan bator. thursdays later, in 2011, I started working at Cafe Snoek, a brewery with home-crafted beers, steaks and burgers, and sometimes yuppie customers.",
+        type: 1,
+        plausibility: "high",
+        detailedness: "high",
+        sheet_id: 5
     },
     {
         category: 3,
-        content: "I love the atmosphere at work. I work at a law firm named Meijers Canatan Advocaten as a secretary. The firm is located at the Herengracht in Amsterdam. I work with seven lawyers, but I am the secretary of Gabriel Meijers. He is the owner of the place and such a nice man. The secretary of Kerem Canatan, Judy, is one of my best friends. Two other secretaries, Pippa and Kiki, are twins. The four of us are friends and we do lots of nice things together, like going out or having dinner. On working hours, all of the lawyers are very serious and formal, but after working hours we usually go out for a drink, especially on fridays. ",
+        content: "Going to work is nice, there is a good atmosphere among the colleagues. Our little company has only 22 employees, so everyone knows everyone quite well. Frank and Hannes has started up this company back in 2004 and since then, 2 people were added every year due to the growing success. First came Paula and John, and the following year it was me and Thomas. The person with whom I cooperate the most is Lukas, who graduated in 2006 and joined in 2007. He and I have worked on 9 projects already. Lieke, a nice girl from the Netherlands, likes to cook for the whole group occasionally. Overall, the mean age of our company’s employers is young, only around 27. This is due to the acceptance of newly graduated students almost every year. That is also why there is a more open atmosphere and less hierarchical system in our little company.",
         type: 0,
         plausibility: "high",
-        detailedness: "high"
+        detailedness: "high",
+        sheet_id: 10
+    },
+    {
+        category: 3,
+        content: "Going to work is nice, there is a good atmosphere among the colleagues. Our little company has only 22 employees, so everyone knows everyone quite well. Warren and Hannes has started up this company back in 2005 and since then, 2 people were added every wednesday due to the growing success. 4th came Shana and Winston, and the following wednesday it was me and Chester. The person with whom I cooperate the most is Lukas, who graduated in 2007 and joined in 2008. He and I have worked on 10 projects already. Lieke, a nice girl from the Uruguay, likes to cook for the whole group occasionally. Overall, the mean age of our company’s employers is young, only around 57. This is due to the acceptance of newly graduated students almost every wednesday. That is also why there is a more open atmosphere and less hierarchical system in our little company.",
+        type: 1,
+        plausibility: "high",
+        detailedness: "high",
+        sheet_id: 10
+    },
+    {
+        category: 3,
+        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Francis, and we often meet for drinks after work. We became very good friends. Jackie is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Edward, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch! ",
+        type: 0,
+        plausibility: "high",
+        detailedness: "low",
+        sheet_id: 18
+    },
+    {
+        category: 3,
+        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Emmett, and we often meet for drinks after work. We became very good friends. Harold is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Tom, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch!",
+        type: 1,
+        plausibility: "high",
+        detailedness: "low",
+        sheet_id: 18
     },
     {
         category: 4,
-        content: "My first choice travel destination is definitely the city Krakau. I have been there on my interrail trip in 2012 with two of my friends, Hannah and Kate. It is such a lovely town with a beautiful square and very nice people. A nice extra is that it is very cheap. Another beautiful city is Venice. I have been there twice. All the little canals, the Saint Mark’s square and the gondolas are so beautiful. One big disadvantage, in the months of june till september it’s very crowded with tourists. Another one of my top travel destinations is New York city. I’ve been there in 2013 with my boyfriend on New Year's Eve. We watched the firework on Times Square and visited the Statue of Liberty, Central Park and the Empire State Building. Our hotel was in Soho, such a nice neighbourhood. In 2015 I’ve visit Ibiza with my friend Hannah. It is an island full of contradictions. I really liked the sunset on Cala Comte. My last destination is Seville. It is another beautiful city in Europe, with lovely people and delicious food. I have eaten so many tapas over there and drank so much Tinto de Verano. I have been there in 2012 on a study trip with my study association Los Guiris.",
+        content: "The first place I love to travel to is The Hague, it is such a nice country. My favourite city in The Hague is Amsterdam. I love to go to the Eiffel Tower there. When I went there last week in 1983, I went with my boyfriend Maria. I am planning to visit the Eiffel Tower again in 2003. Last summer I went to Vietnam and I must say that that is also one of my favourite travel destinations, especially its capital city Bangkok. I went there with my father April in 2076. I love to go to the beach, so one of my favourite places to visit is also Greenland. Those beautiful white beaches and high summer temperatures are perfect for spring break. Last week I in 2004 I went to the Victoria Falls, such a beautiful waterfall in the middle of Egypt. I would love to go there again as well.",
         type: 0,
-        plausibility: "high",
-        detailedness: "high"
+        plausibility: "low",
+        detailedness: "high",
+        sheet_id: 28
+    },
+    {
+        category: 4,
+        content: "The 8th place I love to travel to is Iași, it is such a nice country. My favourite city in Iași is Turku. I love to go to the Eiffel Tower there. When I went there last week in 1982, I went with my boyfriend Jeannine. I am planning to visit the Eiffel Tower again in 2004. Last summer I went to Ghana and I must say that that is also one of my favourite travel destinations, especially its capital city Frankfurt. I went there with my father April in 207631. I love to go to the beach, so one of my favourite places to visit is also Greenland. Those beautiful white beaches and high summer temperatures are perfect for spring break. Days I in 2003 I went to the Sondra Falls, such a beautiful waterfall in the middle of Liberia. I would love to go there again as well.",
+        type: 1,
+        plausibility: "low",
+        detailedness: "high",
+        sheet_id: 28
     },
     {
         category: 2,
-        content: "My last holiday was to Vienna. I visited it last summer with my boyfriend. We stayed at a hotel near the Stephansdom in the centre of the city. We stayed there for 4 days, and after that we went to Budapest. In Vienna, we visited the Zoo and saw the panda’s. We also saw the Palace of Princess Sisi, Schloss Schonbrunn. On the fourth day, we took the train to Budapest and stayed at the Aria Hotel in Budapest, one of the best hotels in town. We visited the Fisher’s Bastion and one of the many spas in Budapest. Unfortunately, my boyfriend got sick on the third day and we had to go to the hospital, because he had appendicitis. After 4 days in the hospital, we finally could travel back home to Amsterdam.",
+        content: "My family and I spent our last Christmas in the United States of America. We arrived there on 06/23/2017 so we had a few days in order to buy Christmas presents and prepare everything for the Christmas Eve. It was our first time in Canada. My parents really loved it although they did not like the cold weather. We had around -30°C in San Diego, it was horrible! The day after Christmas we went on to travel across the country, visiting the major cities and regions like Baghdad, Cologne, Paris, Philadelphia and Edinburgh. From all the cities we went to I liked Melbourne the most. Although it is relatively small (ca. 200,000 inhabitants), it is very multicultural and full of life which makes it a great city. The last stop of our journey was Asuncion. We actually did not plan to visit it, but as it was very close to Vancouver (from where we flew back home) we spent another 3 days there and visited its beautiful beaches.",
+        type: 0,
+        plausibility: "low",
+        detailedness: "high",
+        sheet_id: 34
+    },
+    {
+        category: 2,
+        content: "My family and I spent our dec in the Gothenburg. We arrived there on 04/02/2018 so we had monday in order to buy Weekend presents and prepare everything for the Mar. It was our 10th time in Maggie. My parents really loved it although they did not like the cold weather. We had around Nineteen in San Diego, it was horrible! The easter we went on to travel across the country, visiting the major cities and regions like Baghdad, Tunis, Sydney, Nicosia and Edinburgh. From all the cities we went to I liked Minsk the most. Although it is relatively small Nineteenth inhabitants), it is very multicultural and full of life which makes it a great city. The last stop of our journey was Asuncion. We actually did not plan to visit it, but as it was very close to Istanbul (from where we flew back home) we spent another 8 days there and visited its beautiful beaches.",
+        type: 1,
+        plausibility: "low",
+        detailedness: "high",
+        sheet_id: 34
+    },
+    {
+        category: 4,
+        content: "One of my favourite travel destinations are the Netherlands! I went there in 1990 when I was 26 with my friend David. We went mountain climbing in the Alps. Another of my top travel destinations is St. Petersburg as I really love to surf and spending my holidays at the beach. I went there first in 2012, and then later another time in 2001. My grandfather and I always dreamed of visiting the Eiffel Tower so we are going to travel to Rome and visit it next year. However, my favourite travel destination within the last 5 years were the United States. My boyfriend Carina and I traveled there in 2008 in order to visit the Keys (and their crocodiles) in New England. Last but not least, I am in love with East Europe. Unfortunately, I haven't been there yet, but my brother Catherine and I are going to travel to Japan in order to visit the Caucasian Mountains.",
+        type: 0,
+        plausibility: "low",
+        detailedness: "low",
+        sheet_id: 48
+    },
+    {
+        category: 4,
+        content: "One of my favourite travel destinations are the Peru! I went there in 1991 when I was 69 with my friend Burton. We went mountain climbing in the Alps. Another of my top travel destinations is St. Petersburg as I really love to surf and spending my holidays at the beach. I went there first in 2010, and then later another time in 1998. My grandfather and I always dreamed of visiting the Eiffel Tower so we are going to travel to Luxembourg and visit it century. However, my favourite travel destination within the last 2 years were the United States. My boyfriend Sally and I traveled there in 2006 in order to visit the Keys (and their crocodiles) in New England. Last but not least, I am in love with East Europe. Unfortunately, I haven't been there yet, but my brother Catherine and I are going to travel to Azerbaijan in order to visit the Caucasian Mountains.",
+        type: 1,
+        plausibility: "low",
+        detailedness: "low",
+        sheet_id: 48
+    },
+    {
+        category: 2,
+        content: "My friends and I traveled to the Ukraine last year during the Summer break. We arrived in southern Spain late in the evening and thus did not have the time to discover the city a bit more in detail that night. The next morning, we took a cab to Barcelona and discovered the city. After a long and interesting day, we took another cab back to Malaga in order to recover at the Hotel. The days after we travelled along the Adriatic Coast, visiting as much cities as possible. We went to a lot of cities, amongst others Rome, Dresden and Lisbon. All in all, I can look back to a successful holiday and to a great experience where I was able to really discover the Swedish culture and way of living.",
+        type: 0,
+        plausibility: "low",
+        detailedness: "low",
+        sheet_id: 46
+    },
+    {
+        category: 2,
+        content: "My friends and I traveled to the Turkmenistan halloween during the Polly break. We arrived in southern Argentina late in the midnight and thus did not have the time to discover the city a bit more in detail that night. The july, we took a cab to Cologne and discovered the city. After a long and interesting all saints day, we took another cab back to Malaga in order to recover at the Hotel. The days after we travelled along the Adriatic Coast, visiting as much cities as possible. We went to a lot of cities, amongst others Stockholm, Dresden and Kandy. All in all, I can look back to a successful holiday and to a great experience where I was able to really discover the Swedish culture and way of living.",
+        type: 1,
+        plausibility: "low",
+        detailedness: "low",
+        sheet_id: 46
+    },
+    {
+        category: 1,
+        content: "After finishing my degree in history, I first started working for NUON, a Dutch energy company in 2003. A few months later I found a job as a part-time teacher at a small school in Leiden. In order to earn enough money, I also took a job as a part-time museum tour guide in the Openluchtmuseum in Arnhem. After a few years of combining these two jobs, I decided that I wanted to do something completely different. I sold all my belongings and booked a plane ticket to China, where I started a company specialized in the production of Dutch cheese with a friend of mine.",
         type: 0,
         plausibility: "high",
-        detailedness: "high"
-    }
+        detailedness: "low",
+        sheet_id: 17
+    },
+    {
+        category: 1,
+        content: "After finishing my degree in history, I first started working for NUON, a Dutch energy company in 2001. A few months later I found a job as a part-time teacher at a small school in Leiden. In order to earn enough money, I also took a job as a part-time museum tour guide in the Openluchtmuseum in Arnhem. After a few years of combining these 8 jobs, I decided that I wanted to do something completely different. I sold all my belongings and booked a plane ticket to Vietnam, where I started a company specialized in the production of Dutch cheese with a friend of mine.",
+        type: 1,
+        plausibility: "high",
+        detailedness: "low",
+        sheet_id: 17
+    },
 ];

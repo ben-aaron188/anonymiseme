@@ -4,146 +4,137 @@
 var temp_replacers = [];
 var replaced_arr = [];
 var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+var nlp = require('./libs/compromise/nlp_compromise.min.js');
+var lexicon = nlp.lexicon();
+var NER = null;
+var fs = require('fs');
+
+function Replacer() {
+    throw new Error('Replacer is a static class!');
+}
 
 /**
  *
  * @param preprocessed_object
  * @returns {string}
  */
-function replace1_all(preprocessed_object, type) {
+Replacer.string_replace_all = function (preprocessed_object, type) {
     var replaced = "";
     var counts = [1, 1, 1, 1];
 
-    $(preprocessed_object.terms).each(function (i, el) {
-        if (el.pos.Person && el.pos.Pronoun !== true && term_is_capitalised(el.text)) {
-            generate_replacement(el, type, 0, counts);
-            replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
-            add_to_temp(el.normal, el.replacement);
-            // } else if (el.pos.Value || el.pos.Currency) {
-            //     define_replacement(el);
-            //     replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
-            //     add_to_temp(el.normal, el.replacement);
+    for (var i = 0; i < preprocessed_object.terms.length; i++) {
+        var el = preprocessed_object.terms[i];
+
+        if (el.pos.Person && el.pos.Pronoun !== true && Replacer.term_is_capitalised(el.text)) {
+            Replacer.generate_replacement(el, type, 0, counts);
+            replaced += el.whitespace.preceding + el.replacement + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
+            Replacer.add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Date || el.pos.Value) {
-            generate_replacement(el, type, 1, counts)
-            replaced += el.whitespace.preceding + check_date(el.text, el.replacement) + get_term_terminator(el.text) + el.whitespace.trailing;
-            add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Organization) {
-            generate_replacement(el, type, 2, counts)
-            replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
-            add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Place) {
-            generate_replacement(el, type, 3, counts);
-            replaced += el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing;
-            add_to_temp(el.normal, el.replacement);
+            Replacer.generate_replacement(el, type, 1, counts)
+            replaced += el.whitespace.preceding + Replacer.check_date(el.text, el.replacement) + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
+            Replacer.add_to_temp(el.normal, el.replacement);
         } else {
             replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
         }
-    });
-    return replaced;
+    }
+
+    Replacer.ner_entities(replaced);
 }
 
-function replace1_all_(preprocessed_object, type) {
-    var span_wrap = [];
-    var counts = [1, 1, 1, 1];
-
-    $(preprocessed_object.terms).each(function (i, el) {
-        // && (el.tag == 'MalePerson' || el.tag == 'FemalePerson')
-        // capital as requirement for names
-
-        if (el.pos.Person && el.pos.Pronoun !== true && term_is_capitalised(el.text)) {
-            generate_replacement(el, type, 0, counts);
-            span_wrap.push('<span class="highlighted persons">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            add_to_temp(el.normal, el.replacement);
-            // } else if (el.pos.Value || el.pos.Currency) {
-            //     define_replacement(el);
-            //     span_wrap.push('<span class="highlighted values">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            //     add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Date || el.pos.Value) {
-            generate_replacement(el, type, 1, counts);
-            span_wrap.push('<span class="highlighted dates">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Organization) {
-            generate_replacement(el, type, 2, counts);
-            span_wrap.push('<span class="highlighted organizations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Place) {
-            generate_replacement(el, type, 3, counts);
-            span_wrap.push('<span class="highlighted locations">' + el.whitespace.preceding + el.replacement + get_term_terminator(el.text) + el.whitespace.trailing + '</span>');
-            add_to_temp(el.normal, el.replacement);
-        } else {
-            span_wrap.push('<span class="non_highlighted">' + el.whitespace.preceding + el.text + el.whitespace.trailing + '</span>');
-        }
-    });
-    $('#ex3').text('');
-    $(span_wrap).each(function (i, el) {
-        $('#ex3').append(el);
-    });
-}
-
-function generate_replacement(el, type, entity, counts) {
+Replacer.generate_replacement = function (el, type, entity, counts) {
 
     switch (type) {
         case 3:
             if (entity == 1) {
-                define_replacement(el, type, entity, counts);
-                el.replacement = check_date(el.text, el.replacement);
+                Replacer.define_replacement(el, type, entity, counts);
+                el.replacement = Replacer.check_date(el.text, el.replacement);
             } else {
-                define_replacement(el, type, entity, counts);
+                Replacer.define_replacement(el, type, entity, counts);
 
                 if (el.replacement.toLowerCase() == el.text.toLowerCase()) {
-                    generate_replacement(el, type, entity, counts);
+                    Replacer.generate_replacement(el, type, entity, counts);
                 }
             }
 
             break;
         default:
-            define_replacement(el, type, entity, counts);
+            Replacer.define_replacement(el, type, entity, counts);
             break;
     }
 
 }
 
-function get_replacement(category, special_spelling) {
+Replacer.ext_get_replacement = function (entity, string) {
+    var term = nlp.text(string).sentences[0].terms[0],
+        replacement,
+        category;
+
+    if (entity != "DATE") {
+        if (entity == "LOCATION") {
+            category = "Country";
+            var is_city = term.pos.City;
+
+            if (is_city == true) {
+                category = "City";
+            }
+
+        } else {
+            category = "Organization";
+        }
+
+        if (Replacer.term_is_capitalised(string)) {
+            replacement = Replacer.capitalise_string(Replacer.get_replacement(category, 'capitalise'));
+        } else if (term.is_acronym()) {
+            replacement = Replacer.get_replacement(category, 'acronym');
+        } else {
+            replacement = Replacer.get_replacement(category, 'none');
+        }
+
+        return replacement;
+    } else {
+        return string;
+    }
+
+}
+
+Replacer.get_replacement = function (category, special_spelling) {
     var alt_array = [];
     var replacer;
 
-    if (category == "Place") {
-        category = "City";
-    }
-
-    $.each(lexicon, function (key, value) {
+    for (var key in lexicon) {
+        var value = lexicon[key];
 
         if (value == category) {
             alt_array.push(key);
         }
-    });
+    }
 
     if (special_spelling == 'capitalise') {
-        replacer = capitalise_string(shuffle(alt_array)[0]);
+        replacer = Replacer.capitalise_string(Replacer.shuffle(alt_array)[0]);
     } else if (special_spelling == 'acronym') {
-        replacer = shuffle(alt_array)[0].toUpperCase();
+        replacer = Replacer.shuffle(alt_array)[0].toUpperCase();
     } else if (special_spelling == 'none') {
-        replacer = shuffle(alt_array)[0];
+        replacer = Replacer.shuffle(alt_array)[0];
     }
     return replacer;
 }
 
-function define_replacement(term_object, type, entity, counts) {
+Replacer.define_replacement = function (term_object, type, entity, counts) {
 
     if (type == 0) {
         term_object.replacement = "XXX";
     } else if (type == 1 || type == 2) {
-        term_object.replacement = replace_entity_dependent(type, entity, counts);
+        term_object.replacement = Replacer.replace_entity_dependent(type, entity, counts);
     } else {
 
-        if ($.inArray(term_object.normal, replaced_arr) < 0) {
+        if (Replacer.inArray(term_object.normal, replaced_arr) == false) {
 
-            if (term_is_capitalised(term_object.text)) {
-                term_object.replacement = get_replacement(term_object.tag, 'capitalise');
+            if (Replacer.term_is_capitalised(term_object.text)) {
+                term_object.replacement = Replacer.get_replacement(term_object.tag, 'capitalise');
             } else if (term_object.is_acronym()) {
-                term_object.replacement = get_replacement(term_object.tag, 'acronym');
+                term_object.replacement = Replacer.get_replacement(term_object.tag, 'acronym');
             } else {
-                term_object.replacement = get_replacement(term_object.tag, 'none');
+                term_object.replacement = Replacer.get_replacement(term_object.tag, 'none');
             }
         } else {
             var selected_from_object = temp_replacers.filter(function (x) {
@@ -156,7 +147,18 @@ function define_replacement(term_object, type, entity, counts) {
 
 }
 
-function replace_entity_dependent(type, entity, counts) {
+Replacer.inArray = function (element, array) {
+
+    for (var i = 0; i < array.length; i++) {
+        if (element == array[i]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+Replacer.replace_entity_dependent = function (type, entity, counts) {
     var replacement;
 
     if (type == 1) {
@@ -202,13 +204,13 @@ function replace_entity_dependent(type, entity, counts) {
     return replacement;
 }
 
-function capitalise_string(stringinput) {
+Replacer.capitalise_string = function (stringinput) {
     var string_old = stringinput;
     var new_string = string_old[0].toUpperCase() + string_old.slice(1).toLowerCase();
     return new_string;
 }
 
-function term_is_capitalised(stringinput) {
+Replacer.term_is_capitalised = function (stringinput) {
     if (stringinput[0] == stringinput[0].toUpperCase()) {
         return true;
     } else {
@@ -216,11 +218,11 @@ function term_is_capitalised(stringinput) {
     }
 }
 
-function get_term_terminator(stringinput) {
+Replacer.get_term_terminator = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
     var terminator;
-    if ($.inArray(last_char, punctuation) > -1) {
+    if (Replacer.inArray(last_char, punctuation) == true) {
         terminator = last_char;
     } else {
         terminator = '';
@@ -229,18 +231,18 @@ function get_term_terminator(stringinput) {
     return terminator;
 }
 
-function remove_term_terminator(stringinput) {
+Replacer.remove_term_terminator = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
 
-    if ($.inArray(last_char, punctuation) > -1) {
+    if (Replacer.inArray(last_char, punctuation) == true) {
         return stringinput.substring(0, stringinput.length - 1);
     } else {
         return stringinput;
     }
 }
 
-function add_to_temp(original, replacement) {
+Replacer.add_to_temp = function (original, replacement) {
     var temp_obj = {
         original: original,
         replacement: replacement
@@ -249,29 +251,29 @@ function add_to_temp(original, replacement) {
     replaced_arr.push(temp_obj.original);
 }
 
-function check_date(date, replacement) {
-    date = remove_term_terminator(date);
+Replacer.check_date = function (date, replacement) {
+    date = Replacer.remove_term_terminator(date);
 
-    if (not_replacable(date)) {
+    if (Replacer.not_replacable(date)) {
         return date;
-    } else if (is_numeric(date)) {
-        return create_numeric(date);
-    } else if (is_weekday_abbrev(date)) {
-        return return_weekday_abbrev(date);
-    } else if (has_numeric(date)) {
-        return return_numeric(date);
-    } else if (is_weekday(date)) {
-        return return_weekday(date);
-    } else if (is_numeric_date(date)) {
-        return return_numeric_date(date);
-    } else if (is_ordinal(date)) {
-        return return_ordinal(date);
+    } else if (Replacer.is_numeric(date)) {
+        return Replacer.create_numeric(date);
+    } else if (Replacer.is_weekday_abbrev(date)) {
+        return Replacer.return_weekday_abbrev(date);
+    } else if (Replacer.has_numeric(date)) {
+        return Replacer.return_numeric(date);
+    } else if (Replacer.is_weekday(date)) {
+        return Replacer.return_weekday(date);
+    } else if (Replacer.is_numeric_date(date)) {
+        return Replacer.return_numeric_date(date);
+    } else if (Replacer.is_ordinal(date)) {
+        return Replacer.return_ordinal(date);
     }
 
     return replacement;
 }
 
-function is_weekday_abbrev(date) {
+Replacer.is_weekday_abbrev = function (date) {
     var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
     for (var i = 0; i < abbrev.length; i++) {
@@ -283,13 +285,13 @@ function is_weekday_abbrev(date) {
     return false;
 }
 
-function return_weekday_abbrev(date) {
+Replacer.return_weekday_abbrev = function (date) {
     var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     var index = Math.floor(Math.random() * abbrev.length);
     var new_abbrev = abbrev[index];
 
     if (date.toLowerCase() == new_abbrev) {
-        return return_abbrev(date);
+        return Replacer.return_weekday_abbrev(date);
     } else {
         if (date.toLowerCase() != date) {
             var first = new_abbrev.substring(0, 1).toUpperCase();
@@ -302,37 +304,37 @@ function return_weekday_abbrev(date) {
 
 }
 
-function not_replacable(date) {
-    var irreplacables = ["One", "one", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
 
-    if ($.inArray(date, irreplacables) != -1) {
+Replacer.not_replacable = function (date) {
+    var irreplacables = ["First", "first", "One", "one", "hour", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
+
+    if (Replacer.inArray(date, irreplacables) == true) {
         return true;
     } else {
         return false;
     }
 }
 
-function is_numeric(date) {
-    return date.length == 1 && !isNaN(nlp.value(date).number) && nlp.value(date).number != "" && !is_weekday(date) && !is_ordinal(date);
+Replacer.is_numeric = function (date) {
+    return date.split(" ").length == 1 && !isNaN(nlp.value(date).number) && nlp.value(date).number != "" && !Replacer.is_weekday(date) && !Replacer.is_ordinal(date);
 }
 
-function create_numeric(date) {
+Replacer.create_numeric = function (date) {
     var number = nlp.value(date).number;
 
     if (number == 1) {
         return date;
     } else {
-        return get_numeric(number, 2);
+        return Replacer.get_numeric(number, 2);
     }
 }
 
-function has_numeric(date) {
-
+Replacer.has_numeric = function (date) {
     var split = date.split(" ");
 
     for (var i = 0; i < split.length; i++) {
 
-        if (!isNaN(split[i])) {
+        if (!isNaN(split[i]) || (!isNaN(nlp.value(split[i]).number) && nlp.value(split[i]).number != "")) {
             return true;
         }
 
@@ -341,15 +343,15 @@ function has_numeric(date) {
     return false;
 }
 
-function return_numeric(date) {
+Replacer.return_numeric = function (date) {
     var split = date.split(" ");
 
     for (var i = 0; i < split.length; i++) {
         var current = split[i];
 
-        if (!isNaN(parseInt(current))) {
+        if (!isNaN(parseInt(current)) || (!isNaN(nlp.value(current).number) && nlp.value(current).number != "")) {
             var origin = split[i];
-            var replaced = get_numeric(current, 1);
+            var replaced = Replacer.get_numeric(nlp.value(current).number, 1);
             split[i] = replaced;
 
             if (split.length > 1 && i < split.length - 1) {
@@ -357,7 +359,6 @@ function return_numeric(date) {
 
                 if (replaced == 1) {
                     if (isNaN(parseInt(split[i + 1]))) {
-
 
                         if (next.substring(next.length - 1) == "s") {
                             if (next.substring(next.length - 3) == "ies") {
@@ -367,7 +368,7 @@ function return_numeric(date) {
                             }
                         }
                     }
-                } else if (parseInt(origin) == 1) {
+                } else if (parseInt(origin) == 1 || nlp.value(current).number == 1) {
                     split[i + 1] = nlp.noun(next).pluralize();
                 }
             }
@@ -377,7 +378,7 @@ function return_numeric(date) {
     return split.join().replace(/,/g, " ");
 }
 
-function get_numeric(number, pl) {
+Replacer.get_numeric = function (number, pl) {
     var numeric;
 
     if (number < 10) {
@@ -401,14 +402,14 @@ function get_numeric(number, pl) {
     }
 
     if (numeric == number) {
-        return get_numeric(number, pl);
+        return Replacer.get_numeric(number, pl);
     } else {
         return numeric;
     }
 
 }
 
-function is_weekday(date) {
+Replacer.is_weekday = function (date) {
 
     for (var i = 0; i < weekdays.length; i++) {
         if (weekdays[i].toLowerCase() == date.toLowerCase() || (weekdays[i].toLowerCase() == date.substring(0, date.length - 1).toLowerCase() && date.substring(date.length - 1) == "s")) {
@@ -419,11 +420,11 @@ function is_weekday(date) {
     return false;
 }
 
-function return_weekday(date) {
+Replacer.return_weekday = function (date) {
     var weekday = weekdays[Math.floor(Math.random() * weekdays.length)];
 
     if (weekday.toLowerCase() == date.toLowerCase()) {
-        return return_weekday(date);
+        return Replacer.return_weekday(date);
     } else if (date.substring(date.length - 1) == "s") {
         return weekday + "s";
     } else {
@@ -431,9 +432,9 @@ function return_weekday(date) {
     }
 }
 
-function is_numeric_date(date) {
+Replacer.is_numeric_date = function (date) {
 
-    if (date.length < 8 || not_valid(date)) {
+    if (date.length < 8 || Replacer.not_valid(date)) {
         return false;
     } else {
         try {
@@ -447,18 +448,18 @@ function is_numeric_date(date) {
 
 }
 
-function return_numeric_date(date) {
-    var separator = get_separator(date);
-    var new_date = "" + get_number(12) + separator + get_number(30) + separator + get_year(date, separator);
+Replacer.return_numeric_date = function (date) {
+    var separator = Replacer.get_separator(date);
+    var new_date = "" + Replacer.get_number(12) + separator + Replacer.get_number(30) + separator + Replacer.get_year(date, separator);
 
     if (new_date == date) {
-        return return_numeric_date(date);
+        return Replacer.return_numeric_date(date);
     } else {
         return new_date;
     }
 }
 
-function get_number(limit) {
+Replacer.get_number = function (limit) {
     var number = Math.floor(Math.random() * limit) + 1;
 
     if (number < 10) {
@@ -469,7 +470,7 @@ function get_number(limit) {
 
 }
 
-function get_year(date, separator) {
+Replacer.get_year = function (date, separator) {
 
     var present = new Date();
     var year = date.substring(date.lastIndexOf(separator) + 1, date.length);
@@ -482,7 +483,7 @@ function get_year(date, separator) {
     }
 }
 
-function not_valid(date) {
+Replacer.not_valid = function (date) {
     var count = 0;
 
     if (isNaN(date.substring(date.length - 4))) {
@@ -502,7 +503,7 @@ function not_valid(date) {
     return count != 1;
 }
 
-function get_separator(string) {
+Replacer.get_separator = function (string) {
     if (string.includes("/")) {
         return "/";
     } else if (string.includes(".")) {
@@ -512,7 +513,7 @@ function get_separator(string) {
     }
 }
 
-function is_ordinal(string) {
+Replacer.is_ordinal = function (string) {
 
     var number = string.substring(string.length - 3, string.length - 2);
     var value = null,
@@ -545,7 +546,7 @@ function is_ordinal(string) {
     return false;
 }
 
-function return_ordinal(string) {
+Replacer.return_ordinal = function (string) {
     var value = string.substring(0, string.length - 2);
     var ordinal;
 
@@ -553,7 +554,7 @@ function return_ordinal(string) {
         value = nlp.value(string).number;
     }
 
-    ordinal = get_numeric(value, 1);
+    ordinal = Replacer.get_numeric(value, 1);
 
     switch (ordinal % 10) {
         case 1:
@@ -571,7 +572,7 @@ function return_ordinal(string) {
     }
 
     if (parseInt(ordinal.substring(0, ordinal.length - 2)) == value) {
-        return return_ordinal(string);
+        return Replacer.return_ordinal(string);
     } else {
         if (ordinal == "11st") {
             return "11th";
@@ -585,3 +586,39 @@ function return_ordinal(string) {
     }
 }
 
+Replacer.shuffle = function (array) {
+
+    var newarr = [];
+    var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        newarr[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return newarr;
+}
+
+Replacer.ner_entities = function (stringinput) {
+    var filename = new Date().getTime();
+
+    fs.writeFile(filename + ".txt", stringinput, function () {
+        _NER().get_entities(filename);
+    });
+}
+
+
+function _NER() {
+    if (!NER) {
+        NER = require('./node_ner.js');
+    }
+
+    return NER;
+}
+
+module.exports = Replacer;

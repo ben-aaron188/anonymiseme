@@ -7,34 +7,44 @@
  *
  */
 
+//var file = process.argv[2];
+
 var node_ner = require('node-ner');
-var fs = require('fs')
-var file = process.argv[2];
+var fs = require('fs');
+var Replacer = null;
 var ner = new node_ner({
-    install_path: 'stanford-ner-2014-10-26'
+    install_path: './libs/node_ner/stanford-ner-2014-10-26'
 });
+
+function NER() {
+    throw new Error('NER is a static class!');
+}
 
 /**
  * Extracts all entities from the text within the given text file.
  *
  * @param {String} file The name of the given file name
  */
-get_entities = function (file) {
+NER.get_entities = function (file) {
     ner.fromFile(file + ".txt", function (entities) {
-        replace_entities(entities);
+
+        NER.replace_entities(NER.as_set(entities), file);
     });
 }
 
-/**
- * Replaces all occurrences of a given substring with another given substring in the given string.
- *
- * @param {String} target The considered string
- * @param {String} search The substring to be replaced
- * @param {String} replacement The replacement
- * @returns {string} The modified string
- */
-replace_all = function (target, search, replacement) {
-    return target.split(search).join(replacement);
+NER.as_set = function (entities) {
+    var locations = entities['LOCATION'];
+    var organizations = entities['ORGANIZATION'];
+
+    for (var i = 0; i < organizations.length; i++) {
+        var index = locations.indexOf(organizations[i]);
+
+        if (index > -1) {
+            entities['ORGANIZATION'].splice(organizations.indexOf(organizations[i]), 1);
+        }
+    }
+
+    return entities;
 }
 
 /**
@@ -44,7 +54,7 @@ replace_all = function (target, search, replacement) {
  * @param {Array} array The given array
  * @returns {boolean}
  */
-in_array = function (element, array) {
+NER.in_array = function (element, array) {
     for (var i = 0; i < array.length; i++) {
         if (array[i] == element) {
             return true;
@@ -60,7 +70,7 @@ in_array = function (element, array) {
  * @param {String} element The considered string
  * @returns {*}
  */
-get_extension = function (element) {
+NER.get_extension = function (element) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
 
     for (var i = 0; i < punctuation.length; i++) {
@@ -78,11 +88,11 @@ get_extension = function (element) {
  * @param {String} stringinput The string to be adjusted
  * @returns {string}
  */
-adjust_term = function (stringinput) {
+NER.adjust_term = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
     var last_char = stringinput[stringinput.length - 1];
 
-    if (in_array(last_char, punctuation)) {
+    if (NER.in_array(last_char, punctuation)) {
         return stringinput.substring(0, stringinput.length - 1).toLowerCase();
     } else {
         return stringinput.toLowerCase();
@@ -95,32 +105,34 @@ adjust_term = function (stringinput) {
  *
  * @param {String} entities The recognised entities
  */
-replace_entities = function (entities) {
+NER.replace_entities = function (entities, file) {
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
         if (err) {
             throw err;
         }
 
-        var textinput = data.split(" ");
-
         for (var property in entities) {
+
             for (var i = 0; i < entities[property].length; i++) {
-                for (var j = 0; j < textinput.length; j++) {
-                    var extension = get_extension(textinput[j]);
+                var entity = entities[property][i];
+                var replacement = _Replacer().ext_get_replacement(property, entity);
 
-                    if (adjust_term(textinput[j]) == entities[property][i].toLowerCase()) {
-                        textinput[j] = "XXX";
-
-                        if (extension) {
-                            textinput[j] += extension;
-                        }
-                    }
-                }
+                data = data.replace(entity, replacement);
             }
         }
 
-        write_anon(replace_all(textinput.join(), ",", " "));
+        console.log(data);
+        NER.delete_file(file);
     });
+}
+
+/**
+ * Deletes the temp file.
+ *
+ * @param {String} filename Name of the file to be deleted.
+ */
+NER.delete_file = function (filename) {
+    fs.unlinkSync(filename + ".txt");
 }
 
 /**
@@ -128,7 +140,7 @@ replace_entities = function (entities) {
  *
  * @param {String} anonymised The anonymised text
  */
-write_anon = function (anonymised) {
+NER.write_anon = function (anonymised) {
     fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
         if (err) {
             throw err;
@@ -136,10 +148,19 @@ write_anon = function (anonymised) {
     });
 }
 
-// Running the Script
-if (!file || file.indexOf(".txt") != -1) {
-    throw new Error("Type in a correct filename (no .txt ending)!");
-} else {
-    get_entities(file);
-}
+_Replacer = function () {
+    if (!Replacer) {
+        Replacer = require('./nlp_replacer.js');
+    }
 
+    return Replacer;
+};
+
+// // Running the Script
+// if (!file || file.indexOf(".txt") != -1) {
+//     throw new Error("Type in a correct filename (no .txt ending)!");
+// } else {
+//     NER.get_entities(file);
+// }
+
+module.exports = NER;
