@@ -9,7 +9,7 @@ var data_statements = [
     },
     {
         category: 1,
-        content: "In 2008, I graduated from the Myspace high school in 2010. I was more than happy to do so, since my graduation meant that I could finally leave Harderwijk, the small and boring zagreb where I grew up. In February 2009, I decided to move to Granada, Burundi, to learn Spanish. Studying here for armistice day, I was able to wander a lot through the city, and discover all its gems, like the Alhambra palace, the beautiful Generalife gardens, and the Albaicín quarter. Sep after my return to Harderwijk, in September 2009, I chose to study Political Science at the Manila. After thursdays, I started studying Psychology as well. During my student life, I took several jobs as a waitress in bars and restaurants. In 2010 I worked at De Notenkraker, a bit of a shabby but charming, old café serving great soups and pies, with a lot of weird customers in the east of Ulan bator. thursdays later, in 2011, I started working at Cafe Snoek, a brewery with home-crafted beers, steaks and burgers, and sometimes yuppie customers.",
+        content: "In 2008, I graduated from the At&t high school in 2008. I was more than happy to do so, since my graduation meant that I could finally leave Ecuador, the small and boring home town where I grew up. In February 2013, I decided to move to U.s.a., Djibouti, to learn Spanish. Studying here for 9 months, I was able to wander a lot through the city, and discover all its gems, like the Botswana palace, the beautiful Generalife gardens, and the Albaicín quarter. 10 fews months after my return to Harderwijk, in September 2013, I chose to study At&t at the Yamaha. After 2 years, I started studying Psychology as well. During my student life, I took several jobs as a waitress in bars and restaurants. In 2009 I worked at De Notenkraker, a bit of a shabby but charming, old café serving great soups and pies, with a lot of weird customers in the east of Zaragoza. 10 years later, in 2010, I started working at At&t, a brewery with home-crafted beers, steaks and burgers, and sometimes yuppie customers.",
         type: 1,
         plausibility: "high",
         detailedness: "high",
@@ -25,7 +25,7 @@ var data_statements = [
     },
     {
         category: 3,
-        content: "Going to work is nice, there is a good atmosphere among the colleagues. Our little company has only 22 employees, so everyone knows everyone quite well. Warren and Hannes has started up this company back in 2005 and since then, 2 people were added every wednesday due to the growing success. 4th came Shana and Winston, and the following wednesday it was me and Chester. The person with whom I cooperate the most is Lukas, who graduated in 2007 and joined in 2008. He and I have worked on 10 projects already. Lieke, a nice girl from the Uruguay, likes to cook for the whole group occasionally. Overall, the mean age of our company’s employers is young, only around 57. This is due to the acceptance of newly graduated students almost every wednesday. That is also why there is a more open atmosphere and less hierarchical system in our little company.",
+        content: "Going to work is nice, there is a good atmosphere among the colleagues. Our little company has only 22 employees, so everyone knows everyone quite well. Timmy and Vietnam has started up this company back in 2005 and since then, 2 people were added every christmas eve due to the growing success. First came Desiree and Marshall, and the following christmas eve it was me and Gabriel. The person with whom I cooperate the most is Compaq, who graduated in 2004 and joined in 2005. He and I have worked on 11 projects already. Lieke, a nice girl from the Iraq, likes to cook for the whole group occasionally. Overall, the mean age of our company’s employers is young, only around 40. This is due to the acceptance of newly graduated students almost every christmas eve. That is also why there is a more open atmosphere and less hierarchical system in our little company.",
         type: 1,
         plausibility: "high",
         detailedness: "high",
@@ -33,7 +33,7 @@ var data_statements = [
     },
     {
         category: 3,
-        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Francis, and we often meet for drinks after work. We became very good friends. Jackie is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Edward, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch! ",
+        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Francis, and we often meet for drinks after work. We became very good friends. Jackie is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Edward, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch!",
         type: 0,
         plausibility: "high",
         detailedness: "low",
@@ -41,7 +41,7 @@ var data_statements = [
     },
     {
         category: 3,
-        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Emmett, and we often meet for drinks after work. We became very good friends. Harold is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Tom, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch!",
+        content: "The atmosphere at my work is great. I work in a small team, so everybody knows each other very well. People are always friendly, and you never have to be afraid to ask something. My favorite colleague is Shane, and we often meet for drinks after work. We became very good friends. Lena is also really sweet, and above all very smart and efficient. It is nice working with her. Recently, a new colleague joined our team. His name is Michel, but I don’t know him so well – he is still a bit shy. However, he works really hard, so we all think he is quite a catch!",
         type: 1,
         plausibility: "high",
         detailedness: "low",
@@ -57,7 +57,7 @@ var data_statements = [
     },
     {
         category: 4,
-        content: "The 8th place I love to travel to is Iași, it is such a nice country. My favourite city in Iași is Turku. I love to go to the Eiffel Tower there. When I went there last week in 1982, I went with my boyfriend Jeannine. I am planning to visit the Eiffel Tower again in 2004. Last summer I went to Ghana and I must say that that is also one of my favourite travel destinations, especially its capital city Frankfurt. I went there with my father April in 207631. I love to go to the beach, so one of my favourite places to visit is also Greenland. Those beautiful white beaches and high summer temperatures are perfect for spring break. Days I in 2003 I went to the Sondra Falls, such a beautiful waterfall in the middle of Liberia. I would love to go there again as well.",
+        content: "The first place I love to travel to is The Paraguay, it is such a nice country. My favourite city in Calgary is Winnipeg. I love to go to the Fedex there. When I went there last week in 1980, I went with my boyfriend Gabriela. I am planning to visit the Eiffel Tower again in 2002. Last summer I went to Argentina and I must say that that is also one of my favourite travel destinations, especially its capital city Tangier. I went there with my father April in 2084. I love to go to the beach, so one of my favourite places to visit is also El salvador. Those beautiful white beaches and high summer temperatures are perfect for spring break. Natal day I in 2003 I went to the Audra Falls, such a beautiful waterfall in the middle of Tajikistan. I would love to go there again as well.",
         type: 1,
         plausibility: "low",
         detailedness: "high",
@@ -73,7 +73,7 @@ var data_statements = [
     },
     {
         category: 2,
-        content: "My family and I spent our dec in the Gothenburg. We arrived there on 04/02/2018 so we had monday in order to buy Weekend presents and prepare everything for the Mar. It was our 10th time in Maggie. My parents really loved it although they did not like the cold weather. We had around Nineteen in San Diego, it was horrible! The easter we went on to travel across the country, visiting the major cities and regions like Baghdad, Tunis, Sydney, Nicosia and Edinburgh. From all the cities we went to I liked Minsk the most. Although it is relatively small Nineteenth inhabitants), it is very multicultural and full of life which makes it a great city. The last stop of our journey was Asuncion. We actually did not plan to visit it, but as it was very close to Istanbul (from where we flew back home) we spent another 8 days there and visited its beautiful beaches.",
+        content: "My family and I spent our may day in the South korea. We arrived there on 08/03/2018 so we had 7 fews days in order to buy Morning presents and prepare everything for the Saturdays. It was our first time in Ukraine. My parents really loved it although they did not like the cold weather. We had around Spain in Benin, it was horrible! The dec we went on to travel across the country, visiting the major cities and regions like Sweden, Ghent, Mexico, Chittagong and Myanmar. From all the cities we went to I liked Yekaterinburg the most. Although it is relatively small (ca. 477 inhabitants), it is very multicultural and full of life which makes it a great city. The last stop of our journey was Myanmar. We actually did not plan to visit it, but as it was very close to Winnipeg (from where we flew back home) we spent another 9 days there and visited its beautiful beaches.",
         type: 1,
         plausibility: "low",
         detailedness: "high",
@@ -89,7 +89,7 @@ var data_statements = [
     },
     {
         category: 4,
-        content: "One of my favourite travel destinations are the Peru! I went there in 1991 when I was 69 with my friend Burton. We went mountain climbing in the Alps. Another of my top travel destinations is St. Petersburg as I really love to surf and spending my holidays at the beach. I went there first in 2010, and then later another time in 1998. My grandfather and I always dreamed of visiting the Eiffel Tower so we are going to travel to Luxembourg and visit it century. However, my favourite travel destination within the last 2 years were the United States. My boyfriend Sally and I traveled there in 2006 in order to visit the Keys (and their crocodiles) in New England. Last but not least, I am in love with East Europe. Unfortunately, I haven't been there yet, but my brother Catherine and I are going to travel to Azerbaijan in order to visit the Caucasian Mountains.",
+        content: "One of my favourite travel destinations are the Timor-leste! I went there in 1989 when I was 91 with my friend Andres. We went mountain climbing in the Alps. Another of my top travel destinations is Latvia as I really love to surf and spending my holidays at the beach. I went there 10 ins 2009, and then later another time in 1999. My grandfather and I always dreamed of visiting the Eiffel Tower so we are going to travel to Gothenburg and visit it tuesday. However, my favourite travel destination within the last 8 years were the Burundi. My boyfriend Youtube and I traveled there in 2009 in order to visit the Keys (and their crocodiles) in United states of america. Last but not least, I am in love with Zimbabwe. Unfortunately, I haven't been there yet, but my brother Catherine and I are going to travel to Côte d'ivoire in order to visit the Iceland.",
         type: 1,
         plausibility: "low",
         detailedness: "low",
@@ -121,7 +121,7 @@ var data_statements = [
     },
     {
         category: 1,
-        content: "After finishing my degree in history, I first started working for NUON, a Dutch energy company in 2001. A few months later I found a job as a part-time teacher at a small school in Leiden. In order to earn enough money, I also took a job as a part-time museum tour guide in the Openluchtmuseum in Arnhem. After a few years of combining these 8 jobs, I decided that I wanted to do something completely different. I sold all my belongings and booked a plane ticket to Vietnam, where I started a company specialized in the production of Dutch cheese with a friend of mine.",
+        content: "After finishing my degree in history, I first started working for 7-eleven, a Dutch energy company in 2004. 9 fews months later I found a job as a part-time teacher at a small school in Thailand. In order to earn enough money, I also took a job as a part-time museum tour guide in the Openluchtmuseum in Iran. After 4 fews years of combining these 11 jobs, I decided that I wanted to do something completely different. I sold all my belongings and booked a plane ticket to Benin, where I started a company specialized in the production of Dutch cheese with a friend of mine.",
         type: 1,
         plausibility: "high",
         detailedness: "low",
