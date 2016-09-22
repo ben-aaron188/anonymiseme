@@ -79,7 +79,13 @@ Replacer.ext_get_replacement = function (entity, string) {
             }
 
         } else {
-            category = "Organization";
+
+            if (!term.pos.Person) {
+                category = "Organization";
+            } else {
+                return string;
+            }
+
         }
 
         if (Replacer.term_is_capitalised(string)) {

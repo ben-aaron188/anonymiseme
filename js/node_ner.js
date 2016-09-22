@@ -27,7 +27,6 @@ function NER() {
  */
 NER.get_entities = function (file) {
     ner.fromFile(file + ".txt", function (entities) {
-
         NER.replace_entities(NER.as_set(entities), file);
     });
 }
