@@ -136,7 +136,7 @@ function verify_example_2() {
 
 
 function check_example_validation(example_number) {
-    var vivid_expected_example1 = 8;
+    var vivid_expected_example1 = 3;
     var plaus_expected_example1 = 8;
     var vivid_expected_example2 = 8;
     var plaus_expected_example2 = 8;
