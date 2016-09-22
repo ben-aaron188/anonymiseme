@@ -35,11 +35,13 @@ NER.as_set = function (entities) {
     var locations = entities['LOCATION'];
     var organizations = entities['ORGANIZATION'];
 
-    for (var i = 0; i < organizations.length; i++) {
-        var index = locations.indexOf(organizations[i]);
+    if (organizations) {
+        for (var i = 0; i < organizations.length; i++) {
+            var index = locations.indexOf(organizations[i]);
 
-        if (index > -1) {
-            entities['ORGANIZATION'].splice(organizations.indexOf(organizations[i]), 1);
+            if (index > -1) {
+                entities['ORGANIZATION'].splice(organizations.indexOf(organizations[i]), 1);
+            }
         }
     }
 
