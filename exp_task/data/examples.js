@@ -1,18 +1,20 @@
 var examples = [
     {
         addition: "example",
-        category: 1,
-        content: "I have finished High School in 2009 in Rotterdam. After High School, I went to the Hogere Hotelschool The Hague. In my second year, I have been to Bali to work in a hotel, named Kelapa Retreat and Spa as an internship. I worked there as a receptionist and learned how to surf, because the hotel was on the beach. In my last year, I have been to Buenos Aires to work at the Melia Recoleta Plaza Hotel as a chef cook, also as an internship. I finished the Hotelschool in 2013, and after that I have worked on different locations of the Hilton Hotel, such as Amsterdam, Dubai, New York and Rome. I have worked there as a chef cook. Last year, I got a job offer from the Kelapa Retreat and Spa on Bali, to work there as the hotel manager. ",
+        category: 4,
+        content: "The best place I travelled to was definitely China. I joined a tour, and they took us from the North-East coast all the way to the South-West side of China. I can not decide whether the Great Wall from Beijing was more impressive or whether the food delicacies and shopping malls in Hong Kong were more fun. The year before, I traveled to the West coast of the USA. There I visited major cities such as Las Vegas and San Francisco. The Golden Gate Bridge, shrouded by a foggy weather and a setting sun in the back, was a sight I can never forget. I have big plans for the future, which is namely doing a safari trip in Africa. Whether I will have enough money, courage and stamina to do it, only time will tell.",
         type: 0,
         plausibility: "high",
-        detailedness: "high"
+        detailedness: "low",
+        sheet_id: 23
     },
     {
         addition: "example",
-        category: 3,
-        content: "I love the atmosphere at work. I work at a law firm named Meijers Canatan Advocaten as a secretary. The firm is located at the Herengracht in Amsterdam. I work with seven lawyers, but I am the secretary of Gabriel Meijers. He is the owner of the place and such a nice man. The secretary of Kerem Canatan, Judy, is one of my best friends. Two other secretaries, Pippa and Kiki, are twins. The four of us are friends and we do lots of nice things together, like going out or having dinner. On working hours, all of the lawyers are very serious and formal, but after working hours we usually go out for a drink, especially on fridays. ",
-        type: 0,
+        category: 2,
+        content: "My last holiday was to San salvador. I visited it last summer with my boyfriend. We stayed at a hotel near the Stephansdom in the centre of the city. We stayed there for 5, and after that we went to Caracas. In San salvador, we visited the Zoo and saw the panda’s. We also saw the Palace of Princess Sisi, Schloss Schonbrunn. On the 5, we took the train to Caracas and stayed at the Aria Hotel in Caracas, one of the best hotels in town. We visited the Fisher’s Bastion and one of the many spas in Caracas. Unfortunately, my boyfriend got sick on the 2 and we had to go to the hospital, because he had appendicitis. After 9 in the hospital, we finally could travel back home to Vilnius.",
+        type: 1,
         plausibility: "high",
-        detailedness: "high"
+        detailedness: "high",
+        sheet_id: 4
     }
 ];
