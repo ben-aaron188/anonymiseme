@@ -27,11 +27,11 @@ Replacer.string_replace_all = function (preprocessed_object, type) {
 
         if (el.pos.Person && el.pos.Pronoun !== true && Replacer.term_is_capitalised(el.text)) {
             Replacer.generate_replacement(el, type, 0, counts);
-            replaced += el.whitespace.preceding + el.replacement + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
+            replaced += el.whitespace.preceding + Replacer.get_term_beginning(el.text) + el.replacement + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Date || el.pos.Value) {
             Replacer.generate_replacement(el, type, 1, counts)
-            replaced += el.whitespace.preceding + Replacer.check_date(el.text, el.replacement) + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
+            replaced += el.whitespace.preceding + Replacer.get_term_beginning(el.text) + Replacer.check_date(el.text, el.replacement) + Replacer.get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else {
             replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
@@ -224,6 +224,19 @@ Replacer.term_is_capitalised = function (stringinput) {
     }
 }
 
+Replacer.get_term_beginning = function (stringinput) {
+    var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
+    var first_char = stringinput[0];
+    var terminator;
+    if (Replacer.inArray(first_char, punctuation) == true) {
+        terminator = first_char;
+    } else {
+        terminator = '';
+    }
+
+    return terminator;
+}
+
 Replacer.get_term_terminator = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
@@ -240,12 +253,17 @@ Replacer.get_term_terminator = function (stringinput) {
 Replacer.remove_term_terminator = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
+    var first_char = stringinput[0];
 
     if (Replacer.inArray(last_char, punctuation) == true) {
-        return stringinput.substring(0, stringinput.length - 1);
-    } else {
-        return stringinput;
+        stringinput = stringinput.substring(0, stringinput.length - 1);
     }
+
+    if (Replacer.inArray(first_char, punctuation) == true) {
+        stringinput = stringinput.substring(1);
+    }
+
+    return stringinput;
 }
 
 Replacer.add_to_temp = function (original, replacement) {
@@ -274,9 +292,45 @@ Replacer.check_date = function (date, replacement) {
         return Replacer.return_numeric_date(date);
     } else if (Replacer.is_ordinal(date)) {
         return Replacer.return_ordinal(date);
+    } else if (Replacer.is_unit(date)) {
+        return Replacer.return_unit(date);
     }
 
     return replacement;
+}
+
+Replacer.is_unit = function (date) {
+    var units = ["km", "mi", "metres", "miles", "kilometres", "seconds"],
+        unit;
+
+    for (var i = 0; i < units.length; i++) {
+        if (date.indexOf(units[i]) != -1) {
+            unit = date.indexOf(units[i]);
+
+            if (!isNaN(date.substring(0, unit)) && (units[i].length + date.substring(0, unit).length) == date.length) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+Replacer.return_unit = function (date) {
+    var units = ["km", "mi", "metres", "miles", "kilometres", "seconds"],
+        unit,
+        unit_idx;
+
+    for (var i = 0; i < units.length; i++) {
+        if (date.indexOf(units[i]) != -1) {
+            unit_idx = date.indexOf(units[i]);
+            unit = units[i];
+
+            break;
+        }
+    }
+
+    return Replacer.return_numeric(date.substring(0, unit_idx)) + unit;
 }
 
 Replacer.is_weekday_abbrev = function (date) {

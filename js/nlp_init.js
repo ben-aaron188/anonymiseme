@@ -13,8 +13,6 @@ lexicon = nlp.lexicon();
 //string_input = "234th x 11th x 100th x Second x Third x Tenth x 13/12/2014 x 11/10/2145 x Amsterdam x Peter x Peter";
 //string_input = "On 06/18/2014 Alfred and I went to the bookstore in Amsterdam. We spent 1 hour there and I bought 3 new books about Birmingham. After that we went to Melbourne for 3 weeks.";
 
-string_input = "My family and I spent our last Christmas in the United States of America. We arrived there on 06/23/2017 so we had a few days in order to buy Christmas presents and prepare everything for the Christmas Eve. It was our first time in Canada. My parents really loved it although they did not like the cold weather. We had around -30°C in San Diego, it was horrible! The day after Christmas we went on to travel across the country, visiting the major cities and regions like Baghdad, Cologne, Paris, Philadelphia and Edinburgh. From all the cities we went to I liked Melbourne the most. Although it is relatively small (ca. 200,000 inhabitants), it is very multicultural and full of life which makes it a great city. The last stop of our journey was Asuncion. We actually did not plan to visit it, but as it was very close to Vancouver (from where we flew back home) we spent another 3 days there and visited its beautiful beaches.";
-
 setTimeout(function () {
     $('#ex1').text(string_input);
 }, 500);
