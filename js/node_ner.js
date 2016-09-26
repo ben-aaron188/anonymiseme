@@ -45,7 +45,10 @@ NER.as_set = function (entities) {
         }
     }
 
-    return entities;
+    return {
+        "ORGANIZATION": entities['ORGANIZATION'],
+        "LOCATION": entities['LOCATION'],
+    };
 }
 
 /**

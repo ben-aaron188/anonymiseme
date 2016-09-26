@@ -366,7 +366,7 @@ Replacer.return_weekday_abbrev = function (date) {
 
 
 Replacer.not_replacable = function (date) {
-    var irreplacables = ["First", "first", "One", "one", "hour", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night"];
+    var irreplacables = ["First", "first", "One", "one", "hour", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night", "now", "this month"];
 
     if (Replacer.inArray(date, irreplacables) == true) {
         return true;
