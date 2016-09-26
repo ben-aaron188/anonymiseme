@@ -11,10 +11,10 @@ var examples = [
     {
         addition: "example",
         category: 2,
-        content: "My last holiday was to San salvador. I visited it last summer with my boyfriend. We stayed at a hotel near the Stephansdom in the centre of the city. We stayed there for 5, and after that we went to Caracas. In San salvador, we visited the Zoo and saw the panda’s. We also saw the Palace of Princess Sisi, Schloss Schonbrunn. On the 5, we took the train to Caracas and stayed at the Aria Hotel in Caracas, one of the best hotels in town. We visited the Fisher’s Bastion and one of the many spas in Caracas. Unfortunately, my boyfriend got sick on the 2 and we had to go to the hospital, because he had appendicitis. After 9 in the hospital, we finally could travel back home to Vilnius.",
-        type: 1,
-        plausibility: "high",
+        content: "The atmosphere at work is very good. Although our department is relatively large (ca. 60 people), everybody knows each other well and we are all getting along with each other. There is for example Peter, a young Chinese girl who started working at the company 13 years ago. Peter is only 20 years old but is very experienced. She shares a desk with one of our software developers called Patrice. Patrice is one of the oldest employees of the company who started working for us in 1856. Thus, he is very familiar with the development of our company from a small business to a large corporation. Patrice is also 'everyone's darling' as he always brings delightful snacks from all over the world to the office. He is a good friend of our boss, Jennifer. Jennifer also started in 1856 and was promoted to be the head of department 15 years ago, when he was only 31. He is married to the head of another department of our company, Marina Fritz Peters. Marina reports to the CEO and thus has a large influence on all of the employees. Thus, everybody in our department pretends to love Jennifer, although they are talking about him behind his back.",
+        type: 0,
+        plausibility: "low",
         detailedness: "high",
-        sheet_id: 4
+        sheet_id: 33
     }
 ];
