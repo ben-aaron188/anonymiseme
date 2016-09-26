@@ -78,13 +78,13 @@
 <!--
 
   Sets the classpath for this project properly. We now always use the
-  src dir within javanlp.
+  lib dir within javanlp.
 
 -->
 
   <target name="classpath" description="Sets the classpath">
       <path id="compile.classpath">
-       <!-- <fileset dir="${basedir}/src">
+       <!-- <fileset dir="${basedir}/lib">
           <include name="*.jar"/>
           <exclude name="javanlp*"/>
         </fileset> -->
@@ -99,7 +99,7 @@
 
 <!--
 
-  The "compile" target transforms source files (from your "img" directory)
+  The "compile" target transforms source files (from your "src" directory)
   into object files in the appropriate location in the build directory.
   This example assumes that you will be including your classes in an
   unpacked directory hierarchy under "/WEB-INF/classes".
@@ -128,7 +128,7 @@
     <!-- Copy application resources -->
 <!--
     <copy  todir="${build.home}/WEB-INF/classes">
-      <fileset dir="${img.home}" excludes="**/*.java"/>
+      <fileset dir="${src.home}" excludes="**/*.java"/>
     </copy>
 -->
 
