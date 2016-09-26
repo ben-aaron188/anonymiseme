@@ -72,17 +72,17 @@ function add_statement(number, example) {
         '<div class="statement_evaluation_slider" id="statement' + number + '_evaluation_plausibility">' +
         '<div class="slider_io">' +
         '<span id="slider_instr">Plausibility</span> ' +
-        '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_plausibility_value" value="5" min="0" max="10" oninput="set_plaus_slider_value(' + number + ')">' +
+        '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_plausibility_value" value="4" min="1" max="7" oninput="set_plaus_slider_value(' + number + ')">' +
         '<output class="slider_io_output" id="plaus_output_' + number + '">move the slider</output> ' +
-        '<div class="slider_io_output_labels stretch">(low) 0 - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 (high)</div> ' +
+        '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
         '</div>' +
         '</div>' +
         '<div class="statement_evaluation_slider statement_evaluation_detailedness" id="statement' + number + '_evaluation_detailedness">' +
         '<div class="slider_io">' +
         '<span id="slider_instr">Detailedness</span> ' +
-        '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_detailedness_value" value="5" min="0" max="10" oninput="set_vivid_slider_value(' + number + ')">' +
+        '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_detailedness_value" value="4" min="1" max="7" oninput="set_vivid_slider_value(' + number + ')">' +
         '<output class="slider_io_output" id="vivid_output_' + number + '">move the slider</output> ' +
-        '<div class="slider_io_output_labels stretch">(low) 0 - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 (high)</div> ' +
+        '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -136,7 +136,7 @@ function verify_example_2() {
 
 
 function check_example_validation(example_number) {
-    var vivid_expected_example1 = 8;
+    var vivid_expected_example1 = 6;
     var plaus_expected_example1 = 2;
     var vivid_expected_example2 = 2;
     var plaus_expected_example2 = 2;
