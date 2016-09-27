@@ -31,6 +31,12 @@ NER.get_entities = function (file) {
     });
 }
 
+/**
+ * Converts the entity object to a set (math.).
+ *
+ * @param {Object} entities Found entities in given text
+ * @returns {{ORGANIZATION: *, LOCATION: *}}
+ */
 NER.as_set = function (entities) {
     var locations = entities['LOCATION'];
     var organizations = entities['ORGANIZATION'];
@@ -49,7 +55,7 @@ NER.as_set = function (entities) {
         "ORGANIZATION": entities['ORGANIZATION'],
         "LOCATION": entities['LOCATION'],
     };
-    
+
 }
 
 /**

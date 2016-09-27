@@ -56,6 +56,37 @@ function set_vivid_slider_value(number) {
     $(output).val($(input).val());
 }
 
+function generate_test_question(number) {
+    pagefocus_reset();
+    var header;
+    header = "Question " + number + "/6";
+
+    $('body').prepend(
+        '<div class="question_wrapper" id="question' + number + '_wrapper">' +
+        '<div class="question_header" id="question' + number + '_header">'+header +'</div>' +
+        '<div class="question_definition" id="question' + number + '_definition"></div>' +
+        '<div class="question_option" id="question' + number + '_optiona"  style="top: 35%;">' +
+        '<div class="question_option_text" id="question' + number + '_optiona_text"></div>' +
+        '<div class="question_option_checkbox" id="question' + number + '_optiona_checkbox"></div>' +
+        '</div>' +
+        '<div class="question_option" id="question' + number + '_optionb" style="top: 51%;">' +
+        '<div class="question_option_text" id="question' + number + '_optionb_text"></div>' +
+        '<div class="question_option_checkbox" id="question' + number + '_optionb_checkbox"></div>' +
+        '</div>' +
+        '<div class="question_option" id="question' + number + '_optionc"  style="top: 67%;">' +
+        '<div class="question_option_text" id="question' + number + '_optionc_text"></div>' +
+        '<div class="question_option_checkbox" id="question' + number + '_optionc_checkbox"></div>' +
+        '</div>' +
+        '<div class="question_option" id="question' + number + '_optiond"  style="top: 83%;">' +
+        '<div class="question_option_text" id="question' + number + '_optiond_text"></div>' +
+        '<div class="question_option_checkbox" id="question' + number + '_optiond_checkbox"></div>' +
+        '</div>' +
+        '</div>'
+    );
+    fill_test_questions(number);
+    activate_stretch();
+}
+
 function add_statement(number, example) {
     pagefocus_reset();
     var header;
@@ -64,6 +95,7 @@ function add_statement(number, example) {
     } else {
         header = example;
     }
+
     $('body').prepend(
         '<div class="statement_wrapper" id="statement' + number + '_wrapper">' +
         '<div class="statement_header" id="statement' + number + '_header">' + header + '</div>' +
@@ -92,9 +124,19 @@ function add_statement(number, example) {
     activate_stretch();
 }
 
+function fill_test_questions(number) {
+    // var data = get_test_data(number); TBD
+
+    $("#question" + number + "_definition").text("Fill me in");
+    $("#question" + number + "_optiona_text").text("Fill me in");
+    $("#question" + number + "_optionb_text").text("Fill me in");
+    $("#question" + number + "_optionc_text").text("Fill me in");
+    $("#question" + number + "_optiond_text").text("Fill me in");
+}
+
 function to_example1() {
     data_example1 = examples[0];
-    add_statement(5, "Example 1");
+    generate_test_question(1);
     $("#statement5_content").text(data_example1.content);
     simple_transition($("#statement_explanation"), $("#statement5_wrapper"));
     $("#next").attr('onclick', 'verify_example_1()');
