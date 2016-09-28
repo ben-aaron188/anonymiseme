@@ -7,17 +7,17 @@ var questions = [
         "optionb": "most of my friends are English native speakers",
         "optionc": "all flights I wanted to book were too expensive for me",
         "optiond": "the hotel was good value for money",
-        "answer": "all flights I wanted to book were too expensive for me"
+        "answer": "what I liked most about Rome was the Eiffel Tower"
     },
     {
         "question": "<span style=\"font-weight: bold;\">Syntactic accuracy</span></br></br>" +
         "Definition: The words in the statement are put together to form proper phrases, clauses, or sentences (e.g. no missing words).</br></br>" +
         "Question: Which of the below stated examples would score lowest on syntactic accuracy according to this definition?",
         "optiona": "every time I start my laptop it overheats",
-        "optionb": "when I first met girl we spend afternoon the park",
+        "optionb": "when I first met girl we spent afternoon the park",
         "optionc": "the night of last friday was warm and dark",
         "optiond": "before I went to the cinema I bought new sneakers",
-        "answer": "when I first met girl we spend afternoon the park"
+        "answer": "when I first met girl we spent afternoon the park"
     },
     {
         "question": "<span style=\"font-weight: bold;\">Readability</span></br></br>" +
@@ -34,10 +34,10 @@ var questions = [
         "Definition: The inclusion of specific descriptions of place, time, persons, objects and events in the statement.</br></br>" +
         "Question: Which of the below stated examples would score lowest on detailedness according to this definition?",
         "optiona": "I’ve waited for the bus from 3pm to 3:15pm until Paul picked me up with his BMW",
-        "optionb": "we had dinner with a lot of new people we met”",
+        "optionb": "we had dinner with a lot of new people we met",
         "optionc": "all of Paul’s friends joined us at the Earl of Camden last friday",
-        "optiond": "we went to Ben’s place to have dinner with his parents for New Year’s Eve 2014”",
-        "answer": "I’ve waited for the bus from 3pm to 3:15pm until Paul picked me up with his BMW"
+        "optiond": "we went to Ben’s place to have dinner with his parents for New Year’s Eve 2014",
+        "answer": "we had dinner with a lot of new people we met"
     },
     {
         "question": "<span style=\"font-weight: bold;\">Meaningfulness</span></br></br></br>" +

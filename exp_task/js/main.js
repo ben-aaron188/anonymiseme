@@ -30,11 +30,11 @@ function activate_stretch() {
 function to_statement_evaluation() {
     $('body').prepend('<div id="statement_explanation">' +
         'Explanation</br>' +
-        'You will now first read two example statements to test whether you correctly understood the definitions we want you to apply to the main statements.</br>' +
-        'Please adhere to the following two definitions of plausibility and detailedness.</br></br>' +
-        'Plausibility = the coherency of the statement in terms of not containing logical inconsistencies or contradictions.</br></br>' +
-        'Detailedness = the inclusion of specific descriptions of place, time, persons, objects and events.</br></br>' +
-        'After the two examples, you get feedback and will then proceed to the four main statements.</br>' +
+        'You will now first read the definitions of each of the six variables that we want you to judge the four statements on. </br>' +
+        'Please adhere to the definitions you learn on the next pages.</br></br>' +
+        'Alongside each definition, you are asked a control question to test your understanding.</br></br>' +
+        'By carefully reading the definitions, you will be able to answer all questions correctly.</br></br>' +
+        'If you do not choose the correct answer, you will have to start the task again.</br>' +
         '</div>'
     );
 
@@ -244,10 +244,10 @@ function manage_questions() {
         $("#next").unbind('click');
 
         if (several_selected()) {
-            alert("You can't choose more than one answer!");
+            alert("You cannot choose more than one answer!");
             document.getElementById("checkbox_option" + checked_box).checked = false;
             manage_questions();
-        } else if (checked_box == 0) {
+        } else if (checked_box === 0) {
             alert("You have to choose one answer! You have to repeat the task.");
             manage_questions();
         } else {

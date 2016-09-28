@@ -4,21 +4,17 @@
     color: #FEFCFF;
     font-weight: lighter;
 }
-
 h1 {
     font-size: 2.8vw;
     text-align: center;
 }
-
 h2 {
     font-size: 2.2vw;
     text-align: center;
 }
-
 .wrapper0 {
     display: none;
 }
-
 .navig {
     /*width: 10%;*/
     margin: 0;
@@ -34,15 +30,12 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #back {
     left: 10%;
 }
-
 #next {
     left: 90%;
 }
-
 .text1 {
     border: 0.5vw solid #FFBF00;
     font-weight: lighter;
@@ -64,7 +57,6 @@ h2 {
     overflow: scroll;
     overflow-x: hidden;
 }
-
 .textva {
     border: 0.3vw solid red;
     font-weight: lighter;
@@ -84,7 +76,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .text1_ {
     border: 0.4vw solid #FFBF00;
     font-weight: lighter;
@@ -104,7 +95,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .text1__ {
     border: 0.1vw solid white;
     font-weight: lighter;
@@ -124,7 +114,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .text2 {
     border: 0.3vw solid #FFBF00;
     letter-spacing: 0.01vw;
@@ -143,7 +132,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .text2_ {
     border: 0.1vw solid Red;
     letter-spacing: 0.01vw;
@@ -162,7 +150,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .text2__ {
     border: 0.1vw solid #FFBF00;
     letter-spacing: 0.01vw;
@@ -181,27 +168,22 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #dem1, #dem5 {
     top: 40%;
     left: 35%;
 }
-
 #dem2, #dem6 {
     top: 40%;
     left: 65%;
 }
-
 #dem3, #dem7 {
     top: 70%;
     left: 35%;
 }
-
 #dem4, #dem8 {
     top: 70%;
     left: 65%;
 }
-
 .select_menu {
     border: 0.2vw solid white;
     letter-spacing: 0.01vw;
@@ -219,7 +201,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 .select_menu_ {
     letter-spacing: 0.01vw;
     height: 10%;
@@ -237,7 +218,6 @@ h2 {
     padding-top: 1%;
     display: none;
 }
-
 .select_menu__ {
     border: 0.2vw solid white;
     letter-spacing: 0.01vw;
@@ -255,7 +235,6 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #ic {
     border: 0.3vw solid #FFBF00;
     overflow: scroll;
@@ -274,7 +253,6 @@ h2 {
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .textbox {
     height: 40%;
     width: 80%;
@@ -288,7 +266,6 @@ h2 {
     transform: translate(-50%, -50%);
     padding: 2%;
 }
-
 .textbox_ {
     height: 35%;
     width: 85%;
@@ -302,7 +279,6 @@ h2 {
     transform: translate(-50%, -50%);
     padding: 2%;
 }
-
 #credits {
     /*display: none;*/
     font-weight: lighter;
@@ -334,17 +310,14 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #stim_key_left {
     left: 15%;
     top: 30%;
 }
-
 #stim_key_right {
     left: 85%;
     top: 30%;
 }
-
 #stim_main {
     display: none;
     border: 1vw white solid;
@@ -358,7 +331,6 @@ h2 {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-
 #stim_stim {
     height: 0;
     width: 90%;
@@ -372,7 +344,6 @@ h2 {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-
 .slider_io {
     /*border: 0.2vw solid white;*/
     height: 80%;
@@ -389,14 +360,18 @@ h2 {
     padding-right: 1%;
     padding-top: 1%;
 }
-
 #slider_instr {
     text-align: center;
-    font-size: 2vw;
+    font-size: 1.6vw;
     padding-left: 3%;
     padding-right: 3%;
+    width: 80%;
+    margin: 0;
+    top: 5%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
-
 .slider_io_slider {
     /*border: 0.2vw solid white;*/
     /*background: red;*/
@@ -410,19 +385,18 @@ h2 {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-
 .slider_io_output {
     width: 80%;
     margin: 0;
     position: absolute;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: 1.4vw;
     top: 90%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+    color: Red;
 }
-
 .slider_io_output_labels {
     width: 95%;
     margin: 0;
@@ -433,20 +407,16 @@ h2 {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-
 .stretch_it {
     white-space: nowrap;
 }
-
 .justify {
     text-align: justify;
 }
-
 .permanent_instr {
     font-style: italic;
     font-size: 1.0vw;
 }
-
 #statement_explanation {
     border: 0.3vw solid #FFBF00;
     overflow: scroll;
@@ -465,7 +435,6 @@ h2 {
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .statement_wrapper, .question_wrapper {
     border: 0.3vw solid #FFBF00;
     background-color: #1C1C1C;
@@ -482,7 +451,6 @@ h2 {
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .statement_header, .question_header {
     border-bottom: 0.3vw solid #FFBF00;
     overflow: hidden;
@@ -498,37 +466,40 @@ h2 {
     align-items: center;
     justify-content: center;
 }
-
 .statement_content {
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 96%;
-    height: 28%;
-    top: 12%;
+    width: 95%;
+    height: 35%;
+    top: 30%;
+    left: 50%;
     padding-left: 2%;
     padding-right: 2%;
     margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     position: absolute;
     text-align: left;
     font-size: 1.3vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .statement_evaluation {
-    border: 0.3vw solid #FFBF00;
+    border: 0.2vw solid #FFBF00;
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 100%;
-    top: 40%;
-    height: 60%;
+    width: 90%;
+    top: 75%;
+    left: 50%;
+    height: 50%;
     margin: 0;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     position: absolute;
     text-align: left;
-    font-size: 1.3vw;
+    font-size: 1.2vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
     overflow: hidden;
 }
-
 .statement_evaluation_slider {
     background-color: #1C1C1C;
     width: 50%;
@@ -536,47 +507,40 @@ h2 {
     position: absolute;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .statement_evaluation_plausibility {
     position: absolute;
 }
-
 .statement_evaluation_detailedness {
-    border-left: 0.3vw solid #FFBF00;
+    /*border-left: 0.3vw solid #FFBF00;*/
     position: absolute;
     left: 50%;
 }
-
 .statement_evaluation_syntactic_accuracy {
-    border-right: 0.3vw solid #FFBF00;
-    border-top: 0.3vw solid #FFBF00;
+    /*border-right: 0.3vw solid #FFBF00;*/
+    /*border-top: 0.3vw solid #FFBF00;*/
     position: absolute;
     top: 33%;
 }
-
 .statement_evaluation_readability {
-    border-top: 0.3vw solid #FFBF00;
-    border-left: 0.3vw solid #FFBF00;
+    /*border-top: 0.3vw solid #FFBF00;*/
+    /*border-left: 0.3vw solid #FFBF00;*/
     position: absolute;
     top: 33%;
     left: 50%;
 }
-
 .statement_evaluation_meaningfulness {
-    border-right: 0.3vw solid #FFBF00;
-    border-top: 0.3vw solid #FFBF00;
+    /*border-right: 0.3vw solid #FFBF00;*/
+    /*border-top: 0.3vw solid #FFBF00;*/
     position: absolute;
     top: 66%;
 }
-
 .statement_evaluation_quality {
-    border-top: 0.3vw solid #FFBF00;
-    border-left: 0.3vw solid #FFBF00;
+    /*border-top: 0.3vw solid #FFBF00;*/
+    /*border-left: 0.3vw solid #FFBF00;*/
     position: absolute;
     top: 66%;
     left: 50%;
 }
-
 #show_example_validation, #well_done {
     border: 0.3vw solid #FFBF00;
     overflow: hidden;
@@ -595,12 +559,11 @@ h2 {
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .question_definition {
     border-bottom: 0.3vw solid #FFBF00;
     overflow: hidden;
     background-color: #1C1C1C;
-    width: 96%;
+    width: 90%;
     height: 35%;
     top: 12%;
     padding-left: 2%;
@@ -609,9 +572,9 @@ h2 {
     position: absolute;
     text-align: left;
     font-size: 1.8vw;
+    font-weight: bold;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .question_option {
     border-top: 0.3vw solid #FFBF00;
     overflow: hidden;
@@ -624,7 +587,6 @@ h2 {
     font-size: 1.5vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 .question_option_text {
     background-color: #1C1C1C;
     padding-left: 2%;
@@ -636,9 +598,7 @@ h2 {
     position: absolute;
     display: flex;
     align-items: center;
-
 }
-
 .question_option_checkbox {
     border-left: 0.3vw solid #FFBF00;
     width: 20%;
@@ -649,7 +609,6 @@ h2 {
     align-items: center;
     justify-content: center;
 }
-
 .special_question {
     border: 0.3vw solid #FFBF00;
     overflow: hidden;
@@ -668,11 +627,14 @@ h2 {
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
-
 input[type=checkbox] {
-    -ms-transform: scale(2); /* IE */
-    -moz-transform: scale(2); /* FF */
-    -webkit-transform: scale(2); /* Safari and Chrome */
-    -o-transform: scale(2); /* Opera */
+    -ms-transform: scale(2);
+    /* IE */
+    -moz-transform: scale(2);
+    /* FF */
+    -webkit-transform: scale(2);
+    /* Safari and Chrome */
+    -o-transform: scale(2);
+    /* Opera */
     padding: 10px;
 }
