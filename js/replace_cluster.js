@@ -3,7 +3,16 @@ var additional_male_names = require('../lexicon/male.js');
 var additional_female_names = require('../lexicon/female.js');
 var Replacer = null;
 
-//var string_input = "My boyfriend and I spent our last summer holiday in Italy, Montenegro and Croatia. We arrived at the 23rd of July in Bari, Italy, and stayed there for three days. The city is beautiful: it has a really old center, and there are small bakeries and restaurants at every corner of the street. Located close to Bari (only 1 hour by train) is Monopoli, a small, white-stoned town built on cliffs overlooking the Mediterranean Sea. It has a lot of small beaches where families gather to fight each other over one of the scarce spots to enjoy the sun and the waves. After Italy, we took an enormous ferry to Montenegro, and stayed there for one week. We started in Kotor, a medieval town next to the Adriatic Sea, and drove all around the country, from the mountains in the north at the Durmitor National Park, to Lake Skadar in the south. Finally, we went to Pasman island in Croatia, and also visited Zadar, one of the oldest cities in Croatia with an intriguing sea organ that produces really spooky music.";
+
+var string_input = "Brad Pitt is to miss a premiere of his latest film to focus on his \"family situation\", he has said. " +
+    "The actor has been the focus of press attention since it was revealed that Angelina Jolie has applied for divorce. " +
+    "He narrated director Terrence Malick's epic documentary Voyage of Time, about the birth of the Universe. " +
+    "He said he did not want his presence at the California Science Centre Imax Theatre in Los Angeles on Wednesday to \"distract attention\" from the film. " +
+    "In a statement, Pitt said: \"Terrence's Voyage of Time is an incredibly beautiful and unique experiential Imax film for children and families chronicling the birth of time. " +
+    "\"I'm very grateful to be part of such a fascinating and educational project, but I'm currently focused on my family situation and don't want to distract attention away from this extraordinary film, which I encourage everyone to see.\" " +
+    "Cate Blanchett has narrated a different feature-length version of the film. Pitt, 52, previously appeared in Malick's 2011 film Tree of Life. " +
+    "Jolie, 41, has filed for divorce citing irreconcilable differences and asked for physical custody of their six children. " +
+    " The couple married in 2014 after 10 years together. Jolie's lawyer Robert Offer said the actress had filed for the dissolution of the marriage \"for the health of the family\".";
 
 replace_combined(string_input);
 

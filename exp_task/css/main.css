@@ -434,11 +434,12 @@ h2 {
     transform: translate(-50%, -50%);
 }
 
-.stretch_it{
+.stretch_it {
     white-space: nowrap;
 }
-.justify{
-    text-align:justify;
+
+.justify {
+    text-align: justify;
 }
 
 .permanent_instr {
@@ -469,14 +470,14 @@ h2 {
     border: 0.3vw solid #FFBF00;
     background-color: #1C1C1C;
     overflow: hidden;
-    height: 70%;
-    width: 60%;
+    height: 90%;
+    width: 80%;
     margin: 0;
     position: absolute;
     text-align: left;
     font-size: 1.3vw;
     top: 50%;
-    left: 50%;
+    left: 42%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
@@ -493,14 +494,16 @@ h2 {
     text-align: left;
     font-size: 3vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .statement_content {
-    overflow: hidden;
+    overflow: scroll;
     background-color: #1C1C1C;
     width: 96%;
-    height: 53%;
+    height: 28%;
     top: 12%;
     padding-left: 2%;
     padding-right: 2%;
@@ -512,12 +515,12 @@ h2 {
 }
 
 .statement_evaluation {
-    border-top: 0.3vw solid #FFBF00;
+    border: 0.3vw solid #FFBF00;
     overflow: scroll;
     background-color: #1C1C1C;
     width: 100%;
-    top: 65%;
-    height: 35%;
+    top: 40%;
+    height: 60%;
     margin: 0;
     position: absolute;
     text-align: left;
@@ -529,14 +532,48 @@ h2 {
 .statement_evaluation_slider {
     background-color: #1C1C1C;
     width: 50%;
-    height: 100%;
+    height: 33%;
     position: absolute;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+}
+
+.statement_evaluation_plausibility {
+    position: absolute;
 }
 
 .statement_evaluation_detailedness {
     border-left: 0.3vw solid #FFBF00;
     position: absolute;
+    left: 50%;
+}
+
+.statement_evaluation_syntactic_accuracy {
+    border-right: 0.3vw solid #FFBF00;
+    border-top: 0.3vw solid #FFBF00;
+    position: absolute;
+    top: 33%;
+}
+
+.statement_evaluation_readability {
+    border-top: 0.3vw solid #FFBF00;
+    border-left: 0.3vw solid #FFBF00;
+    position: absolute;
+    top: 33%;
+    left: 50%;
+}
+
+.statement_evaluation_meaningfulness {
+    border-right: 0.3vw solid #FFBF00;
+    border-top: 0.3vw solid #FFBF00;
+    position: absolute;
+    top: 66%;
+}
+
+.statement_evaluation_quality {
+    border-top: 0.3vw solid #FFBF00;
+    border-left: 0.3vw solid #FFBF00;
+    position: absolute;
+    top: 66%;
     left: 50%;
 }
 
@@ -564,14 +601,14 @@ h2 {
     overflow: hidden;
     background-color: #1C1C1C;
     width: 96%;
-    height: 25%;
+    height: 35%;
     top: 12%;
     padding-left: 2%;
     padding-right: 2%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.3vw;
+    font-size: 1.8vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 
@@ -580,11 +617,11 @@ h2 {
     overflow: hidden;
     background-color: #1C1C1C;
     width: 100%;
-    height: 16%;
+    height: 14%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.3vw;
+    font-size: 1.5vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 
@@ -592,10 +629,14 @@ h2 {
     background-color: #1C1C1C;
     padding-left: 2%;
     padding-right: 2%;
+    font-size: 2vw;
     margin: 0;
     width: 79%;
     height: 100%;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .question_option_checkbox {
@@ -604,4 +645,34 @@ h2 {
     left: 80%;
     height: 100%;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.special_question {
+    border: 0.3vw solid #FFBF00;
+    overflow: hidden;
+    background-color: #1C1C1C;
+    overflow-x: hidden;
+    max-height: 50%;
+    width: 60%;
+    padding: 1%;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    font-size: 2.5vw;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+}
+
+input[type=checkbox] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
 }

@@ -1,12 +1,7 @@
-Statements
-1 -> CV
-2 -> Holiday
-3 -> Work atmosphere
-4 -> Top travel destinations
 
-Types
-0 -> original
-1 -> anonymised
+Wikipedia = 0,
+World News = 1,
+Travel = 2,
+Bullshit = 3
 
-Statements added:
-Malouke (1/2) high/high
+type: 0 original 1 anonymised

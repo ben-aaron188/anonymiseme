@@ -41,7 +41,7 @@ NER.as_set = function (entities) {
     var locations = entities['LOCATION'];
     var organizations = entities['ORGANIZATION'];
 
-    if (organizations) {
+    if (organizations && locations) {
         for (var i = 0; i < organizations.length; i++) {
             var index = locations.indexOf(organizations[i]);
 
@@ -123,12 +123,13 @@ NER.replace_entities = function (entities, file) {
         }
 
         for (var property in entities) {
+            if (entities[property]) {
+                for (var i = 0; i < entities[property].length; i++) {
+                    var entity = entities[property][i];
+                    var replacement = _Replacer().ext_get_replacement(property, entity);
 
-            for (var i = 0; i < entities[property].length; i++) {
-                var entity = entities[property][i];
-                var replacement = _Replacer().ext_get_replacement(property, entity);
-
-                data = data.replace(entity, replacement);
+                    data = data.replace(entity, replacement);
+                }
             }
         }
 

@@ -117,13 +117,17 @@ function check_slider(classname) {
     }
 }
 
-function get_content(category) {
+function get_content(category, callback) {
     var index = Math.floor(Math.random() * data_statements.length);
     var statement = data_statements[index];
+    
     if (statement.category != category) {
-        return get_content(category);
+        get_content(category, callback);
+    } else {
+        callback(statement);
     }
-    return statement;
+
+
 }
 
 function get_unid(val_score) {
