@@ -631,12 +631,12 @@ h2 {
     padding-right: 2%;
     font-size: 2vw;
     margin: 0;
-    width: 79%;
+    width: 75%;
     height: 100%;
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
+
 }
 
 .question_option_checkbox {

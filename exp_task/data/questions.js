@@ -1,7 +1,7 @@
 var questions = [
     {
         "question": "<span style=\"font-weight: bold;\">Plausibility</span></br></br>" +
-        "Definition: The coherency of the statement in terms of not containing logical inconsistencies or contradictions.</br>" +
+        "Definition: The coherency of the statement in terms of not containing logical inconsistencies or contradictions.</br></br>" +
         "Question: Which of the below stated examples would score lowest on plausibility according to this definition?",
         "optiona": "what I liked most about Rome was the Eiffel Tower",
         "optionb": "most of my friends are English native speakers",
@@ -11,7 +11,7 @@ var questions = [
     },
     {
         "question": "<span style=\"font-weight: bold;\">Syntactic accuracy</span></br></br>" +
-        "Definition: The words in the statement are put together to form proper phrases, clauses, or sentences (e.g. no missing words).</br>" +
+        "Definition: The words in the statement are put together to form proper phrases, clauses, or sentences (e.g. no missing words).</br></br>" +
         "Question: Which of the below stated examples would score lowest on syntactic accuracy according to this definition?",
         "optiona": "every time I start my laptop it overheats",
         "optionb": "when I first met girl we spend afternoon the park",
@@ -21,7 +21,7 @@ var questions = [
     },
     {
         "question": "<span style=\"font-weight: bold;\">Readability</span></br></br>" +
-        "Definition: The statement is clear and enjoyable to read.</br>" +
+        "Definition: The statement is clear and enjoyable to read.</br></br>" +
         "Question: Which of the below stated examples would score lowest on readability according to this definition?",
         "optiona": "the person that Ben told me would be the one being in charge was not present",
         "optionb": "the view from my hotel room was magnificent",
@@ -31,7 +31,7 @@ var questions = [
     },
     {
         "question": "<span style=\"font-weight: bold;\">Detailedness</span></br></br>" +
-        "Definition: The inclusion of specific descriptions of place, time, persons, objects and events in the statement.</br>" +
+        "Definition: The inclusion of specific descriptions of place, time, persons, objects and events in the statement.</br></br>" +
         "Question: Which of the below stated examples would score lowest on detailedness according to this definition?",
         "optiona": "I’ve waited for the bus from 3pm to 3:15pm until Paul picked me up with his BMW",
         "optionb": "we had dinner with a lot of new people we met”",
@@ -40,7 +40,7 @@ var questions = [
         "answer": "I’ve waited for the bus from 3pm to 3:15pm until Paul picked me up with his BMW"
     },
     {
-        "question": "<span style=\"font-weight: bold;\">Meaningfulness</span></br></br>" +
+        "question": "<span style=\"font-weight: bold;\">Meaningfulness</span></br></br></br>" +
         "Definition: The statement has a clear meaning.</br>" +
         "Question: Which of the below stated examples would score lowest on meaningfulness according to this definition?",
         "optiona": "we are being called to explore the grid itself as an interface between curiosity and synchronicity",
