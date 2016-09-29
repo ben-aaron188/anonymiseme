@@ -81,5 +81,4 @@ function _Replacer() {
     }
 
     return Replacer;
-};
-
+}

@@ -390,18 +390,18 @@ h2 {
     margin: 0;
     position: absolute;
     text-align: center;
-    font-size: 1.4vw;
-    top: 90%;
+    font-size: 1.2vw;
+    top: 95%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     color: Red;
 }
 .slider_io_output_labels {
-    width: 95%;
+    width: 75%;
     margin: 0;
     position: absolute;
-    font-size: 1.1vw;
+    font-size: 0.9vw;
     top: 70%;
     left: 50%;
     margin-right: -50%;
@@ -637,4 +637,10 @@ input[type=checkbox] {
     -o-transform: scale(2);
     /* Opera */
     padding: 10px;
+}
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
 }

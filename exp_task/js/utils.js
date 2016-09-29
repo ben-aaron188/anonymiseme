@@ -120,7 +120,7 @@ function check_slider(classname) {
 function get_content(category, callback) {
     var index = Math.floor(Math.random() * data_statements.length);
     var statement = data_statements[index];
-    
+
     if (statement.category != category) {
         get_content(category, callback);
     } else {
@@ -131,10 +131,15 @@ function get_content(category, callback) {
 }
 
 function get_unid(val_score) {
+    // if (val_score === 0) {
+    //     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
+    // } else {
+    //     unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_X";
+    // }
     if (val_score === 0) {
         unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9);
     } else {
-        unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_X";
+        unid = twoletters() + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + randomdigit(0, 9) + "_" + val_score;
     }
 }
 

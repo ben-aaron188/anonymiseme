@@ -6,6 +6,7 @@ var data_statement3;
 var data_statement4;
 var unid;
 var validation_score = 0;
+var repetition_count = 0;
 
 // task flow
 $(document).ready(function () {
@@ -135,7 +136,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Plausibility</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_plausibility_value" value="4" min="1" max="7" oninput="set_plaus_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="plaus_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '<div class="statement_evaluation_slider statement_evaluation_detailedness" id="statement' + number + '_evaluation_detailedness">' +
@@ -143,7 +144,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Detailedness</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_detailedness_value" value="4" min="1" max="7" oninput="set_vivid_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="vivid_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '<div class="statement_evaluation_slider statement_evaluation_syntactic_accuracy" id="statement' + number + '_evaluation_syntactic_accuracy">' +
@@ -151,7 +152,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Syntactic Accuracy</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_syntactic_accuracy_value" value="4" min="1" max="7" oninput="set_syntactic_accuracy_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="syntactic_accuracy_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '<div class="statement_evaluation_slider statement_evaluation_readability" id="statement' + number + '_evaluation_readability">' +
@@ -159,7 +160,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Readability</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_readability_value" value="4" min="1" max="7" oninput="set_readability_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '<div class="statement_evaluation_slider statement_evaluation_meaningfulness" id="statement' + number + '_evaluation_meaningfulness">' +
@@ -167,7 +168,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Meaningfulness</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_meaningfulness_value" value="4" min="1" max="7" oninput="set_meaningfulness_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="meaningfulness_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '<div class="statement_evaluation_slider statement_evaluation_quality" id="statement' + number + '_evaluation_quality">' +
@@ -175,7 +176,7 @@ function add_statement(number, content) {
             '<span id="slider_instr">Overall Text Quality</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_evaluation_quality_value" value="4" min="1" max="7" oninput="set_quality_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="quality_output_' + number + '">move the slider</output> ' +
-            '<div class="slider_io_output_labels stretch">(low) 1 - 2 - 3 - 4 - 5 - 6 - 7 (high)</div> ' +
+            '<div class="slider_io_output_labels stretch">(low) - - - - (high)</div> ' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -262,6 +263,7 @@ function manage_questions() {
                 }
             } else {
                 alert("Wrong answer! You have to repeat the task.");
+                repetition_count++;
                 reset_task();
             }
         }
@@ -303,7 +305,7 @@ function reset_task() {
 }
 
 function to_main_statements() {
-    get_unid(validation_score);
+    get_unid(repetition_count);
 
     to_statement1();
 }
@@ -324,6 +326,7 @@ function to_statement2() {
     if (check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement1,
+            statementid: data_statement1.id,
             evaluation: {
                 plausibility: $("#statement1_evaluation_plausibility_value").val(),
                 detailedness: $("#statement1_evaluation_detailedness_value").val(),
@@ -350,6 +353,7 @@ function to_statement3() {
     if (check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement2,
+            statementid: data_statement2.id,
             evaluation: {
                 plausibility: $("#statement2_evaluation_plausibility_value").val(),
                 detailedness: $("#statement2_evaluation_detailedness_value").val(),
@@ -376,6 +380,7 @@ function to_statement4() {
     if (check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement3,
+            statementid: data_statement3.id,
             evaluation: {
                 plausibility: $("#statement3_evaluation_plausibility_value").val(),
                 detailedness: $("#statement3_evaluation_detailedness_value").val(),
@@ -402,6 +407,7 @@ function to_transition() {
     if (check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement4,
+            statementid: data_statement4.id,
             evaluation: {
                 plausibility: $("#statement4_evaluation_plausibility_value").val(),
                 detailedness: $("#statement4_evaluation_detailedness_value").val(),
@@ -449,6 +455,7 @@ function get_data() {
     data.browserversion = $.browser.version;
     data.ts_time = moment().format('LTS');
     data.ts_date = moment().format('l');
+    data.unid = unid;
     data.unidin = $("#unidin").val();
     data.crowdf = $("#crowdf").val();
     data.gender = $("#gender_sel").val();
@@ -461,6 +468,7 @@ function get_data() {
 
     data.statement1_category = data_array[0].content.category;
     data.statement1_content = data_array[0].content.content;
+    data.statement1_id = data_array[0].content.id;
     data.statement1_type = data_array[0].content.type;
     data.statement1_eval_plausibility = data_array[0].evaluation.plausibility;
     data.statement1_eval_detailedness = data_array[0].evaluation.detailedness;
@@ -474,6 +482,7 @@ function get_data() {
 
     data.statement2_category = data_array[1].content.category;
     data.statement2_content = data_array[1].content.content;
+    data.statement2_id = data_array[1].content.id;
     data.statement2_type = data_array[1].content.type;
     data.statement2_eval_plausibility = data_array[1].evaluation.plausibility;
     data.statement2_eval_detailedness = data_array[1].evaluation.detailedness;
@@ -487,6 +496,7 @@ function get_data() {
 
     data.statement3_category = data_array[2].content.category;
     data.statement3_content = data_array[2].content.content;
+    data.statement3_id = data_array[2].content.id;
     data.statement3_type = data_array[2].content.type;
     data.statement3_eval_plausibility = data_array[2].evaluation.plausibility;
     data.statement3_eval_detailedness = data_array[2].evaluation.detailedness;
@@ -500,6 +510,7 @@ function get_data() {
 
     data.statement4_category = data_array[3].content.category;
     data.statement4_content = data_array[3].content.content;
+    data.statement4_id = data_array[3].content.id;
     data.statement4_type = data_array[3].content.type;
     data.statement4_eval_plausibility = data_array[3].evaluation.plausibility;
     data.statement4_eval_detailedness = data_array[3].evaluation.detailedness;
