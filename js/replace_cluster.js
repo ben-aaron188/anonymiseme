@@ -3,17 +3,7 @@ var additional_male_names = require('../lexicon/male.js');
 var additional_female_names = require('../lexicon/female.js');
 var Replacer = null;
 
-
-var string_input = "Brad Pitt is to miss a premiere of his latest film to focus on his \"family situation\", he has said. " +
-    "The actor has been the focus of press attention since it was revealed that Angelina Jolie has applied for divorce. " +
-    "He narrated director Terrence Malick's epic documentary Voyage of Time, about the birth of the Universe. " +
-    "He said he did not want his presence at the California Science Centre Imax Theatre in Los Angeles on Wednesday to \"distract attention\" from the film. " +
-    "In a statement, Pitt said: \"Terrence's Voyage of Time is an incredibly beautiful and unique experiential Imax film for children and families chronicling the birth of time. " +
-    "\"I'm very grateful to be part of such a fascinating and educational project, but I'm currently focused on my family situation and don't want to distract attention away from this extraordinary film, which I encourage everyone to see.\" " +
-    "Cate Blanchett has narrated a different feature-length version of the film. Pitt, 52, previously appeared in Malick's 2011 film Tree of Life. " +
-    "Jolie, 41, has filed for divorce citing irreconcilable differences and asked for physical custody of their six children. " +
-    " The couple married in 2014 after 10 years together. Jolie's lawyer Robert Offer said the actress had filed for the dissolution of the marriage \"for the health of the family\".";
-
+var string_input = "I visited Mexico and then I visited Mexico.";
 replace_combined(string_input);
 
 function replace_combined(string_input) {

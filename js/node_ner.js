@@ -127,8 +127,8 @@ NER.replace_entities = function (entities, file) {
                 for (var i = 0; i < entities[property].length; i++) {
                     var entity = entities[property][i];
                     var replacement = _Replacer().ext_get_replacement(property, entity);
-
-                    data = data.replace(entity, replacement);
+                    
+                    data = data.replace(new RegExp(entity, 'g'), replacement);
                 }
             }
         }
