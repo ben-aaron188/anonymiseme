@@ -1,7 +1,8 @@
 
-Wikipedia = 0,
-World News = 1,
-Travel = 2,
-Bullshit = 3
+person = 0,
+city = 1
 
-type: 0 original 1 anonymised
+type:
+0 = original
+1 = anonymised_own
+2 = anonymised_ukda

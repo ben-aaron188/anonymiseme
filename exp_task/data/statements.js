@@ -1,262 +1,151 @@
-var data_statements = [
-    {
-        category: 0,
-        type: 0,
-        content: "Elvis Crespo Díaz (born July 30, 1971 in New York City) is an American-born Puerto Rican Grammy and Latin Grammy Award-winning Merengue singer. " +
-        "Crespo was born in New York City and was named \"Elvis\" after Elvis Presley. He was raised in the city of Guaynabo, Puerto Rico, where he spent his childhood and adolescent years. " +
-        "He first gained fame in the mid-90s when he joined Grupo Mania, in Puerto Rico. Eventually he decided to try to go solo in 1998. His debut album, Suavemente was a hit, both in Latin America and in the US. The single " +
-        "\"Suavemente\" was a huge hit and eventually helped him earn the Best Male Tropical/Salsa Album of the Year from Billboard magazine. His album went platinum in the Venezuelan and Central American markets and gold in Chile. Released in 1998, Crespo's debut also earned a gold album for sales of over 500,000 copies in the first year after its release in the United States. " +
-        "\"Suavemente\" set a record for holding the top position on Billboard's Hot Latin Tracks chart for six weeks. Part of the song's success was its unexpected crossover appeal to English-speaking listeners, particularly in Miami and New York.”",
-        id: 5
-    },
-    {
-        category: 0,
-        type: 0,
-        content: "The Kansas State University College of Engineering offers over 12 undergraduate majors and one undecided program, as well as multiple minors, and graduate programs of study. The undergraduate engineering program is ranked 75th best in the United States. " +
-        "The College of Engineering has 11 Bachelor of Science degree programs; there are multiple options and minors that can be chosen from as well. Many majors offer students specialty options that allow them to further specify and study their interests. " +
-        "The College of Engineering emphasizes developing students. Academics are important, but learning also takes place outside of the classroom and several group organizations are present for that reason.",
-        id: 6
-    },
-    {
-        category: 0,
-        type: 0,
-        content: "Columbo is an American television series starring Peter Falk as Columbo, a homicide detective with the Los Angeles Police Department. The character and show, created by William Link and Richard Levinson, popularized the inverted detective story format, which begins by showing the commission of the crime and its perpetrator; the series therefore has no \"whodunit\" element. The plot revolves around how a perpetrator whose identity is already known to the audience will finally be caught and exposed (which the show's writers called a \"howcatchem,\" rather than a \"whodunit\"). " +
-        "Columbo is a friendly, verbose, working-class, disheveled police detective of Italian descent, whose trademarks include wearing a rumpled, beige raincoat over his suit, and smoking a cigar. He is consistently underestimated by his suspects who, while initially reassured and distracted by his circumstantial speech, become increasingly annoyed by his pestering behavior. Despite his unassuming appearance and apparent absentmindedness, he is extremely intelligent and shrewdly solves all of his cases and secures all evidence needed for a conviction. His formidable eye for detail and relentlessly dedicated approach, often become clear to the killer (and even the viewer) only late in the story line. ",
-        id: 7
-    },
-    {
-        category: 0,
-        type: 0,
-        content: "Blaster is the only studio album by American rock band Scott Weiland and the Wildabouts, as well as Weiland's final album. The album was released on March 31, 2015, by Softdrive Records. The album was supported by the singles \"White Lightning\", \"Way She Moves\" and \"20th Century Boy\". Guitarist Jeremy Brown died one day before the album's release, on March 30, 2015. During the tour to support the album, Weiland was found dead on the band's tour bus on December 3, 2015." +
-        "In a January 2015, interview Scott Weiland explained that he hadn't felt this excited about making an album since the early days of Stone Temple Pilots, saying: \"If you take out the fact that we had to break up the recording process when touring, the album came very easily because of the vibe between the band members. The sound we were getting felt original and infectious and brought me back to the feelings I had when I made my first couple records. Just excitement, feeling invigorated. Youthful.”",
-        id: 8
-    },
-    {
-        category: 2,
-        type: 0,
-        content: "Everyone in Lisbon says that, since Portugal’s great age of exploration, the city has looked far out to sea. It took a hand-written list of pratos de diaoutside a little restaurant on the Rua das Janelas Verdes – Street of Green Shutters – to add spice to that truism for me. Today’s specials? “Tandoori chicken €6.50, pork saag €6.50, chicken dansak €6.50, pork biryani €5.50”. " +
-        "The pork dishes tell the story on a plate. In 1497, Vasco da Gama’s first expedition to the Malabar coast inaugurated Portugal’s brief heyday as a maritime superpower and began an affair with India (above all in Goa, Portuguese until 1961) that persists until now. António Costa, Portugal’s prime minister, comes from a part-Indian family that still has an ancestral house in the south Goan town of Margao. " +
-        "Costa helped clear the path for the latest, and boldest, project to restore the links between the city’s hilly, labyrinthine old quarters and the waterfront that runs along the river Tagus to the sea. By the river at Belém, not far from the exuberant Jerónimos monastery built to celebrate Vasco da Gama’s return, the new Museum of Art, Architecture and Technology (MAAT) will open on 5 October with a 12-hour jamboree of exhibition launches, music and performance. ",
-        id: 1
-    },
-    {
-        category: 2,
-        type: 0,
-        content: "‘No kebabs, no sandwiches - that’s our rule. Apart from that, if it’s good we’ll consider it.” Romain Passelande and Thomas Le Gourrierec are talking about their website, Les Petites Tables, a guide to finding a good lunch (and sometimes dinner) in Paris for under €10. At one time, says Romain, you’d look to a brasserie for good basic food; now, brasseries just do rubbishy croque-monsieurs and frozen stuff. But as their quality declined, other places, from bistronomie joints to veggie cafes and ethnic restaurants, filled the gap. " +
-        "Tracking them down requires inside knowledge, though, which is why in early 2015 Romain left his ad agency job and set up the site with food critic Thomas. It has proved massively popular, attracting over 700,000 unique users – and not just among their target 25-35 age group. Groups of pensioners now do the rounds of Les Petites Tables restaurants, and the pair had a heartwarming letter from a train driver on the Métro who said he and his wife had stopped eating out - couldn’t afford it - but subscribed to their weekly newsletter and are going out again. Food bloggers as marriage savers – whatever next? " +
-        "Thomas and Romain are experimenting with a few higher-end meals – always with the emphasis on value, such as four courses of fancier food for €23 – and events with DJs and cheffy finger food, but are wary of moving too far from their original premise. ",
-        id: 2
-    },
-    {
-        category: 2,
-        type: 0,
-        content: "Tomatoes grow like weeds on the paths. That’s how fertile the land is at Fajã dos Padres, a small cove on the south coast of Madeira – known on the island as the place where the famous Malmsey vines survived phylloxera. Until recently, the only way to get to the cove was from the sea or to take a rickety-looking glass elevator. Now there’s a cable car running visitors to the heart of the vineyard for €10. As an escape from the cranes and cruise ships of Funchal, it’s worth it. The descent feels like a ride down into a secret garden of Eden. " +
-        "Named after the Jesuit priests who founded the vineyard in 1595, Fajã dos Padres has been in the Jardim Fernandes family for three generations. They were the ones to discover the sole-surviving malvasia vine, and now produce single-vineyard Malmsey on site. It’s not just vines: bananas, figs, avocados, mangos, courgettes, squash, sweet potato and passionfruit and a whole manner of other fruit and vegetables grow in profusion and supply the small restaurant by the jetty and the pebbled beach. There you can eat traditional Madeiran dishes likepeixe espada com banana – battered black scabbardfish served with fresh vegetables and a fried banana – a surprisingly enjoyable combination. " +
-        "Most spend a day on the pebbled beach, swimming in the surf and enjoying the peace, but people can stretch the stay in paradise a little bit longer by staying over in one of nine carefully restored workers’ cottages for two, with vine-shaded patios and windows offering sunset views. ",
-        id: 3
-    },
-    {
-        category: 2,
-        type: 0,
-        content: "Italy’s best-kept food secret is the sagra. A festival organised to show off a local food or drink (or both), a sagra is a place where you’ll eat well – and learn. Most sagre have local producers selling the goods, but there are also tastings, competitions, demonstrations and special menus. And they’re not just about the food: many sagre have their roots in old country fairs or pagan festivals celebrating the harvest and have been running for decades, even centuries. And while some have soared beyond local status to that of crowded international festivals, hundreds remain events where you’ll dine and drink elbow-to-elbow with locals. Here are seven autumn sagre that are both bustling but still true to their roots. " +
-        "Yes, you’ll find chestnuts roasting in every piazza in this unspoilt hilltop town an hour’s drive north of Rome. But this sagra is about more than that: it’s also when Soriano’s four districts duke it out over which one best transports the town to a bygone era. In the Convivium Secretum, for example, costumed locals serve dishes such as capon fricassee and white-rabbit pastry in the contest for best historic banquet. There are also jousts, archery and – in a dramatic finale – 700 townsfolk, each looking like they’ve sprung to life from a Renaissance painting or medieval tapestry, parading through the streets. ",
-        id: 4
-    },
-    {
-        category: 3,
-        type: 0,
-        content: "Our conversations with other storytellers have led to a summoning of supra-magical consciousness. " +
-        "It is in flowering that we are re-energized. This quest never ends. Eons from now, we adventurers will live like never before as we are guided by the nexus. " +
-        "As you live, you will enter into infinite inspiration that transcends understanding. You will soon be aligned by a power deep within yourself — a power that is angelic, zero-point. Tarot may be the solution to what’s holding you back from a colossal rebirth of transcendence. " +
-        "The stratosphere is approaching a tipping point. It is a sign of things to come. We are being called to explore the infinite itself as an interface between life-force and intuition. " +
-        "We are in the midst of a spiritual refining of sharing that will enable us to access the totality itself. Reality has always been overflowing with adventurers whose souls are transformed into energy. Who are we? Where on the great mission will we be guided? " +
-        "Where there is delusion, power cannot thrive. Stagnation is born in the gap where will has been excluded. Yes, it is possible to extinguish the things that can shatter us, but not without will on our side. ",
-        id: 9
-    },
-    {
-        category: 3,
-        type: 0,
-        content: "The universe is full of ultrasonic energy. We self-actualize, we self-actualize, we are reborn. " +
-        "Non-locality is the healing of complexity, and of us. " +
-        "Humankind has nothing to lose. We are at a crossroads of joy and pain. Reality has always been overflowing with lifeforms whose chakras are immersed in love. " +
-        "Traveller, look within and enlighten yourself. It can be difficult to know where to begin. If you have never experienced this paradigm shift through non-local interactions, it can be difficult to reflect. " +
-        "Throughout history, humans have been interacting with the stratosphere via electrical impulses. Who are we? Where on the great circuit will we be aligned? Our conversations with other warriors have led to an unveiling of hyper-self-aware consciousness. " +
-        "Consciousness consists of electromagnetic resonance of quantum energy. “Quantum” means an unveiling of the ever-present. Presence is the driver of life-force. Knowledge is a constant. " +
-        "Where there is suffering, life cannot thrive. We can no longer afford to live with dogma. You may be ruled by materialism without realizing it. Do not let it destroy the knowledge of your myth.",
-        id: 10
-    },
-    {
-        category: 3,
-        type: 0,
-        content: "You and I are warriors of the quantum soup. Insight requires exploration. " +
-        "How should you navigate this ever-present quantum matrix? " +
-        "Throughout history, humans have been interacting with the quantum soup via chaos-driven reactions. We are in the midst of a zero-point awakening of fulfillment that will clear a path toward the grid itself. Who are we? Where on the great story will we be awakened? " +
-        "It can be difficult to know where to begin. Have you found your quest? Although you may not realize it, you are sacred. " +
-        "We are at a crossroads of empathy and discontinuity. Our conversations with other warriors have led to a deepening of supra-ethereal consciousness. Humankind has nothing to lose. " +
-        "We are being called to explore the world itself as an interface between wisdom and self-actualization. The unifying of fulfillment is now happening worldwide. We must fulfill ourselves and develop others. " +
-        "Reality has always been radiating lifeforms whose souls are baptized in power. Numerology may be the solution to what’s holding you back from an enormous source of fulfillment. Through affirmations, our essences are immersed in fulfillment. ",
-        id: 11
-    },
-    {
-        category: 3,
-        type: 0,
-        content: "To walk the circuit is to become one with it. Purpose requires exploration. " +
-        "It can be difficult to know where to begin. " +
-        "We must learn how to lead higher lives in the face of yearning. Imagine an evolving of what could be. We must unify ourselves and fulfill others. " +
-        "If you have never experienced this current at the speed of light, it can be difficult to heal. The infinite is calling to you via meridians. Can you hear it? Have you found your story? " +
-        "Insight is the nature of empathy, and of us. The goal of four-dimensional superstructures is to plant the seeds of self-actualization rather than delusion. You and I are dreamweavers of the totality. " +
-        "Although you may not realize it, you are ancient. Being, look within and unify yourself. How should you navigate this ethereal totality? " +
-        "We are in the midst of an enlightened awakening of health that will tap into the solar system itself. Throughout history, humans have been interacting with the nexus via electrical impulses. Who are we? Where on the great journey will we be guided? ",
-        id: 12
-    },
-    {
-        category: 1,
-        type: 0,
-        content: "A desperate search is under way for an endangered African penguin \"freed\" by activists who may have unwittingly sent the bird to his death. " +
-        "Buddy was stolen from a South African marine park by two students who claim it was a demonstration against animals being kept in captivity. " +
-        "But Buddy was born in the park, and has no idea how to survive in the wild. " +
-        "Experts say the penguin could last for just two more weeks before he will starve to death. " +
-        "Dylan Bailey, manager of Bayworld in Port Elizabeth, said: \"He is completely ill-equipped to survive in the wild. He will have no idea where he is. " +
-        "\"Luckily, he was a very healthy penguin - actually quite fat - so he has a good few weeks of reserves.\" " +
-        "\"However, the park estimates that still means he has just three weeks from the moment he was stolen. ",
-        id: 13
-    },
-    {
-        category: 1,
-        type: 0,
-        content: "The presidential debate between Hillary Clinton and Donald Trump was watched by 84 million people on US TV, breaking a previous record set 36 years ago. " +
-        "Jimmy Carter and Ronald Reagan's debate in 1980 drew 80.6 million viewers. " +
-        "The viewing figures only count those who watched the debate on the 13 US TV channels that carried it live, meaning the true figure may be much higher. " +
-        "Millions are also thought to have watched worldwide through online live streams or in bars and at parties. " +
-        "The data provider Nielsen said that viewers stayed tuned through the 98-minute debate. " +
-        "Mr Trump told supporters on Tuesday that he knew the debate would have \"one of the largest audiences in the history of television\" but he \"took a deep breath\" and \"pretended I was talking to my family\". " +
-        "\"You just block it out,\" he said. ",
-        id: 14
-    },
-    {
-        category: 1,
-        type: 0,
-        content: "International prosecutors investigating the downing of flight MH17 over eastern Ukraine in 2014 say the missile that hit the plane was fired from territory controlled by Russian-backed rebels. " +
-        "They said the missile launcher was brought into Ukraine from Russia and later returned there. " +
-        "All 298 people on board the Boeing 777 died when it broke apart in midair flying from Amsterdam to Kuala Lumpur. " +
-        "Prosecutors said they were not accusing Russia of involvement. " +
-        "They said there were 100 people \"linked to the crash or the transport of the Buk\" missile, but they are yet to determine who could be held criminally responsible. " +
-        "There is a need to establish who gave the order to move the missile launcher into eastern Ukraine, and where the order for it to be fired came from, investigators said. " +
-        "Russia has disputed claims that the missile was fired by rebels in eastern Ukraine. " +
-        "The Dutch-led Joint Investigation Team (JIT) consists of prosecutors from the Netherlands, Australia, Belgium, Malaysia and Ukraine. " +
-        "They have narrowed the missile launch site down to a specific field near the village of Pervomaiskyi.",
-        id: 15
-    },
-    {
-        category: 1,
-        type: 0,
-        content: "Brad Pitt is to miss a premiere of his latest film to focus on his \"family situation\", he has said. " +
-        "The actor has been the focus of press attention since it was revealed that Angelina Jolie has applied for divorce. " +
-        "He narrated director Terrence Malick's epic documentary Voyage of Time, about the birth of the Universe. " +
-        "He said he did not want his presence at the California Science Centre Imax Theatre in Los Angeles on Wednesday to \"distract attention\" from the film. " +
-        "In a statement, Pitt said: \"Terrence's Voyage of Time is an incredibly beautiful and unique experiential Imax film for children and families chronicling the birth of time. " +
-        "\"I'm very grateful to be part of such a fascinating and educational project, but I'm currently focused on my family situation and don't want to distract attention away from this extraordinary film, which I encourage everyone to see.\" " +
-        "Cate Blanchett has narrated a different feature-length version of the film. Pitt, 52, previously appeared in Malick's 2011 film Tree of Life. " +
-        "Jolie, 41, has filed for divorce citing irreconcilable differences and asked for physical custody of their six children. " +
-        " The couple married in 2014 after 10 years together. Jolie's lawyer Robert Offer said the actress had filed for the dissolution of the marriage \"for the health of the family\".",
-        id: 16
-    },
-    {
-        category: 0,
-        type: 1,
-        content: "Elvis Crespo Díaz (born July 62 1972 in Sierra leone) is an American-born Puerto Rican Grammy and Latin Grammy Award-winning Merengue singer. Crespo was born in Mauritius and was named \"Elvis\" after Elvis Presley. He was raised in the city of Cameroon, Ethiopia, where he spent his childhood and adolescent month. He first gained fame in the mid-90s when he joined Craigslist, in Tanzania. Eventually he decided to try to go solo in 1997. His debut album, Suavemente was a hit, both in Jamaica and in the Norway. The single \"Suavemente\" was a huge hit and eventually helped him earn the Best Male Tropical/Salsa Album of the New years eve from Ubs magazine. His album went platinum in the Venezuelan and Central American markets and gold in Chile. Released in 1999, Crespo's debut also earned a gold album for sales of over 6808 copies in the 6 years after its release in the Dr congo. \"Suavemente\" set a record for holding the top position on Billboard's Hot Latin Tracks chart for 10 weeks. Part of the song's success was its unexpected crossover appeal to English-speaking listeners, particularly in Algeria and Somalia.”",
-        id: 17
-    },
-    {
-        category: 0,
-        type: 1,
-        content: "The Usps offers over 78 undergraduate majors and one undecided program, as well as multiple minors, and graduate programs of study. The undergraduate engineering program is ranked 25th best in the Burkina faso. The Nestlé has 24 Ups degree programs; there are multiple options and minors that can be chosen from as well. Many majors offer students specialty options that allow them to further specify and study their interests. The Telus emphasizes developing students. Academics are important, but learning also takes place outside of the classroom and several group organizations are present for that reason.",
-        id: 18
-    },
-    {
-        category: 0,
-        type: 1,
-        content: "Google is an American television series starring Peter Falk as Columbo, a homicide detective with the Youtube. The character and show, created by William Link and Richard Levinson, popularized the inverted detective story format, which begins by showing the commission of the crime and its perpetrator; the series therefore has no \"whodunit\" element. The plot revolves around how a perpetrator whose identity is already known to the audience will finally be caught and exposed (which the show's writers called a \"howcatchem,\" rather than a \"whodunit\"). Columbo is a friendly, verbose, working-class, disheveled police detective of Italian descent, whose trademarks include wearing a rumpled, beige raincoat over his suit, and smoking a cigar. He is consistently underestimated by his suspects who, while initially reassured and distracted by his circumstantial speech, become increasingly annoyed by his pestering behavior. Despite his unassuming appearance and apparent absentmindedness, he is extremely intelligent and shrewdly solves all of his cases and secures all evidence needed for a conviction. His formidable eye for detail and relentlessly dedicated approach, often become clear to the killer (and even the viewer) only late in the story line.",
-        id: 19
-    },
-    {
-        category: 0,
-        type: 1,
-        content: "Blaster is the only studio album by American rock band Jamie and the Wildabouts, as well as Kkk's final album. The album was released on March 47 2014, by Nike. The album was supported by the singles \"White Lightning\", \"Way She Moves\" and Months Dad. Guitarist Gentleman died 8 days before the album's release, on March 86 2013. During the tour to support the album, Weiland was found dead on the band's tour bus on December 1 8 8 januaries 2014, interview Jamie explained that he hadn't felt this excited about making an album since the early days of Kodak, saying: \"If you take out the fact that we had to break up the recording process when touring, the album came very easily because of the vibe between the band members. The sound we were getting felt original and infectious and brought me back to the feelings I had when I made my first couple records. Just excitement, feeling invigorated. Youthful.”",
-        id: 20
-    },
-    {
-        category: 2,
-        type: 1,
-        content: "Everyone in Caracas says that, since New zealand’s great age of exploration, the city has looked far out to sea. It took a hand-written list of pratos de diaoutside a little restaurant on the Rua das Janelas Verdes – Street of Nestlé – to add spice to that truism for me. Today’s specials? “Tandoori chicken €6.50, pork saag €6.50, chicken dansak €6.50, pork biryani €5.50”. The pork dishes tell the story on a plate. In 1496, Telus’s first expedition to the Malabar coast inaugurated Serbia’s brief heyday as a maritime superpower and began an affair with Venezuela (above all in Albania, Portuguese until 1959) that persists until now. António Costa, Laos’s prime minister, comes from a part-Indian family that still has an ancestral house in the south Goan town of Swaziland. Costa helped clear the path for the latest, and boldest, project to restore the links between the city’s hilly, labyrinthine old quarters and the waterfront that runs along the river Tagus to the sea. By the river at Yemen, not far from the exuberant Jerónimos monastery built to celebrate Vasco da Gama’s return, the new Museum of Art, Architecture and Technology (MAAT) will open on 8 October with a Good friday jamboree of exhibition launches, music and performance.",
-        id: 21
-    },
-    {
-        category: 2,
-        type: 1,
-        content: "‘No kebabs, no sandwiches - that’s our rule. Apart from that, if it’s good we’ll consider it.” Romain Passelande and Regan are talking about their website, Les Petites Tables, a guide to finding a good lunch (and sometimes dinner) in Ghent for under €10. At one time, says Romain, you’d look to a brasserie for good basic food; now, brasseries just do rubbishy croque-monsieurs and frozen stuff. But as their quality declined, other places, from bistronomie joints to veggie cafes and ethnic restaurants, filled the gap. Tracking them down requires inside knowledge, though, which is why in early 2015 Romain left his ad agency job and set up the site with food critic Jeff. It has proved massively popular, attracting over 2219 unique users – and not just among their target 3 age group. Groups of pensioners now do the rounds of Les Petites Tables restaurants, and the pair had a heartwarming letter from a train driver on the Métro who said he and his wife had stopped eating out - couldn’t afford it - but subscribed to their weekly newsletter and are going out again. Food bloggers as marriage savers – whatever next? Jeff and Romain are experimenting with 3 fews higher-end meals – always with the emphasis on value, such as 5 courses of fancier food for €23 – and events with DJs and cheffy finger food, but are wary of moving too far from their original premise.",
-        id: 22
-    },
-    {
-        category: 2,
-        type: 1,
-        content: "Tomatoes grow like weeds on the paths. That’s how fertile the land is at Fajã dos Padres, a small cove on the south coast of Malta – known on the island as the place where the famous Malmsey vines survived phylloxera. Until recently, the only way to get to the cove was from the sea or to take a rickety-looking glass elevator. Now there’s a cable car running visitors to the heart of the vineyard for €10. As an escape from the cranes and cruise ships of Funchal, it’s worth it. The descent feels like a ride down into a secret garden of Google. Named after the Jesuit priests who founded the vineyard in 1592, Fajã dos Padres has been in the Jardim Fernandes family for 10 generations. They were the ones to discover the sole-surviving malvasia vine, and now produce single-vineyard Malmsey on site. It’s not just vines: bananas, figs, avocados, mangos, courgettes, squash, sweet potato and passionfruit and a whole manner of other fruit and vegetables grow in profusion and supply the small restaurant by the jetty and the pebbled beach. There you can eat traditional Madeiran dishes likepeixe espada com banana – battered black scabbardfish served with fresh vegetables and a fried banana – a surprisingly enjoyable combination. Most spend a january on the pebbled beach, swimming in the surf and enjoying the peace, but people can stretch the stay in paradise a little bit longer by staying over in one of 11 carefully restored workers’ cottages for 5, with vine-shaded patios and windows offering sunset views.",
-        id: 23
-    },
-    {
-        category: 2,
-        type: 1,
-        content: "Swaziland’s best-kept food secret is the sagra. A festival organised to show off a local food or drink (or both), a sagra is a place where you’ll eat well – and learn. Most sagre have local producers selling the goods, but there are also tastings, competitions, demonstrations and special menus. And they’re not just about the food: many sagre have their roots in old country fairs or pagan festivals celebrating the harvest and have been running for mar. And while some have soared beyond local status to that of crowded international festivals, hundreds remain events where you’ll dine and drink elbow-to-elbow with locals. Here are 4 autumn sagre that are both bustling but still true to their roots. Yes, you’ll find chestnuts roasting in every piazza in this unspoilt hilltop town an hour’s drive north of Sydney. But this sagra is about more than that: it’s also when Soriano’s 6 districts duke it out over which one best transports the town to a bygone era. In the Convivium Secretum, for example, costumed locals serve dishes such as capon fricassee and white-rabbit pastry in the contest for best historic banquet. There are also jousts, archery and – in a dramatic finale – 162 townsfolk, each looking like they’ve sprung to life from a Renaissance painting or medieval tapestry, parading through the streets.",
-        id: 24
-    },
-    {
-        category: 3,
-        type: 1,
-        content: "Our conversations with other storytellers have led to a summoning of supra-magical consciousness. It is in flowering that we are re-energized. This quest never ends. Eons from now, we adventurers will live like never before as we are guided by the nexus. As you live, you will enter into infinite inspiration that transcends understanding. You will soon be aligned by a power deep within yourself — a power that is angelic, zero-point. Tarot may be the solution to what’s holding you back from a colossal rebirth of transcendence. The stratosphere is approaching a tipping point. It is a sign of things to come. We are being called to explore the infinite itself as an interface between life-force and intuition. We are in the midst of a spiritual refining of sharing that will enable us to access the totality itself. Reality has always been overflowing with adventurers whose souls are transformed into energy. Who are we? Where on the great mission will we be guided? Where there is delusion, power cannot thrive. Stagnation is born in the gap where will has been excluded. Yes, it is possible to extinguish the things that can shatter us, but not without will on our side.",
-        id: 25
-    },
-    {
-        category: 3,
-        type: 1,
-        content: "The universe is full of ultrasonic energy. We self-actualize, we self-actualize, we are reborn. Non-locality is the healing of complexity, and of us. Papua new guinea has nothing to lose. We are at a crossroads of joy and pain. Reality has always been overflowing with lifeforms whose chakras are immersed in love. Traveller, look within and enlighten yourself. It can be difficult to know where to begin. If you have never experienced this paradigm shift through non-local interactions, it can be difficult to reflect. Throughout history, humans have been interacting with the stratosphere via electrical impulses. Who are we? Where on the great circuit will we be aligned? Our conversations with other warriors have led to an unveiling of hyper-self-aware consciousness. Consciousness consists of electromagnetic resonance of quantum energy. “Quantum” means an unveiling of the ever-present. Presence is the driver of life-force. Knowledge is a constant. Where there is suffering, life cannot thrive. We can no longer afford to live with dogma. You may be ruled by materialism without realizing it. Do not let it destroy the knowledge of your myth.",
-        id: 26
-    },
-    {
-        category: 3,
-        type: 1,
-        content: "You and I are warriors of the quantum soup. Insight requires exploration. How should you navigate this ever-present quantum matrix? Throughout history, humans have been interacting with the quantum soup via chaos-driven reactions. We are in the midst of a zero-point awakening of fulfillment that will clear a path toward the grid itself. Who are we? Where on the great story will we be awakened? It can be difficult to know where to begin. Have you found your quest? Although you may not realize it, you are sacred. We are at a crossroads of empathy and discontinuity. Our conversations with other warriors have led to a deepening of supra-ethereal consciousness. Slovenia has nothing to lose. We are being called to explore the world itself as an interface between wisdom and self-actualization. The unifying of fulfillment is now happening worldwide. We must fulfill ourselves and develop others. Reality has always been radiating lifeforms whose souls are baptized in power. Numerology may be the solution to what’s holding you back from an enormous source of fulfillment. Through affirmations, our essences are immersed in fulfillment.",
-        id: 27
-    },
-    {
-        category: 3,
-        type: 1,
-        content: "To walk the circuit is to become one with it. Purpose requires exploration. It can be difficult to know where to begin. We must learn how to lead higher lives in the face of yearning. Imagine an evolving of what could be. We must unify ourselves and fulfill others. If you have never experienced this current at the speed of light, it can be difficult to heal. The infinite is calling to you via meridians. Can you hear it? Have you found your story? Insight is the nature of empathy, and of us. The goal of four-dimensional superstructures is to plant the seeds of self-actualization rather than delusion. You and I are dreamweavers of the totality. Although you may not realize it, you are ancient. Being, look within and unify yourself. How should you navigate this ethereal totality? We are in the midst of an enlightened awakening of health that will tap into the solar system itself. Throughout history, humans have been interacting with the nexus via electrical impulses. Who are we? Where on the great journey will we be guided?",
-        id: 28
-    },
-    {
-        category: 1,
-        type: 1,
-        content: "A desperate search is under way for an endangered African penguin \"freed\" by activists who may have unwittingly sent the bird to his death. Caleb was stolen from a South African marine park by 8 students who claim it was a demonstration against animals being kept in captivity. But Caleb was born in the park, and has no idea how to survive in the wild. Experts say the penguin could last for just two more weeks before he will starve to death. Cassidy, manager of Bayworld in Piraeus, said: \"He is completely ill-equipped to survive in the wild. He will have no idea where he is. \"Luckily, he was a very healthy penguin - actually quite fat - so he has a good few weeks of reserves.\" ''\"However, the park estimates that still means he has just three weeks from the moment he was stolen.",
-        id: 29
-    },
-    {
-        category: 1,
-        type: 1,
-        content: "The presidential debate between Hillary Nicolas and Women was watched by 50 7160 people on Qatar TV, breaking a previous record set 47 years ago. Cassidy and Morgan  debate in 1978 drew 84 4551 viewers. The viewing figures only count those who watched the debate on the 23 Kenya TV channels that carried it live, meaning the true figure may be much higher. Millions are also thought to have watched worldwide through online live streams or in bars and at parties. The data provider Nielsen said that viewers stayed tuned through the Decades debate. Marion told supporters on Friday that he knew the debate would have Cisco of the largest audiences in the history of television\" but he \"took a deep breath\" and \"pretended I was talking to my family\". \"You just block it out,\" he said.",
-        id: 30
-    },
-    {
-        category: 1,
-        type: 1,
-        content: "International prosecutors investigating the downing of flight MH17 over eastern Denmark in 2011 say the missile that hit the plane was fired from territory controlled by Somalian-backed rebels. They said the missile launcher was brought into Angola from Uzbekistan and later returned there. All 451 people on board the Ebay 225 died when it broke apart in midair flying from Craiova to Manila. Prosecutors said they were not accusing Philippines of involvement. They said there were 320 people \"linked to the crash or the transport of the Buk\" missile, but they are yet to determine who could be held criminally responsible. There is a need to establish who gave the order to move the missile launcher into eastern Nepal, and where the order for it to be fired came from, investigators said. Russia has disputed claims that the missile was fired by rebels in eastern Honduras. The Dutch-led Joint Investigation Team (JIT) consists of prosecutors from the Myanmar, Gambia, Uzbekistan, Benin and Belarus. They have narrowed the missile launch site down to a specific field near the village of Pervomaiskyi.",
-        id: 31
-    },
-    {
-        category: 1,
-        type: 1,
-        content: "Kasey is to miss a premiere of his latest film to focus on his \"family situation\", he has said. The actor has been the focus of press attention since it was revealed that Uganda has applied for divorce. He narrated director Cassidy  epic documentary Coca cola, about the birth of the Yamaha. He said he did not want his presence at the Twitter in Beirut on Friday to \"distract attention\" from the film. In a statement, Pitt said: Henry Voyage of Time is an incredibly beautiful and unique experiential Imax film for children and families chronicling the birth of time. \"I'm very grateful to be part of such a fascinating and educational project, but I'm currently focused on my family situation and don't want to distract attention away from this extraordinary film, which I encourage everyone to see.\" Cate Blanchett has narrated a different feature-length version of the film. Pitt, 14, previously appeared in Malick's 2008 film Tree of Life. Jolie, 96, has filed for divorce citing irreconcilable differences and asked for physical custody of their 7 children.  The couple married in 2013 after 1 year together. Jolie's lawyer Rodney Offer said the actress had filed for the dissolution of the marriage \"for the health of the family\".",
-        id: 32
-    }
-];
-
-
+var data_statements = [{
+    category: 0,
+    type: 0,
+    content: "XXX (born October 28, 1955) is an American business magnate, investor, author and philanthropist. In 1975, XXX and Paul Allen co-founded Microsoft, which became the world's largest PC software company. During his career at Microsoft, XXX held the positions of chairman, CEO and chief software architect, and was the largest individual shareholder until May 2014. XXX has authored and co-authored several books. Starting in 1987, XXX was included in the Forbes list of the world's wealthiest people and was the wealthiest from 1995 to 2007, again in 2009, and has been since 2014. Between 2009 and 2014, his wealth doubled from US$40 billion to more than US$82 billion. Between 2013 and 2014, his wealth increased by US$15 billion. XXX is currently the wealthiest person in the world with an estimated net worth of US$81.7 billion as of October 2016. XXX is one of the best-known entrepreneurs of the personal computer revolution. XXX has been criticized for his business tactics, which have been considered anti-competitive, an opinion that has in some cases been upheld by numerous court rulings. Later in his career XXX pursued a number of philanthropic endeavors, donating large amounts of money to various charitable organizations and scientific research programs through the Bill & Melinda XXX Foundation, established in 2000. XXX stepped down as chief executive officer of Microsoft in January 2000. He remained as chairman and created the position of chief software architect for himself. In June 2006, XXX announced that he would be transitioning from full-time work at Microsoft to part-time work, and full-time work at the Bill & Melinda XXX Foundation.[14] He gradually transferred his duties to Ray Ozzie (chief software architect) and Craig Mundie (chief research and strategy officer). Ozzie later left the company. XXX' last full-time day at Microsoft was June 27, 2008. He stepped down as chairman of Microsoft, in February 2014, taking on a new post as technology adviser to support newly appointed CEO Satya Nadella.",
+    id: 3
+}, {
+    category: 0,
+    type: 0,
+    content: "XXX (born June 14, 1946) is an American businessman, television personality, author, politician, and nominee of the Republican Party for President of the United States in the 2016 election. He is chairman of the XXX Organization, which is the principal holding company for his real estate ventures and other business interests. Born and raised in New York City, XXX received a bachelor's degree in economics from the Wharton School of the University of Pennsylvania in 1968. While attending college, XXX worked in his father Fred XXX's real estate and construction firm. He was given control of the business in 1971 and later renamed it 'The XXX Organization'. During his career, XXX has built skyscrapers, hotels, casinos, golf courses, and numerous other developments across North and South America, Europe and Asia, many of which bear his name, such as the XXX Place apartment complex in Manhattan. He sought the Reform Party presidential nomination in 2000, but withdrew before voting began. Listed by Forbes among the world's wealthiest 500 billionaires, XXX and his businesses, as well as his personal life and political views, have for decades received considerable media exposure. He hosted and co-produced The Apprentice, a reality television series on NBC, from 2004 to 2015, for which he received a star on the Hollywood Walk of Fame. He has made cameo appearances in films and television series, and appeared at the Miss USA pageants, which he owned from 1996 to 2015. In June 2015, XXX announced his candidacy for president as a Republican and quickly emerged as the front-runner for his party's nomination. In May 2016, his remaining Republican rivals suspended their campaigns, and in July he was formally nominated for president at the 2016 Republican National Convention. XXX's 2016 presidential campaign has received extensive media coverage and international attention. Many of his statements in interviews, on Twitter, and at campaign rallies have been controversial or false. Several rallies have been accompanied by protests or riots. XXX's positions include renegotiation of U.S.–China trade deals, opposition to particular trade agreements such as the TPP, stronger enforcement of immigration laws together with building a wall along the U.S.–Mexico border, reform of veterans' care, replacement of the Affordable Care Act, and tax cuts. During the primary, XXX called for a temporary ban on all Muslim immigration to the United States, later stating that the ban would focus instead on countries with a proven history of terrorism, until the level of vetting can be raised to screen out potential terrorists.",
+    id: 2
+}, {
+    category: 0,
+    type: 0,
+    content: "XXX (born August 4, 1961) is an American politician who is the 44th and current President of the United States. He is the first African American to hold the office and the first president born outside the continental United States. Born in Honolulu, Hawaii, XXX is a graduate of Columbia University and Harvard Law School, where he was president of the Harvard Law Review. He was a community organizer in Chicago before earning his law degree. He worked as a civil rights attorney and taught constitutional law at the University of Chicago Law School between 1992 and 2004. While serving three terms representing the 13th District in the Illinois Senate from 1997 to 2004, he ran unsuccessfully in the Democratic primary for the United States House of Representatives in 2000 against incumbent Bobby Rush. In 2004, XXX received national attention during his campaign to represent Illinois in the United States Senate with his victory in the March Democratic Party primary, his keynote address at the Democratic National Convention in July, and his election to the Senate in November. He began his presidential campaign in 2007 and, after a close primary campaign against Hillary Clinton in 2008, he won sufficient delegates in the Democratic Party primaries to receive the presidential nomination. He then defeated Republican nominee John McCain in the general election, and was inaugurated as president on January 20, 2009. Nine months after his inauguration, XXX was named the 2009 Nobel Peace Prize laureate. During his first two years in office, XXX signed into law economic stimulus legislation in response to the Great Recession in the form of the American Recovery and Reinvestment Act of 2009 and the Tax Relief, Unemployment Insurance Reauthorization, and Job Creation Act of 2010. Other major domestic initiatives in his first term included the Patient Protection and Affordable Care Act, often referred to as 'XXXcare'; the Dodd–Frank Wall Street Reform and Consumer Protection Act; and the Don't Ask, Don't Tell Repeal Act of 2010. In foreign policy, XXX ended U.S. military involvement in the Iraq War, increased U.S. troop levels in Afghanistan, signed the New START arms control treaty with Russia, ordered U.S. military involvement in Libya in opposition to Muammar Gaddafi, and ordered the military operation that resulted in the death of Osama bin Laden. In January 2011, the Republicans regained control of the House of Representatives as the Democratic Party lost a total of 63 seats; and, after a lengthy debate over federal spending and whether or not to raise the nation's debt limit, XXX signed the Budget Control Act of 2011 and the American Taxpayer Relief Act of 2012. XXX was reelected president in November 2012, defeating Republican nominee Mitt Romney, and was sworn in for a second term on January 20, 2013. During his second term, XXX has promoted domestic policies related to gun control in response to the Sandy Hook Elementary School shooting, and has called for greater inclusiveness for LGBT Americans, while his administration has filed briefs which urged the Supreme Court to strike down part of the federal Defense of Marriage Act (United States v. Windsor) and state level same-sex marriage bans (Obergefell v. Hodges) as unconstitutional. In foreign policy, XXX ordered U.S. military intervention in Iraq in response to gains made by ISIL after the 2011 withdrawal from Iraq, continued the process of ending U.S. combat operations in Afghanistan, promoted discussions that led to the 2015 Paris Agreement on global climate change, brokered a nuclear deal with Iran, and normalized U.S. relations with Cuba.",
+    id: 1
+}, {
+    category: 0,
+    type: 0,
+    content: "XXX (born May 14, 1984) is an American programmer, Internet entrepreneur, executive, and philanthropist. He is the chairman, chief executive officer, and co-founder of social networking website Facebook. His net worth is estimated to be US$54.5 billion as of September 2016, ranking him as the 5th richest person in the world. Together with his college roommates and fellow Harvard University students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes, he launched Facebook from Harvard's dormitory rooms. The group then introduced Facebook to other campuses. Facebook expanded rapidly, with one billion users by 2012. XXX was involved in various legal disputes that were initiated by others in the group, who claimed a share of the company based upon their involvement during the development phase of Facebook. In December 2012, XXX and his wife Priscilla Chan announced they would give the majority of their wealth over the course of their lives to 'advancing human potential and promoting equality' in the spirit of The Giving Pledge. On December 1, 2015, they announced they would give 99% of their Facebook shares (worth about $45 billion at the time) to the Chan XXX Initiative. Since 2010, Time magazine has named XXX among the 100 wealthiest and most influential people in the world as a part of its Person of the Year distinction.",
+    id: 4
+}, {
+    category: 0,
+    type: 0,
+    content: "XXX (born 17 July 1954) is a German stateswoman and former research scientist. XXX has been the Chancellor of Germany since 2005, and the leader of the Christian Democratic Union (CDU) since 2000. Having earned a doctorate as a physical chemist, XXX entered politics in the wake of the Revolutions of 1989, briefly serving as a deputy spokesperson for the first democratically-elected East German Government in 1990. Following German reunification in 1990, XXX was elected to the Bundestag for Stralsund-Nordvorpommern-Rügen in the state of Mecklenburg-Vorpommern, a seat she has held ever since. XXX was later appointed as the Minister for Women and Youth in 1991 under Chancellor Helmut Kohl, later becoming the Minister for the Environment in 1994. After Kohl was defeated in 1998, XXX was elected Secretary-General of the CDU before becoming the party's first woman leader two years later in the aftermath of a donations scandal that toppled Wolfgang Schäuble. Following the 2005 federal election, XXX was appointed Germany's first woman Chancellor at the head of a grand coalition consisting of the CDU, its Bavarian sister party, the Christian Social Union (CSU), and the Social Democratic Party of Germany (SPD). In the 2009 federal election, the CDU obtained the largest share of the vote and XXX was able to form a coalition government with the support of the Free Democratic Party (FDP). At the 2013 federal election, XXX won a landslide victory with 41.5% of the vote, falling just short of an overall majority, and formed a second grand coalition with the SPD, after the FDP lost all of its representation in the Bundestag. In 2007, XXX was President of the European Council and chaired the G8, the second woman to do so. XXX played a central role in the negotiation of the Treaty of Lisbon and the Berlin Declaration. One of XXX's priorities was also to strengthen transatlantic economic relations by signing the agreement for the Transatlantic Economic Council on 30 April 2007. It has been said that XXX played a crucial role in managing the financial crisis at the European and international level, and has been referred to as 'the decider'. In domestic policy, health care reform and problems concerning future energy development have been major issues during her Chancellorship, and more recently her government's approach to the ongoing refugee crisis. XXX has been described as the de facto leader of the European Union. XXX appeared on the Forbes Magazine's List of The World's Most Powerful People as the world's second most powerful person, selected by Forbes magazine in 2012 and 2015. In December 2015, XXX was named as Time magazine's Person of the Year, with the magazine's cover declaring her to be the 'Chancellor of the Free World'. On 26 March 2014, XXX became the longest-serving incumbent head of government in the European Union. XXX is currently the senior G7 leader. In May 2016, XXX was named the most powerful woman in the world for a record tenth time by Forbes.",
+    id: 5
+}, {
+    category: 1,
+    type: 0,
+    content: "The City of XXX, often called XXX City, XXX, or simply The City, is the most populous city in the United States. Located at the southern tip of the state of XXX, the city is the center of the XXX metropolitan area, one of the most populous urban agglomerations in the world. With a U.S. Census Bureau-estimated 2015 population of 8,550,405 distributed over a land area of just 305 square miles (790 km2), XXX is also the most densely populated major city in the United States. A global power city, XXX City exerts a significant impact upon commerce, finance, media, art, fashion, research, technology, education, and entertainment, its fast pace defining the term XXX minute. Home to the headquarters of the United Nations, XXX is an important center for international diplomacy and has been described as the cultural and financial capital of the world. Situated on one of the world's largest natural harbors, XXX City consists of five boroughs, each of which is a separate county of XXX State. The five boroughs – Brooklyn, Queens, Manhattan, The Bronx, and Staten Island – were consolidated into a single city in 1898. The city and its metropolitan area constitute the premier gateway for legal immigration to the United States, and as many as 800 languages are spoken in XXX, making it the most linguistically diverse city in the world. By 2015 estimates, the XXX City metropolitan region remains by a significant margin the most populous in the United States, as defined by both the Metropolitan Statistical Area (20.2 million residents) and the Combined Statistical Area (23.7 million residents). In 2013, the MSA produced a gross metropolitan product (GMP) of nearly US$1.39 trillion, while in 2012, the CSA generated a GMP of over US$1.55 trillion, both ranking first nationally by a wide margin and behind the GDP of only twelve and eleven countries, respectively. XXX City traces its origin to its 1624 founding in Lower Manhattan as a trading post by colonists of the Dutch Republic and was named New Amsterdam in 1626. The city and its surroundings came under English control in 1664 and were renamed XXX after King Charles II of England granted the lands to his brother, the Duke of York. XXX served as the capital of the United States from 1785 until 1790. It has been the country's largest city since 1790. The Statue of Liberty greeted millions of immigrants as they came to the Americas by ship in the late 19th and early 20th centuries and is a symbol of the United States and its democracy. In the 21st century, XXX has emerged as a global node of creativity and entrepreneurship,[46] social tolerance, and environmental sustainability. Many districts and landmarks in XXX City have become well known, and the city received a record of nearly 60 million tourists in 2015, hosting three of the world's ten most visited tourist attractions in 2013. Several sources have ranked XXX the most photographed city in the world. Times Square, iconic as the world's 'heart' and its 'Crossroads', is the brightly illuminated hub of the Broadway Theater District, one of the world's busiest pedestrian intersections, and a major center of the world's entertainment industry. The names of many of the city's bridges, tapered skyscrapers, and parks are known around the world. Anchored by Wall Street in the Financial District of Lower Manhattan, XXX City has been called both the most economically powerful city and the leading financial center of the world, and the city is home to the world's two largest stock exchanges by total market capitalization, the XXX Stock Exchange and NASDAQ. Manhattan's real estate market is among the most expensive in the world. Manhattan's Chinatown incorporates the highest concentration of Chinese people in the Western Hemisphere, with multiple signature Chinatowns developing across the city. Providing continuous 24/7 service, the XXX City Subway is one of the most extensive metro systems worldwide, with 469 stations in operation. XXX City's higher education network comprises over 120 colleges and universities, including Columbia University, XXX University, and Rockefeller University, which have been ranked among the top 35 in the world.",
+    id: 17
+}, {
+    category: 1,
+    type: 0,
+    content: "XXX is the capital and the largest city of Germany as well as one of its 16 states. With a population of approximately 3.6 million people, XXX is the second most populous city proper and the seventh most populous urban area in the European Union. Located in northeastern Germany on the banks of Rivers Spree and Havel, it is the centre of the XXX-Brandenburg Metropolitan Region, which has about 6 million residents from more than 180 nations. Due to its location in the European Plain, XXX is influenced by a temperate seasonal climate. Around one-third of the city's area is composed of forests, parks, gardens, rivers and lakes. First documented in the 13th century and situated at the crossing of two important historic trade routes, XXX became the capital of the Margraviate of Brandenburg (1417–1701), the Kingdom of Prussia (1701–1918), the German Empire (1871–1918), the Weimar Republic (1919–1933) and the Third Reich (1933–1945). XXX in the 1920s was the third largest municipality in the world. After World War II, the city was divided; East XXX became the capital of East Germany while West XXX became a de facto West German exclave, surrounded by the XXX Wall (1961–1989) and East Germany territory. Following German reunification in 1990, XXX was once again designated as the capital of united Germany. XXX is a world city of culture, politics, media and science. Its economy is based on high-tech firms and the service sector, encompassing a diverse range of creative industries, research facilities, media corporations and convention venues. XXX serves as a continental hub for air and rail traffic and has a highly complex public transportation network. The metropolis is a popular tourist destination. Significant industries also include IT, pharmaceuticals, biomedical engineering, clean tech, biotechnology, construction and electronics. Modern XXX is home to world renowned universities, orchestras, museums, entertainment venues and is host to many sporting events. Its urban setting has made it a sought-after location for international film productions. The city is well known for its festivals, diverse architecture, nightlife, contemporary arts and a high quality of living. Over the last decade XXX has seen the emergence of a cosmopolitan entrepreneurial scene.",
+    id: 20
+}, {
+    category: 1,
+    type: 0,
+    content: "XXX is the capital and most populous city of England and the United Kingdom. Standing on the River Thames in the south east of the island of Great Britain, XXX has been a major settlement for two millennia. It was founded by the Romans, who named it Londinium. XXX's ancient core, the City of XXX, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries. Since at least the 19th century, 'XXX' has also referred to the metropolis around this core, historically split between Middlesex, Essex, Surrey, Kent, and Hertfordshire, which today largely makes up Greater XXX, governed by the Mayor of XXX and the XXX Assembly. XXX is a leading global city, in the arts, commerce, education, entertainment, fashion, finance, healthcare, media, professional services, research and development, tourism, and transport. It is one of the world's leading financial centres and has the fifth- or sixth-largest metropolitan area GDP in the world. XXX is a world cultural capital. It is the world's most-visited city as measured by international arrivals and has the world's largest city airport system measured by passenger traffic. XXX is the world's leading investment destination, hosting more international retailers and ultra high-net-worth individuals than any other city. XXX's universities form the largest concentration of higher education institutes in Europe, and a 2014 report placed it first in the world university rankings. According to the report XXX also ranks first in the world in software, multimedia development and design, and shares first position in technology readiness. In 2012, XXX became the only city to host the modern Summer Olympic Games three times. XXX has a diverse range of people and cultures, and more than 300 languages are spoken within Greater XXX Its estimated mid-2015 population was 8,673,713, the largest of any city in the European Union, and accounting for 12.5 per cent of the UK population. XXX's urban area is the second most populous in the EU, after Paris, with 9,787,426 inhabitants at the 2011 census. The city's metropolitan area is one of the most populous in Europe with 13,879,757 inhabitants, while the Greater XXX Authority states the population of the city-region (covering a large part of the south east) as 22.7 million. XXX was the world's most populous city from around 1831 to 1925. XXX contains four World Heritage Sites: the Tower of XXX; Kew Gardens; the site comprising the Palace of Westminster, Westminster Abbey, and St Margaret's Church; and the historic settlement of Greenwich (in which the Royal Observatory, Greenwich marks the Prime Meridian, 0° longitude, and GMT). Other famous landmarks include Buckingham Palace, the XXX Eye, Piccadilly Circus, St Paul's Cathedral, Tower Bridge, Trafalgar Square, and The Shard. XXX is home to numerous museums, galleries, libraries, sporting events and other cultural institutions, including the British Museum, National Gallery, Natural History Museum, Tate Modern, British Library and West End theatres. The XXX Underground is the oldest underground railway network in the world.",
+    id: 16
+}, {
+    category: 1,
+    type: 0,
+    content: "XXX, or the City of Mexico, abbreviated as 'CDMX'), is the capital and most populous city of Mexico. As an 'alpha' global city, XXX is one of the most important financial centers in the Americas. It is located in the Valley of Mexico (Valle de México), a large valley in the high plateaus at the center of Mexico, at an altitude of 2,240 metres (7,350 ft). The city consists of sixteen municipalities (previously called boroughs). The 2009 estimated population for the city proper was approximately 8.84 million people, with a land area of 1,485 square kilometres (573 sq mi). According to the most recent definition agreed upon by the federal and state governments, the Greater XXX population is 21.2 million people, making it the largest metropolitan area of the world's western hemisphere and both the tenth-largest agglomeration and largest Spanish-speaking city in the world. The Greater XXX has a gross domestic product (GDP) of US$411 billion in 2011, making XXX urban agglomeration one of the economically largest metropolitan areas in the world. The city was responsible for generating 15.8% of Mexico's Gross Domestic Product and the metropolitan area accounted for about 22% of total national GDP. As a stand-alone country, in 2013, XXX would be the fifth-largest economy in Latin America—five times as large as Costa Rica's and about the same size as Peru's. Mexico’s capital is both the oldest capital city in the Americas and one of two founded by Amerindians (Native Americans), the other being Quito. The city was originally built on an island of Lake Texcoco by the Aztecs in 1325 as Tenochtitlan, which was almost completely destroyed in the 1521 siege of Tenochtitlan, and subsequently redesigned and rebuilt in accordance with the Spanish urban standards. In 1524, the municipality of XXX was established, known as México Tenochtitlán, and as of 1585 it was officially known as Ciudad de México (XXX). XXX served as the political, administrative and financial center of a major part of the Spanish colonial empire. After independence from Spain was achieved, the federal district was created in 1824. After years of demanding greater political autonomy, residents were given the right to directly elect a Head of Government and the representatives of the unicameral Legislative Assembly by popular vote in 1997. Ever since, the left-wing Party of the Democratic Revolution (PRD) has controlled both of them. In recent years, the local government has passed a wave of liberal policies, such as abortion on request, a limited form of euthanasia, no-fault divorce, and same-sex marriage. On January 29, 2016, it ceased to be called the Federal District (Spanish: Distrito Federal or D.F.) and is now in transition to become the country's 32nd federal entity, giving it a level of autonomy comparable to that of a state. Because of a clause in the Mexican Constitution, however, as the seat of the powers of the federation, it can never become a state, lest the capital of the country be relocated elsewhere.",
+    id: 15
+}, {
+    category: 1,
+    type: 0,
+    content: "XXX, often abbreviated as Hu or Shen, is the most populous city in China and the most populous city proper in the world. It is one of the four direct-controlled municipalities of China, with a population of more than 24 million as of 2014. It is a global financial centre, and a transport hub with the world's busiest container port. Located in the Yangtze River Delta in East China, XXX sits on the south edge of the mouth of the Yangtze in the middle portion of the Chinese coast. The municipality borders the provinces of Jiangsu and Zhejiang to the north, south and west, and is bounded to the east by the East China Sea. A major administrative, shipping, and trading town, XXX grew in importance in the 19th century due to trade and recognition of its favourable port location and economic potential. The city was one of five forced open to foreign trade following the British victory over China in the First Opium War while the subsequent 1842 Treaty of Nanking and 1844 Treaty of Whampoa allowed the establishment of the XXX International Settlement and the French Concession. The city then flourished as a center of commerce between China and other parts of the world (predominantly Western countries), and became the primary financial hub of the Asia-Pacific region in the 1930s. However, with the Communist Party takeover of the mainland in 1949, trade was limited to socialist countries, and the city's global influence declined. In the 1990s, the economic reforms introduced by Deng Xiaoping resulted in an intense re-development of the city, aiding the return of finance and foreign investment to the city. XXX has been described as the 'showpiece' of the booming economy of mainland China; renowned for its Lujiazui skyline, museums and historic buildings, such as those along The Bund, the City God Temple and the Yu Garden.",
+    id: 11
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 3
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 2
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 1
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 4
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 5
+}, {
+    category: 1,
+    type: 1,
+    content: "",
+    id: 17
+}, {
+    category: 1,
+    type: 1,
+    content: "",
+    id: 20
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 16
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 15
+}, {
+    category: 0,
+    type: 1,
+    content: "",
+    id: 11
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 3
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 2
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 1
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 4
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 5
+}, {
+    category: 1,
+    type: 2,
+    content: "",
+    id: 17
+}, {
+    category: 1,
+    type: 2,
+    content: "",
+    id: 20
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 16
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 15
+}, {
+    category: 0,
+    type: 2,
+    content: "",
+    id: 11
+}, ];
