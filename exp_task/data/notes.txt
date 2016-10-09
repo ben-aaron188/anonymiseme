@@ -1,4 +1,4 @@
-
+category
 person = 0,
 city = 1
 

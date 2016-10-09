@@ -21,6 +21,28 @@ function check_fields(classname) {
     }
 }
 
+function check_choice(classname) {
+    class_values = [];
+    score = 0;
+    classname.each(function() {
+        if ($(this).is(":visible")) {
+            // if ($(this).attr('type') == 'text') {
+                $(this).each(function() {
+                    class_values.push($(this).val().length);
+                    score = $.inArray(0, class_values);
+                });
+            // }
+        }
+    });
+    if (score > -1) {
+        alert("Please write down your answer.");
+        score = 0;
+    } else {
+        return true;
+    }
+}
+
+
 function has_second_language() {
     if ($("#bilingual_sel").val() == "1") {
         return true;
@@ -110,7 +132,7 @@ function check_slider(classname) {
         }
     });
     if (score != -1) {
-        alert("Please move both sliders to give your answers.");
+        alert("Please move the slider to indicate your certainty.");
         score = 0;
     } else {
         return true;
@@ -126,8 +148,6 @@ function get_content(category, callback) {
     } else {
         callback(statement);
     }
-
-
 }
 
 function get_unid(val_score) {
@@ -144,23 +164,25 @@ function get_unid(val_score) {
 }
 
 // source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
-$.fn.stretch_text = function(){
-    var elmt          = $(this),
-        cont_width    = elmt.width(),
-        txt           = elmt.html(),
-        one_line      = $('<span class="stretch_it">' + txt + '</span>'),
-        nb_char       = elmt.text().length,
-        spacing       = cont_width/nb_char,
+$.fn.stretch_text = function() {
+    var elmt = $(this),
+        cont_width = elmt.width(),
+        txt = elmt.html(),
+        one_line = $('<span class="stretch_it">' + txt + '</span>'),
+        nb_char = elmt.text().length,
+        spacing = cont_width / nb_char,
         txt_width;
 
     elmt.html(one_line);
     txt_width = one_line.width();
 
-    if (txt_width < cont_width){
-        var  char_width     = txt_width/nb_char,
-             ltr_spacing    = spacing - char_width + (spacing - char_width)/nb_char ;
+    if (txt_width < cont_width) {
+        var char_width = txt_width / nb_char,
+            ltr_spacing = spacing - char_width + (spacing - char_width) / nb_char;
 
-        one_line.css({'letter-spacing': ltr_spacing});
+        one_line.css({
+            'letter-spacing': ltr_spacing
+        });
     } else {
         one_line.contents().unwrap();
         elmt.addClass('justify');

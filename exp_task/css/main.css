@@ -22,8 +22,8 @@ h2 {
     text-align: center;
     cursor: pointer;
     font-weight: bold;
-    font-size: 6.0vw;
-    top: 80%;
+    font-size: 5.5vw;
+    top: 85%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
@@ -295,64 +295,61 @@ h2 {
     font-size: 1.1vw;
 }
 
-/*lextale*/
-
-.stim {
-    font-weight: lighter;
-    letter-spacing: 0.1vw;
-    text-align: center;
-    font-size: 2.0vw;
-    position: absolute;
+.text_input1 {
+    /*border: 0.2vw solid white;*/
+    height: 60%;
+    width: 30%;
     margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.2vw;
+    top: 50%;
+    left: 80%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
 }
-#stim_key_left {
-    left: 15%;
-    top: 30%;
-}
-#stim_key_right {
-    left: 85%;
-    top: 30%;
-}
-#stim_main {
-    display: none;
-    border: 1vw white solid;
-    height: 0;
-    width: 50%;
-    padding-bottom: 25%;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    margin: 0;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-}
-#stim_stim {
-    height: 0;
-    width: 90%;
-    top: 48%;
-    left: 50%;
-    letter-spacing: 0.25vw;
-    text-align: center;
-    font-size: 2.5vw;
-    position: absolute;
-    margin: 0;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-}
-.slider_io {
-    /*border: 0.2vw solid white;*/
-    height: 80%;
+.text_input1_instr {
+    height: 40%;
     width: 90%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.0vw;
-    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+.text_input1_text {
+    border: 0.4vw solid white;
+    height: 15%;
+    width: 80%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 1.4vw;
+    top: 45%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+}
+
+.slider_io {
+    height: 25%;
+    width: 80%;
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    /*font-size: 1.0vw;*/
+    top: 80%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -362,24 +359,22 @@ h2 {
 }
 #slider_instr {
     text-align: center;
-    font-size: 1.6vw;
-    padding-left: 3%;
-    padding-right: 3%;
-    width: 80%;
+    padding-left: 1%;
+    padding-right: 1%;
+    width: 100%;
     margin: 0;
+    position: absolute;
     top: 5%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
 .slider_io_slider {
-    /*border: 0.2vw solid white;*/
-    /*background: red;*/
-    width: 70%;
+    width: 90%;
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.2vw;
+    /*font-size: 1.2vw;*/
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -391,14 +386,14 @@ h2 {
     position: absolute;
     text-align: center;
     font-size: 1.2vw;
-    top: 95%;
+    top: 85%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     color: Red;
 }
 .slider_io_output_labels {
-    width: 75%;
+    width: 90%;
     margin: 0;
     position: absolute;
     font-size: 0.9vw;
@@ -436,23 +431,22 @@ h2 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 .statement_wrapper, .question_wrapper {
-    border: 0.3vw solid #FFBF00;
+    border: 0.5vw solid #FFBF00;
     background-color: #1C1C1C;
     overflow: hidden;
     height: 90%;
-    width: 80%;
+    width: 90%;
     margin: 0;
     position: absolute;
     text-align: left;
     font-size: 1.3vw;
     top: 50%;
-    left: 42%;
+    left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 .statement_header, .question_header {
-    border-bottom: 0.3vw solid #FFBF00;
     overflow: hidden;
     background-color: #1C1C1C;
     width: 100%;
@@ -467,14 +461,17 @@ h2 {
     justify-content: center;
 }
 .statement_content {
+    border-right: 0.2vw solid white;
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 95%;
-    height: 35%;
-    top: 30%;
-    left: 50%;
+    width: 55%;
+    height: 80%;
+    top: 60%;
+    left: 30%;
+    padding-top: 2%;
     padding-left: 2%;
     padding-right: 2%;
+    padding-bottom: 2%;
     margin: 0;
     margin-right: -50%;
     transform: translate(-50%, -50%);
