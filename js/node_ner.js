@@ -1,14 +1,3 @@
-/**
- * Usage:
- *
- * 1. Navigate to the directory where this file is stored in.
- * 2. Add the desired textfile to this directory (only .txt allowed).
- * 3. Run 'node node_ner.js name_of_textfile (!!without .txt-ending!!!)'
- *
- */
-
-//var file = process.argv[2];
-
 var node_ner = require('node-ner');
 var fs = require('fs');
 var Replacer = null;
@@ -127,7 +116,7 @@ NER.replace_entities = function (entities, file) {
                 for (var i = 0; i < entities[property].length; i++) {
                     var entity = entities[property][i];
                     var replacement = _Replacer().ext_get_replacement(property, entity);
-                    
+
                     data = data.replace(new RegExp(entity, 'g'), replacement);
                 }
             }

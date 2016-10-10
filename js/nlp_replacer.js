@@ -4,6 +4,7 @@
 var temp_replacers = [];
 var replaced_arr = [];
 var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var nlp = require('./libs/compromise/nlp_compromise.min.js');
 var lexicon = nlp.lexicon();
 var NER = null;
@@ -49,8 +50,8 @@ Replacer.generate_replacement = function (el, type, entity, counts) {
                 Replacer.define_replacement(el, type, entity, counts);
                 el.replacement = Replacer.check_date(el.text, el.replacement);
             } else {
-                Replacer.define_replacement(el, type, entity, counts);
 
+                Replacer.define_replacement(el, type, entity, counts);
                 if (el.replacement.toLowerCase() == el.text.toLowerCase()) {
                     Replacer.generate_replacement(el, type, entity, counts);
                 }
@@ -103,9 +104,10 @@ Replacer.ext_get_replacement = function (entity, string) {
 
 }
 
-Replacer.get_replacement = function (category, special_spelling) {
+Replacer.get_replacement = function (category, special_spelling, full_name, length) {
     var alt_array = [];
     var replacer;
+    var replacement;
 
     for (var key in lexicon) {
         var value = lexicon[key];
@@ -115,37 +117,66 @@ Replacer.get_replacement = function (category, special_spelling) {
         }
     }
 
+    if (full_name) {
+        replacement = Replacer.shuffle(alt_array)[0];
+        var last = replacement;
+
+        for (var i = 1; i < length; i++) {
+            var next_name = Replacer.shuffle(alt_array)[0];
+
+            while (last == next_name) {
+                next_name = Replacer.shuffle(alt_array)[0];
+            }
+
+            last = next_name;
+            replacement += (" " + next_name);
+        }
+
+    } else {
+        replacement = Replacer.shuffle(alt_array)[0];
+    }
+
     if (special_spelling == 'capitalise') {
-        replacer = Replacer.capitalise_string(Replacer.shuffle(alt_array)[0]);
+        replacer = Replacer.capitalise_string(replacement);
     } else if (special_spelling == 'acronym') {
-        replacer = Replacer.shuffle(alt_array)[0].toUpperCase();
+        replacer = replacement.toUpperCase();
     } else if (special_spelling == 'none') {
-        replacer = Replacer.shuffle(alt_array)[0];
+        replacer = replacement;
     }
     return replacer;
 }
 
 Replacer.define_replacement = function (term_object, type, entity, counts) {
+    var category = term_object.tag;
+    var length = term_object.text.split(" ").length;
 
     if (type == 0) {
         term_object.replacement = "XXX";
     } else if (type == 1 || type == 2) {
         term_object.replacement = Replacer.replace_entity_dependent(type, entity, counts);
     } else {
+        var full_name = term_object.text.split(" ").length >= 2;
 
-        if (Replacer.inArray(term_object.normal, replaced_arr) == false) {
+        if (full_name) {
+            var first = term_object.text.substring(0, term_object.text.indexOf(" "));
+
+            category = nlp.text(first).sentences[0].terms[0].tag;
+        }
+
+        if (Replacer.ident_inArray(term_object.normal, replaced_arr) == false) {
 
             if (Replacer.term_is_capitalised(term_object.text)) {
-                term_object.replacement = Replacer.get_replacement(term_object.tag, 'capitalise');
+                term_object.replacement = Replacer.get_replacement(category, 'capitalise', full_name, length);
             } else if (term_object.is_acronym()) {
-                term_object.replacement = Replacer.get_replacement(term_object.tag, 'acronym');
+                term_object.replacement = Replacer.get_replacement(category, 'acronym', full_name, length);
             } else {
-                term_object.replacement = Replacer.get_replacement(term_object.tag, 'none');
+                term_object.replacement = Replacer.get_replacement(category, 'none', full_name, length);
             }
         } else {
             var selected_from_object = temp_replacers.filter(function (x) {
                 return x.original === term_object.normal;
             });
+
             term_object.replacement = selected_from_object[0].replacement;
         }
 
@@ -154,6 +185,17 @@ Replacer.define_replacement = function (term_object, type, entity, counts) {
 }
 
 Replacer.inArray = function (element, array) {
+
+    for (var i = 0; i < array.length; i++) {
+        if (element == array[i] || element.includes(array[i])) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+Replacer.ident_inArray = function (element, array) {
 
     for (var i = 0; i < array.length; i++) {
         if (element == array[i]) {
@@ -212,7 +254,20 @@ Replacer.replace_entity_dependent = function (type, entity, counts) {
 
 Replacer.capitalise_string = function (stringinput) {
     var string_old = stringinput;
-    var new_string = string_old[0].toUpperCase() + string_old.slice(1).toLowerCase();
+    var new_string = "";
+    var names = stringinput.split(" ");
+
+    if (names.length > 1) {
+
+        for (var i = 0; i < names.length; i++) {
+            new_string += names[i][0].toUpperCase() + names[i].slice(1).toLowerCase() + " ";
+        }
+
+        new_string = new_string.substring(0, new_string.length - 1);
+    } else {
+        new_string = string_old[0].toUpperCase() + string_old.slice(1).toLowerCase();
+    }
+
     return new_string;
 }
 
@@ -280,6 +335,8 @@ Replacer.check_date = function (date, replacement) {
 
     if (Replacer.not_replacable(date)) {
         return date;
+    } else if (Replacer.is_numeric_date(date)) {
+        return Replacer.return_numeric_date(date);
     } else if (Replacer.is_numeric(date)) {
         return Replacer.create_numeric(date);
     } else if (Replacer.is_weekday_abbrev(date)) {
@@ -287,9 +344,8 @@ Replacer.check_date = function (date, replacement) {
     } else if (Replacer.has_numeric(date)) {
         return Replacer.return_numeric(date);
     } else if (Replacer.is_weekday(date)) {
+
         return Replacer.return_weekday(date);
-    } else if (Replacer.is_numeric_date(date)) {
-        return Replacer.return_numeric_date(date);
     } else if (Replacer.is_ordinal(date)) {
         return Replacer.return_ordinal(date);
     } else if (Replacer.is_unit(date)) {
@@ -508,9 +564,23 @@ Replacer.is_numeric_date = function (date) {
 
 }
 
+Replacer.get_month = function () {
+    var random = Math.floor(Math.random() * months.length - 1) + 1;
+
+    return months[random];
+}
+
 Replacer.return_numeric_date = function (date) {
     var separator = Replacer.get_separator(date);
-    var new_date = "" + Replacer.get_number(12) + separator + Replacer.get_number(30) + separator + Replacer.get_year(date, separator);
+    var new_date;
+
+    if (separator == "none") {
+        new_date = Replacer.get_month() + " " + Replacer.get_number(30) + " " + Replacer.get_year(date, separator);
+    } else if (separator == ".") {
+        new_date = "" + Replacer.get_number(30) + separator + Replacer.get_number(12) + separator + Replacer.get_year(date, separator);
+    } else {
+        new_date = "" + Replacer.get_number(12) + separator + Replacer.get_number(30) + separator + Replacer.get_year(date, separator);
+    }
 
     if (new_date == date) {
         return Replacer.return_numeric_date(date);
@@ -531,9 +601,15 @@ Replacer.get_number = function (limit) {
 }
 
 Replacer.get_year = function (date, separator) {
-
     var present = new Date();
-    var year = date.substring(date.lastIndexOf(separator) + 1, date.length);
+    var year;
+
+    if (separator == "none") {
+        year = date.substring(date.length - 4);
+    } else {
+        year = date.substring(date.lastIndexOf(separator) + 1, date.length);
+    }
+
     var diff = new Date(date).getTime() - present.getTime();
 
     if (diff < 0) {
@@ -559,8 +635,22 @@ Replacer.not_valid = function (date) {
     if (date.includes("-")) {
         count++;
     }
+    if (Replacer.includesWeekDay(date)) {
+        count++;
+    }
 
     return count != 1;
+}
+
+Replacer.includesWeekDay = function (date) {
+
+    for (var i = 0; i < months.length; i++) {
+        if (date.includes(months[i])) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 Replacer.get_separator = function (string) {
@@ -568,13 +658,14 @@ Replacer.get_separator = function (string) {
         return "/";
     } else if (string.includes(".")) {
         return ".";
-    } else {
+    } else if (string.includes("-")) {
         return "-";
+    } else {
+        return "none";
     }
 }
 
 Replacer.is_ordinal = function (string) {
-
     var number = string.substring(string.length - 3, string.length - 2);
     var value = null,
         value_comp;
@@ -647,11 +738,11 @@ Replacer.return_ordinal = function (string) {
 }
 
 Replacer.shuffle = function (array) {
-
     var newarr = [];
     var currentIndex = array.length,
         temporaryValue,
         randomIndex;
+
     while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
