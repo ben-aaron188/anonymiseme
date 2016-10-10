@@ -112,7 +112,7 @@ function to_statement2() {
 }
 
 function to_statement3() {
-    if (check_choice($(".text_input1_text"))) {
+    if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement2,
             statementid: data_statement2.id,
@@ -132,7 +132,7 @@ function to_statement3() {
 }
 
 function to_statement4() {
-    if (check_choice($(".text_input1_text"))) {
+    if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement3,
             statementid: data_statement3.id,
@@ -152,7 +152,7 @@ function to_statement4() {
 }
 
 function to_transition() {
-    if (check_choice($(".text_input1_text"))) {
+    if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement4,
             statementid: data_statement4.id,
