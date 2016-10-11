@@ -230,7 +230,7 @@ function _Custom() {
 
 function _NER() {
     if (!NER) {
-        NER = require('./node_ner.js');
+        NER = require('./ner.js');
     }
 
     return NER;
