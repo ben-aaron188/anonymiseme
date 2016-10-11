@@ -106,22 +106,33 @@ NER.adjust_term = function (stringinput) {
  * @param {String} entities The recognised entities
  */
 NER.replace_entities = function (entities, file) {
+    var organizations = [],
+        locations = [];
+
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
         if (err) {
             throw err;
         }
 
         for (var property in entities) {
+
             if (entities[property]) {
                 for (var i = 0; i < entities[property].length; i++) {
                     var entity = entities[property][i];
                     var replacement = _Replacer().ext_get_replacement(property, entity);
+
+                    if (property == 'ORGANIZATION') {
+                        organizations.push(replacement);
+                    } else if (property == 'LOCATION') {
+                        locations.push(replacement);
+                    }
 
                     data = data.replace(new RegExp(entity, 'g'), replacement);
                 }
             }
         }
 
+        data = _Replacer().fine_tuning(data, organizations, locations);
         console.log(data);
         NER.delete_file(file);
     });
@@ -151,7 +162,7 @@ NER.write_anon = function (anonymised) {
 
 _Replacer = function () {
     if (!Replacer) {
-        Replacer = require('./nlp_replacer.js');
+        Replacer = require('./replacer.js');
     }
 
     return Replacer;
