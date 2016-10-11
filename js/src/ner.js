@@ -16,6 +16,9 @@ function NER() {
  */
 NER.get_entities = function (file) {
     ner.fromFile(file + ".txt", function (entities) {
+
+        console.log(entities);
+
         NER.replace_entities(NER.as_set(entities), file);
     });
 }
@@ -43,6 +46,7 @@ NER.as_set = function (entities) {
     return {
         "ORGANIZATION": entities['ORGANIZATION'],
         "LOCATION": entities['LOCATION'],
+        "PERSON": entities['PERSON']
     };
 
 }
@@ -107,7 +111,8 @@ NER.adjust_term = function (stringinput) {
  */
 NER.replace_entities = function (entities, file) {
     var organizations = [],
-        locations = [];
+        locations = [],
+        persons = [];
 
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
         if (err) {
@@ -115,7 +120,6 @@ NER.replace_entities = function (entities, file) {
         }
 
         for (var property in entities) {
-
             if (entities[property]) {
                 for (var i = 0; i < entities[property].length; i++) {
                     var entity = entities[property][i];
@@ -125,6 +129,8 @@ NER.replace_entities = function (entities, file) {
                         organizations.push(replacement);
                     } else if (property == 'LOCATION') {
                         locations.push(replacement);
+                    } else if (property == 'PERSON') {
+                        persons.push(replacement);
                     }
 
                     data = data.replace(new RegExp(entity, 'g'), replacement);
@@ -132,9 +138,8 @@ NER.replace_entities = function (entities, file) {
             }
         }
 
-        data = _Replacer().fine_tuning(data, organizations, locations);
-        console.log(data);
         NER.delete_file(file);
+        console.log(_Replacer().fine_tuning(data, organizations, locations, persons));
     });
 }
 
@@ -167,12 +172,5 @@ _Replacer = function () {
 
     return Replacer;
 };
-
-// // Running the Script
-// if (!file || file.indexOf(".txt") != -1) {
-//     throw new Error("Type in a correct filename (no .txt ending)!");
-// } else {
-//     NER.get_entities(file);
-// }
 
 module.exports = NER;

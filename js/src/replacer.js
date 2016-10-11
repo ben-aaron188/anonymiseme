@@ -27,11 +27,7 @@ Replacer.string_replace_all = function (preprocessed_object) {
     for (var i = 0; i < preprocessed_object.terms.length; i++) {
         var el = preprocessed_object.terms[i];
 
-        if (el.pos.Person && el.pos.Pronoun !== true && _Util().term_is_capitalised(el.text)) {
-            Replacer.generate_replacement(el, false);
-            replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
-            Replacer.add_to_temp(el.normal, el.replacement);
-        } else if (el.pos.Date || el.pos.Value) {
+        if (el.pos.Date || el.pos.Value) {
             Replacer.generate_replacement(el, true);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + _Custom().check_date(el.text, el.replacement) + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
@@ -43,7 +39,7 @@ Replacer.string_replace_all = function (preprocessed_object) {
     Replacer.ner_entities(replaced);
 }
 
-Replacer.fine_tuning = function (data, used_orgs, used_locations) {
+Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons) {
     var replaced = "";
     var prep = _Client().preprocess_string(data);
 
@@ -55,6 +51,10 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations) {
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Place && !_Util().inArray(el.text, used_locations)) {
+            Replacer.generate_replacement(el, false);
+            replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
+            Replacer.add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Person && el.pos.Pronoun !== true && !_Util().inArray(el.text, used_persons)) {
             Replacer.generate_replacement(el, false);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
@@ -81,7 +81,9 @@ Replacer.generate_replacement = function (el, is_date) {
 Replacer.ext_get_replacement = function (entity, string) {
     var term = nlp.text(string).sentences[0].terms[0],
         replacement,
-        category;
+        category,
+        full_name = false,
+        length = string.split(" ").length;
 
     if (entity != "DATE") {
         if (entity == "LOCATION") {
@@ -92,8 +94,15 @@ Replacer.ext_get_replacement = function (entity, string) {
                 category = "City";
             }
 
-        } else {
+        } else if (entity == "PERSON") {
+            full_name = length > 1;
 
+            if (term.pos.FemalePerson == true) {
+                category = "FemalePerson";
+            } else {
+                category = "MalePerson";
+            }
+        } else {
             if (!term.pos.Person) {
                 category = "Organization";
             } else {
@@ -103,7 +112,7 @@ Replacer.ext_get_replacement = function (entity, string) {
         }
 
         if (_Util().term_is_capitalised(string)) {
-            replacement = _Util().capitalise_string(Replacer.get_replacement(category, 'capitalise'));
+            replacement = _Util().capitalise_string(Replacer.get_replacement(category, 'capitalise', full_name, length));
         } else if (term.is_acronym()) {
             replacement = Replacer.get_replacement(category, 'acronym');
         } else {

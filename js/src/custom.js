@@ -250,7 +250,7 @@ Custom.is_numeric_date = function (date) {
 }
 
 Custom.get_month = function () {
-    var random = Math.floor(Math.random() * months.length - 1) + 1;
+    var random = Math.floor(Math.random() * months.length);
 
     return months[random];
 }
