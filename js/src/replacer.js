@@ -21,41 +21,38 @@ function Replacer() {
  * @param preprocessed_object
  * @returns {string}
  */
-Replacer.string_replace_all = function (preprocessed_object) {
+Replacer.string_replace_all = function (preprocessed_object, complete) {
     var replaced = "";
 
     for (var i = 0; i < preprocessed_object.terms.length; i++) {
         var el = preprocessed_object.terms[i];
-
-        if (el.pos.Date || el.pos.Value) {
-            Replacer.generate_replacement(el, true);
-            replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + _Custom().check_date(el.text, el.replacement) + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
-            Replacer.add_to_temp(el.normal, el.replacement);
-        } else {
-            replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
-        }
+        replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
     }
 
-    Replacer.ner_entities(replaced);
+    Replacer.ner_entities(replaced, complete);
 }
 
-Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons) {
+Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, used_dates, complete) {
     var replaced = "";
     var prep = _Client().preprocess_string(data);
 
     for (var i = 0; i < prep.terms.length; i++) {
         var el = prep.terms[i];
 
-        if (el.pos.Organization && !_Util().inArray(el.text, used_orgs)) {
-            Replacer.generate_replacement(el, false);
+        if (el.pos.Date || el.pos.Value && !_Util().inArray(el.text, used_dates)) {
+            Replacer.generate_replacement(el, true, complete);
+            replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + _Custom().check_date(el.text, el.replacement, complete) + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
+            Replacer.add_to_temp(el.normal, el.replacement);
+        } else if (el.pos.Organization && !_Util().inArray(el.text, used_orgs)) {
+            Replacer.generate_replacement(el, false, complete);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Place && !_Util().inArray(el.text, used_locations)) {
-            Replacer.generate_replacement(el, false);
+            Replacer.generate_replacement(el, false, complete);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else if (el.pos.Person && el.pos.Pronoun !== true && !_Util().inArray(el.text, used_persons)) {
-            Replacer.generate_replacement(el, false);
+            Replacer.generate_replacement(el, false, complete);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
         } else {
@@ -66,63 +63,65 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons) 
     return replaced;
 }
 
-Replacer.generate_replacement = function (el, is_date) {
-    if (is_date) {
-        Replacer.define_replacement(el);
-        el.replacement = _Custom().check_date(el.text, el.replacement);
+Replacer.generate_replacement = function (el, is_date, complete) {
+
+    if (complete) {
+        el.replacement = "XXX";
     } else {
-        Replacer.define_replacement(el);
-        if (el.replacement.toLowerCase() == el.text.toLowerCase()) {
-            Replacer.generate_replacement(el, is_date);
+        if (is_date) {
+            Replacer.define_replacement(el);
+            el.replacement = _Custom().check_date(el.text, el.replacement, complete);
+        } else {
+            Replacer.define_replacement(el);
+            if (el.replacement.toLowerCase() == el.text.toLowerCase()) {
+                Replacer.generate_replacement(el, is_date);
+            }
         }
     }
 }
 
-Replacer.ext_get_replacement = function (entity, string) {
+Replacer.ext_get_replacement = function (entity, string, complete) {
     var term = nlp.text(string).sentences[0].terms[0],
         replacement,
         category,
         full_name = false,
         length = string.split(" ").length;
 
-    if (entity != "DATE") {
-        if (entity == "LOCATION") {
-            category = "Country";
-            var is_city = term.pos.City;
+    if (entity == "DATE") {
+        return _Custom().check_date(string, string, complete);
+    } else if (entity == "LOCATION") {
+        category = "Country";
+        var is_city = term.pos.City;
 
-            if (is_city == true) {
-                category = "City";
-            }
-
-        } else if (entity == "PERSON") {
-            full_name = length > 1;
-
-            if (term.pos.FemalePerson == true) {
-                category = "FemalePerson";
-            } else {
-                category = "MalePerson";
-            }
-        } else {
-            if (!term.pos.Person) {
-                category = "Organization";
-            } else {
-                return string;
-            }
-
+        if (is_city == true) {
+            category = "City";
         }
 
-        if (_Util().term_is_capitalised(string)) {
-            replacement = _Util().capitalise_string(Replacer.get_replacement(category, 'capitalise', full_name, length));
-        } else if (term.is_acronym()) {
-            replacement = Replacer.get_replacement(category, 'acronym');
-        } else {
-            replacement = Replacer.get_replacement(category, 'none');
-        }
+    } else if (entity == "PERSON") {
+        full_name = length > 1;
 
-        return replacement;
+        if (term.pos.FemalePerson == true) {
+            category = "FemalePerson";
+        } else {
+            category = "MalePerson";
+        }
+    } else if (entity == "MONEY") {
+        return _Custom().get_numeric(parseInt(string), 1);
+    } else if (entity == "ORGANIZATION") {
+        category = "Organization";
     } else {
         return string;
     }
+
+    if (_Util().term_is_capitalised(string)) {
+        replacement = _Util().capitalise_string(Replacer.get_replacement(category, 'capitalise', full_name, length));
+    } else if (term.is_acronym()) {
+        replacement = Replacer.get_replacement(category, 'acronym');
+    } else {
+        replacement = Replacer.get_replacement(category, 'none');
+    }
+
+    return replacement;
 
 }
 
@@ -205,11 +204,11 @@ Replacer.add_to_temp = function (original, replacement) {
     replaced_arr.push(temp_obj.original);
 }
 
-Replacer.ner_entities = function (stringinput) {
+Replacer.ner_entities = function (stringinput, complete) {
     var filename = new Date().getTime();
 
     fs.writeFile(filename + ".txt", stringinput, function () {
-        _NER().get_entities(filename);
+        _NER().get_entities(filename, complete);
     });
 }
 

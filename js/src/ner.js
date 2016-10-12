@@ -1,6 +1,7 @@
 var node_ner = require('node-ner');
 var fs = require('fs');
 var Replacer = null;
+var Util = null;
 var ner = new node_ner({
     install_path: './libs/node_ner/stanford-ner-2014-10-26'
 });
@@ -14,12 +15,11 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file) {
+NER.get_entities = function (file, complete) {
     ner.fromFile(file + ".txt", function (entities) {
 
-        console.log(entities);
-
-        NER.replace_entities(NER.as_set(entities), file);
+        //console.log(entities);
+        NER.replace_entities(NER.as_set(entities), file, complete);
     });
 }
 
@@ -46,7 +46,9 @@ NER.as_set = function (entities) {
     return {
         "ORGANIZATION": entities['ORGANIZATION'],
         "LOCATION": entities['LOCATION'],
-        "PERSON": entities['PERSON']
+        "PERSON": entities['PERSON'],
+        "MONEY": entities['MONEY'],
+        "DATE": entities['DATE'],
     };
 
 }
@@ -109,10 +111,11 @@ NER.adjust_term = function (stringinput) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file) {
+NER.replace_entities = function (entities, file, complete) {
     var organizations = [],
         locations = [],
-        persons = [];
+        persons = [],
+        dates = [];
 
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
         if (err) {
@@ -122,15 +125,27 @@ NER.replace_entities = function (entities, file) {
         for (var property in entities) {
             if (entities[property]) {
                 for (var i = 0; i < entities[property].length; i++) {
-                    var entity = entities[property][i];
-                    var replacement = _Replacer().ext_get_replacement(property, entity);
+                    var entity = entities[property][i],
+                        replacement;
 
-                    if (property == 'ORGANIZATION') {
-                        organizations.push(replacement);
-                    } else if (property == 'LOCATION') {
-                        locations.push(replacement);
-                    } else if (property == 'PERSON') {
-                        persons.push(replacement);
+                    if (property == 'MONEY') {
+                        entity = NER.adjust_currency(entity);
+                    }
+
+                    if (complete) {
+                        replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
+                    } else {
+                        replacement = _Replacer().ext_get_replacement(property, entity, complete);
+
+                        if (property == 'ORGANIZATION') {
+                            organizations.push(replacement);
+                        } else if (property == 'LOCATION') {
+                            locations.push(replacement);
+                        } else if (property == 'PERSON') {
+                            persons.push(replacement);
+                        } else if (property == "DATE") {
+                            dates.push(replacement);
+                        }
                     }
 
                     data = data.replace(new RegExp(entity, 'g'), replacement);
@@ -139,8 +154,23 @@ NER.replace_entities = function (entities, file) {
         }
 
         NER.delete_file(file);
-        console.log(_Replacer().fine_tuning(data, organizations, locations, persons));
+        var output = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete);
+
+        if (complete) {
+            output = NER.replace_currencies(output);
+        }
+
+        console.log(output);
     });
+}
+
+NER.replace_currencies = function (data) {
+    data = data.replace(/€/g, '');
+    return data.replace(/\$/g, '');
+}
+
+NER.adjust_currency = function (currency) {
+    return parseFloat(currency.replace(/[^\d\.]/g, '')).toString();
 }
 
 /**
@@ -172,5 +202,13 @@ _Replacer = function () {
 
     return Replacer;
 };
+
+function _Util() {
+    if (!Util) {
+        Util = require('./util.js');
+    }
+
+    return Util;
+}
 
 module.exports = NER;

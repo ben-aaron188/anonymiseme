@@ -3,7 +3,7 @@ function Mock() {
 }
 
 Mock.mock = function (data) {
-    var elements = data.split(" ");
+    var elements = data.match(/\S+/g);
 
     for (var i = 0; i < elements.length; i++) {
         var letter = elements[i].substring(0, 1);
@@ -13,7 +13,12 @@ Mock.mock = function (data) {
         }
     }
 
-    console.log(elements.join().replace(/,/g, " "));
+    return (elements.join().replace(/,/g, " "));
 }
+
+Mock.log_mock = function (string_input) {
+    console.log(Mock.mock(string_input));
+}
+
 
 module.exports = Mock;

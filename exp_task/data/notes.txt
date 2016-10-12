@@ -6,3 +6,17 @@ type:
 0 = original
 1 = anonymised_own
 2 = anonymised_ukda
+3 = anonymised_ultimate
+
+statements:
+
+ID 1-4: Berlin
+ID 5-8: London
+ID 9-12: Mexico City
+ID 13-16: Shanghai
+ID 17-20: Los Angeles
+ID 21-24: Bill Gates
+ID 25-28: Donald Trump
+ID 29-32: Hillary Clinton
+ID 33-36: George W. Bush
+ID 37-40: Michael Jackson

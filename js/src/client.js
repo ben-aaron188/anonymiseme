@@ -7,10 +7,10 @@ function Client() {
     throw new Error('Replacer is a static class!');
 }
 
-Client.replace_combined = function (string_input) {
+Client.replace_combined = function (string_input, complete) {
     var temp_prep = Client.preprocess_string(string_input);
 
-    _Replacer().string_replace_all(temp_prep);
+    _Replacer().string_replace_all(temp_prep, complete);
 }
 
 Client.preprocess_string = function (string) {

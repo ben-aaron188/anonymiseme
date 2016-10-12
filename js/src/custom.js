@@ -10,10 +10,12 @@ function Custom() {
     throw new Error('Custom is a static class!');
 }
 
-Custom.check_date = function (date, replacement) {
+Custom.check_date = function (date, replacement, complete) {
     date = _Util().remove_term_terminator(date);
 
-    if (Custom.not_replacable(date)) {
+    if (complete) {
+        return "XXX";
+    } else if (Custom.not_replacable(date)) {
         return date;
     } else if (Custom.is_numeric_date(date)) {
         return Custom.return_numeric_date(date);

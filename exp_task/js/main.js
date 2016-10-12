@@ -38,7 +38,7 @@ function to_statement_evaluation() {
     );
     simple_transition($("#informed_consent"), $("#statement_explanation"));
     $("#next").attr('onclick', 'to_main_statements()');
-        // to statement
+    // to statement
 }
 
 function add_statement(number, content, category) {
@@ -46,15 +46,15 @@ function add_statement(number, content, category) {
     if (!$('#statement' + number + '_wrapper').length) {
         pagefocus_reset();
         $('body').prepend(
-          // more info!!
+            // more info!!
             '<div class="statement_wrapper" id="statement' + number + '_wrapper">' +
             '<div class="statement_header" id="statement' + number + '_header">' + header +
             '</div>' +
             '<div class="statement_content" id="statement' + number + '_content">' + content +
             '</div>' +
             '<div class="text_input1">' +
-            '<span id="text_input1_instr">Do you recognize this '+ category +'?</br>'+
-            'If you have an idea which '+ category +' this text describes, please write down the name.</br>' +
+            '<span id="text_input1_instr">Do you recognize this ' + category + '?</br>' +
+            'If you have an idea which ' + category + ' this text describes, please write down the name.</br>' +
             'It is important that you do not look up any information.' +
             '</span> ' +
             '<input type="text" class="text_input1_text" id="statement' + number + '_input" placehoder="your answer">' +
@@ -102,7 +102,7 @@ function to_statement2() {
             }
         });
         pagefocus_statement1 = pagefocus_get_data();
-        get_content(0, function (data) {
+        get_content(1, function (data) {
             data_statement2 = data;
             add_statement(2, data_statement2.content, data_statement2.category_str);
         });
@@ -122,7 +122,7 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        get_content(1, function (data) {
+        get_content(2, function (data) {
             data_statement3 = data;
             add_statement(3, data_statement3.content, data_statement3.category_str);
         });
@@ -142,7 +142,7 @@ function to_statement4() {
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        get_content(1, function (data) {
+        get_content(3, function (data) {
             data_statement4 = data;
             add_statement(4, data_statement4.content, data_statement4.category_str);
         });
