@@ -110,7 +110,7 @@ function simple_transition(current_div, next_div) {
 
 function send_to_server() {
     if (check_fields($(".select_menu")) === true) {
-        get_data();
+        var data = get_data();
         $("#DATA").val(JSON.stringify(data));
         $("#submit").click();
     }

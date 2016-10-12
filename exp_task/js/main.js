@@ -98,9 +98,10 @@ function to_statement2() {
             statementid: data_statement1.id,
             evaluation: {
                 certainty: $("#statement1_certainty").val(),
-                choice: $("#statement1_choice").val()
+                choice: $("#statement1_input").val()
             }
         });
+
         pagefocus_statement1 = pagefocus_get_data();
         get_content(1, function (data) {
             data_statement2 = data;
@@ -118,7 +119,7 @@ function to_statement3() {
             statementid: data_statement2.id,
             evaluation: {
                 certainty: $("#statement2_certainty").val(),
-                choice: $("#statement2_choice").val()
+                choice: $("#statement2_input").val()
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
@@ -138,7 +139,7 @@ function to_statement4() {
             statementid: data_statement3.id,
             evaluation: {
                 certainty: $("#statement3_certainty").val(),
-                choice: $("#statement3_choice").val()
+                choice: $("#statement3_input").val()
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
@@ -158,7 +159,7 @@ function to_transition() {
             statementid: data_statement4.id,
             evaluation: {
                 certainty: $("#statement4_certainty").val(),
-                choice: $("#statement4_choice").val()
+                choice: $("#statement4_input").val()
             }
         });
         pagefocus_statement4 = pagefocus_get_data();
@@ -194,6 +195,8 @@ function to_outro() {
 }
 
 function get_data() {
+    var data = {};
+
     data.ip = clientip;
     data.browsername = $.browser.name;
     data.browserversion = $.browser.version;
@@ -251,4 +254,6 @@ function get_data() {
     data.statement4_eval_defocusduration = pagefocus_statement4.durationsum;
 
     console.log(data);
+
+    return data;
 }
