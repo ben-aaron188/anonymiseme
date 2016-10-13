@@ -139,15 +139,18 @@ function check_slider(classname) {
     }
 }
 
-function get_content(type, category, callback) {
+function get_content(type, category) {
     var index = Math.floor(Math.random() * data_statements.length);
     var statement = data_statements[index];
 
-    if (statement.type != type || statement.category != category) {
-        get_content(type, category, callback);
-    } else {
-        callback(statement);
+    while (statement.type != type || statement.category != category) {
+        index = Math.floor(Math.random() * data_statements.length);
+        statement = data_statements[index];
     }
+
+    data_statements.splice(index, 1);
+
+    return statement;
 }
 
 function get_unid(val_score) {

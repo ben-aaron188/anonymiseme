@@ -10,13 +10,13 @@ type:
 
 statements:
 
-ID 1-4: Berlin
-ID 5-8: London
-ID 9-12: Mexico City
-ID 13-16: Shanghai
-ID 17-20: Los Angeles
-ID 21-24: Bill Gates
-ID 25-28: Donald Trump
-ID 29-32: Hillary Clinton
-ID 33-36: George W. Bush
-ID 37-40: Michael Jackson
+ID 1-4, 41-44: Berlin
+ID 5-8, 45-48: London
+ID 9-12, 49-52: Mexico City
+ID 13-16, 53-56: Shanghai
+ID 17-20, 57-60: Los Angeles
+ID 21-24, 61-64: Bill Gates
+ID 25-28, 65-68: Donald Trump
+ID 29-32, 69-72: Hillary Clinton
+ID 33-36, 73-76: George W. Bush
+ID 37-40, 77-80: Michael Jackson

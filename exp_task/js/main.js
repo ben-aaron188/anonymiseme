@@ -84,10 +84,9 @@ function to_main_statements() {
 }
 
 function to_statement1() {
-    get_content(get_type(), 0, function (data) {
-        data_statement1 = data;
-        add_statement(1, data_statement1.content, data_statement1.category_str);
-    });
+
+    data_statement1 = get_content(get_type(), 0);
+    add_statement(1, data_statement1.content, data_statement1.category_str);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
     $("#next").attr('onclick', 'to_statement2()');
 }
@@ -96,7 +95,6 @@ function to_statement2() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement1,
-            statementid: data_statement1.id,
             evaluation: {
                 certainty: $("#statement1_certainty").val(),
                 choice: $("#statement1_input").val()
@@ -104,10 +102,8 @@ function to_statement2() {
         });
 
         pagefocus_statement1 = pagefocus_get_data();
-        get_content(get_type(), 0, function (data) {
-            data_statement2 = data;
-            add_statement(2, data_statement2.content, data_statement2.category_str);
-        });
+        data_statement2 = get_content(get_type(), 0);
+        add_statement(2, data_statement2.content, data_statement2.category_str);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
         $("#next").attr('onclick', 'to_statement3()');
     }
@@ -117,17 +113,14 @@ function to_statement3() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement2,
-            statementid: data_statement2.id,
             evaluation: {
                 certainty: $("#statement2_certainty").val(),
                 choice: $("#statement2_input").val()
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        get_content(get_type(), 1, function (data) {
-            data_statement3 = data;
-            add_statement(3, data_statement3.content, data_statement3.category_str);
-        });
+        data_statement3 = get_content(get_type(), 1);
+        add_statement(3, data_statement3.content, data_statement3.category_str);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
         $("#next").attr('onclick', 'to_statement4()');
     }
@@ -137,17 +130,14 @@ function to_statement4() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement3,
-            statementid: data_statement3.id,
             evaluation: {
                 certainty: $("#statement3_certainty").val(),
                 choice: $("#statement3_input").val()
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        get_content(get_type(), 1, function (data) {
-            data_statement4 = data;
-            add_statement(4, data_statement4.content, data_statement4.category_str);
-        });
+        data_statement4 = get_content(get_type(), 1);
+        add_statement(4, data_statement4.content, data_statement4.category_str);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
         $("#next").attr('onclick', 'to_transition()');
     }
@@ -157,7 +147,6 @@ function to_transition() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
             content: data_statement4,
-            statementid: data_statement4.id,
             evaluation: {
                 certainty: $("#statement4_certainty").val(),
                 choice: $("#statement4_input").val()
@@ -196,8 +185,10 @@ function to_outro() {
 }
 
 function get_type() {
-    var type = Math.floor(Math.random() * types.length);
-    types.splice(types.indexOf(type), 1);
+    var index = Math.floor(Math.random() * types.length);
+    var type = types[index];
+
+    types.splice(index, 1);
 
     return type;
 }
@@ -224,6 +215,7 @@ function get_data() {
     data.statement1_category = data_array[0].content.category;
     data.statement1_content = data_array[0].content.content;
     data.statement1_id = data_array[0].content.id;
+    data.statement1_name = data_array[0].content.name;
     data.statement1_type = data_array[0].content.type;
     data.statement1_certainty = data_array[0].evaluation.certainty;
     data.statement1_choice = data_array[0].evaluation.choice;
@@ -234,6 +226,7 @@ function get_data() {
     data.statement2_category = data_array[1].content.category;
     data.statement2_content = data_array[1].content.content;
     data.statement2_id = data_array[1].content.id;
+    data.statement2_name = data_array[1].content.name;
     data.statement2_type = data_array[1].content.type;
     data.statement2_certainty = data_array[1].evaluation.certainty;
     data.statement2_choice = data_array[1].evaluation.choice;
@@ -244,6 +237,7 @@ function get_data() {
     data.statement3_category = data_array[2].content.category;
     data.statement3_content = data_array[2].content.content;
     data.statement3_id = data_array[2].content.id;
+    data.statement3_name = data_array[2].content.name;
     data.statement3_type = data_array[2].content.type;
     data.statement3_certainty = data_array[2].evaluation.certainty;
     data.statement3_choice = data_array[2].evaluation.choice;
@@ -254,6 +248,7 @@ function get_data() {
     data.statement4_category = data_array[3].content.category;
     data.statement4_content = data_array[3].content.content;
     data.statement4_id = data_array[3].content.id;
+    data.statement4_name = data_array[3].content.name;
     data.statement4_type = data_array[3].content.type;
     data.statement4_certainty = data_array[3].evaluation.certainty;
     data.statement4_choice = data_array[3].evaluation.choice;
