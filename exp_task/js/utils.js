@@ -139,12 +139,12 @@ function check_slider(classname) {
     }
 }
 
-function get_content(type, callback) {
+function get_content(type, category, callback) {
     var index = Math.floor(Math.random() * data_statements.length);
     var statement = data_statements[index];
 
-    if (statement.type != type) {
-        get_content(type, callback);
+    if (statement.type != type || statement.category != category) {
+        get_content(type, category, callback);
     } else {
         callback(statement);
     }

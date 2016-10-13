@@ -1,5 +1,6 @@
 // globals
 var data_array = [];
+var types = [0, 1, 2, 3];
 var data_statement1;
 var data_statement2;
 var data_statement3;
@@ -83,7 +84,7 @@ function to_main_statements() {
 }
 
 function to_statement1() {
-    get_content(0, function (data) {
+    get_content(get_type(), 0, function (data) {
         data_statement1 = data;
         add_statement(1, data_statement1.content, data_statement1.category_str);
     });
@@ -103,7 +104,7 @@ function to_statement2() {
         });
 
         pagefocus_statement1 = pagefocus_get_data();
-        get_content(1, function (data) {
+        get_content(get_type(), 0, function (data) {
             data_statement2 = data;
             add_statement(2, data_statement2.content, data_statement2.category_str);
         });
@@ -123,7 +124,7 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        get_content(2, function (data) {
+        get_content(get_type(), 1, function (data) {
             data_statement3 = data;
             add_statement(3, data_statement3.content, data_statement3.category_str);
         });
@@ -143,7 +144,7 @@ function to_statement4() {
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        get_content(3, function (data) {
+        get_content(get_type(), 1, function (data) {
             data_statement4 = data;
             add_statement(4, data_statement4.content, data_statement4.category_str);
         });
@@ -192,6 +193,13 @@ function to_outro() {
         $("#next").text('SEND');
         $("#next").attr('onclick', 'send_to_server()');
     }
+}
+
+function get_type() {
+    var type = Math.floor(Math.random() * types.length);
+    types.splice(types.indexOf(type), 1);
+
+    return type;
 }
 
 function get_data() {
