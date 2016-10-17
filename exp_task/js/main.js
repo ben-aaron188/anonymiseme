@@ -172,9 +172,6 @@ function to_transition() {
 }
 
 function to_demographics1() {
-
-    get_data();
-
     simple_transition($("#transition1"), $("#demographics1"));
     $("#next").attr('onclick', 'to_demographics2()');
     define_keys($("#age_sel"), 'number', 2);
