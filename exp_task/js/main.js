@@ -85,8 +85,9 @@ function to_main_statements() {
 
 function to_statement1() {
 
-    data_statement1 = get_content(get_type(), 0);
-    add_statement(1, data_statement1.content, data_statement1.category_str);
+    var data = get_content(get_type(), 0);
+    data_statement1 = data;
+    add_statement(1, data[1], data_statement1.category_str);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
     $("#next").attr('onclick', 'to_statement2()');
 }
@@ -94,7 +95,9 @@ function to_statement1() {
 function to_statement2() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
-            content: data_statement1,
+            content: data_statement1[0],
+            text: data_statement1[1],
+            type: data_statement1[2],
             evaluation: {
                 certainty: $("#statement1_certainty").val(),
                 choice: $("#statement1_input").val()
@@ -102,8 +105,9 @@ function to_statement2() {
         });
 
         pagefocus_statement1 = pagefocus_get_data();
-        data_statement2 = get_content(get_type(), 0);
-        add_statement(2, data_statement2.content, data_statement2.category_str);
+        var data = get_content(get_type(), 0);
+        data_statement2 = data;
+        add_statement(2, data[1], data_statement2.category_str);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
         $("#next").attr('onclick', 'to_statement3()');
     }
@@ -112,15 +116,19 @@ function to_statement2() {
 function to_statement3() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
-            content: data_statement2,
+            content: data_statement2[0],
+            text: data_statement2[1],
+            type: data_statement2[2],
             evaluation: {
                 certainty: $("#statement2_certainty").val(),
                 choice: $("#statement2_input").val()
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        data_statement3 = get_content(get_type(), 1);
-        add_statement(3, data_statement3.content, data_statement3.category_str);
+
+        var data = get_content(get_type(), 1);
+        data_statement3 = data;
+        add_statement(3, data[1], data_statement3.category_str);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
         $("#next").attr('onclick', 'to_statement4()');
     }
@@ -129,15 +137,18 @@ function to_statement3() {
 function to_statement4() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
-            content: data_statement3,
+            content: data_statement3[0],
+            text: data_statement3[1],
+            type: data_statement3[2],
             evaluation: {
                 certainty: $("#statement3_certainty").val(),
                 choice: $("#statement3_input").val()
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        data_statement4 = get_content(get_type(), 1);
-        add_statement(4, data_statement4.content, data_statement4.category_str);
+        var data = get_content(get_type(), 1);
+        data_statement4 = data;
+        add_statement(4, data[1], data_statement4.category_str);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
         $("#next").attr('onclick', 'to_transition()');
     }
@@ -146,7 +157,9 @@ function to_statement4() {
 function to_transition() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         data_array.push({
-            content: data_statement4,
+            content: data_statement4[0],
+            text: data_statement4[1],
+            type: data_statement4[2],
             evaluation: {
                 certainty: $("#statement4_certainty").val(),
                 choice: $("#statement4_input").val()
@@ -159,6 +172,9 @@ function to_transition() {
 }
 
 function to_demographics1() {
+
+    get_data();
+
     simple_transition($("#transition1"), $("#demographics1"));
     $("#next").attr('onclick', 'to_demographics2()');
     define_keys($("#age_sel"), 'number', 2);
@@ -213,10 +229,10 @@ function get_data() {
     data.lang2_sel = $("#lang2_sel").val();
 
     data.statement1_category = data_array[0].content.category;
-    data.statement1_content = data_array[0].content.content;
     data.statement1_id = data_array[0].content.id;
+    data.statement1_content = data_array[0].text;
     data.statement1_name = data_array[0].content.name;
-    data.statement1_type = data_array[0].content.type;
+    data.statement1_type = data_array[0].type;
     data.statement1_certainty = data_array[0].evaluation.certainty;
     data.statement1_choice = data_array[0].evaluation.choice;
     data.statement1_eval_defoucus = pagefocus_statement1.defocus;
@@ -224,10 +240,10 @@ function get_data() {
     data.statement1_eval_defocusduration = pagefocus_statement1.durationsum;
 
     data.statement2_category = data_array[1].content.category;
-    data.statement2_content = data_array[1].content.content;
+    data.statement2_content = data_array[1].text;
     data.statement2_id = data_array[1].content.id;
     data.statement2_name = data_array[1].content.name;
-    data.statement2_type = data_array[1].content.type;
+    data.statement2_type = data_array[1].type;
     data.statement2_certainty = data_array[1].evaluation.certainty;
     data.statement2_choice = data_array[1].evaluation.choice;
     data.statement2_eval_defoucus = pagefocus_statement2.defocus;
@@ -235,10 +251,10 @@ function get_data() {
     data.statement2_eval_defocusduration = pagefocus_statement2.durationsum;
 
     data.statement3_category = data_array[2].content.category;
-    data.statement3_content = data_array[2].content.content;
+    data.statement3_content = data_array[2].text;
     data.statement3_id = data_array[2].content.id;
     data.statement3_name = data_array[2].content.name;
-    data.statement3_type = data_array[2].content.type;
+    data.statement3_type = data_array[2].type;
     data.statement3_certainty = data_array[2].evaluation.certainty;
     data.statement3_choice = data_array[2].evaluation.choice;
     data.statement3_eval_defoucus = pagefocus_statement3.defocus;
@@ -246,10 +262,10 @@ function get_data() {
     data.statement3_eval_defocusduration = pagefocus_statement3.durationsum;
 
     data.statement4_category = data_array[3].content.category;
-    data.statement4_content = data_array[3].content.content;
+    data.statement4_content = data_array[3].text;
     data.statement4_id = data_array[3].content.id;
     data.statement4_name = data_array[3].content.name;
-    data.statement4_type = data_array[3].content.type;
+    data.statement4_type = data_array[3].type;
     data.statement4_certainty = data_array[3].evaluation.certainty;
     data.statement4_choice = data_array[3].evaluation.choice;
     data.statement4_eval_defoucus = pagefocus_statement4.defocus;

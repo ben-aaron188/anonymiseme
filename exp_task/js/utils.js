@@ -141,16 +141,26 @@ function check_slider(classname) {
 
 function get_content(type, category) {
     var index = Math.floor(Math.random() * data_statements.length);
-    var statement = data_statements[index];
+    var element = data_statements[index];
+    var statement;
 
-    while (statement.type != type || statement.category != category) {
+    while (element.category != category) {
         index = Math.floor(Math.random() * data_statements.length);
-        statement = data_statements[index];
+        element = data_statements[index];
+    }
+
+    if (type == 0) {
+        statement = element.original;
+    } else if (type == 1) {
+        var idx = Math.floor(Math.random() * 3) + 1;
+        statement = element.anon1["v" + idx];
+    } else {
+        statement = element["anon" + type];
     }
 
     data_statements.splice(index, 1);
 
-    return statement;
+    return [element, statement, type];
 }
 
 function get_unid(val_score) {
