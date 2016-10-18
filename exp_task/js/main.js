@@ -1,5 +1,6 @@
 // globals
 var data_array = [];
+// var types = shuffle([0, 1, 2, 3]);
 var types = [0, 1, 2, 3];
 var data_statement1;
 var data_statement2;
@@ -8,6 +9,8 @@ var data_statement4;
 var unid;
 var validation_score = 0;
 var repetition_count = 0;
+var text_timeout = 3000;
+
 
 // task flow
 $(document).ready(function() {
@@ -32,9 +35,10 @@ function activate_stretch() {
 function to_statement_evaluation() {
     $('body').prepend('<div id="statement_explanation">' +
         'Explanation</br>' +
-        'You will now read descriptions of persons and cities - one at a time. Your task is to identify the person or city that is described without looking up any information. Please do your best to correctly identify the person or city.</br>' +
-        'Please take your time with each description. You can only proceed with the task after a set time to ensure that you can take sufficient time.</br></br>' +
-        'If you do not adhere to the instructions, you will have to start the task again.</br>' +
+        'You will now read descriptions of persons and cities - one at a time. Your task is to identify the person or city that is described without looking up any information. Some data have been anonymised so the descriptions differ in difficulty. Please do your best to correctly identify the person or city.</br>' +
+        'Please take your time with each description. You can only proceed with the task after a set time to give you enough time to carefully read the descriptions. Again, it is important that you think carefully who/what the texts describe since sometimes it takes considerable effort and people find it difficult to identify the person or city.</br></br>' +
+        'If you do not adhere to the instructions, you will have to start the task again and we may have to invalidate you participation for this task.</br>' +
+        '</br>You will now start with the first of four descriptions. Good luck with identifying the person or city.' +
         '</div>'
     );
     simple_transition($("#informed_consent"), $("#statement_explanation"));
@@ -106,11 +110,11 @@ function to_main_statements() {
 }
 
 function to_statement1() {
-
     var data = get_content(get_type(), 0);
     data_statement1 = data;
-    add_statement(1, data[1], data_statement1.category_str);
+    add_statement(1, data[1], data_statement1[0].category_str);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
+    hide_show_next();
     $("#next").attr('onclick', 'to_statement2()');
 }
 
@@ -127,12 +131,12 @@ function to_statement2() {
                 choice: $("#statement1_input").val()
             }
         });
-
         pagefocus_statement1 = pagefocus_get_data();
         var data = get_content(get_type(), 0);
         data_statement2 = data;
-        add_statement(2, data[1], data_statement2.category_str);
+        add_statement(2, data[1], data_statement2[0].category_str);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
+        hide_show_next();
         $("#next").attr('onclick', 'to_statement3()');
     }
 }
@@ -151,11 +155,11 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-
         var data = get_content(get_type(), 1);
         data_statement3 = data;
-        add_statement(3, data[1], data_statement3.category_str);
+        add_statement(3, data[1], data_statement3[0].category_str);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
+        hide_show_next();
         $("#next").attr('onclick', 'to_statement4()');
     }
 }
@@ -176,8 +180,9 @@ function to_statement4() {
         pagefocus_statement3 = pagefocus_get_data();
         var data = get_content(get_type(), 1);
         data_statement4 = data;
-        add_statement(4, data[1], data_statement4.category_str);
+        add_statement(4, data[1], data_statement4[0].category_str);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
+        hide_show_next();
         $("#next").attr('onclick', 'to_transition()');
     }
 }
@@ -227,14 +232,6 @@ function to_outro() {
     }
 }
 
-function get_type() {
-    var index = Math.floor(Math.random() * types.length);
-    var type = types[index];
-
-    types.splice(index, 1);
-
-    return type;
-}
 
 function get_data() {
     var data = {};
@@ -310,4 +307,27 @@ function get_data() {
     console.log(data);
 
     return data;
+}
+
+function hide_show_next() {
+    $("#next").hide();
+    setTimeout(function() {
+        $("#next").show();
+    }, text_timeout);
+}
+
+function shuffle(array) {
+    var newarr = [];
+    var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        newarr[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return newarr;
 }
