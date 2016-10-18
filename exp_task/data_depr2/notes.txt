@@ -1,7 +1,0 @@
-
-Wikipedia = 0,
-World News = 1,
-Travel = 2,
-Bullshit = 3
-
-type: 0 original 1 anonymised

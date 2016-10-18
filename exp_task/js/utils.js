@@ -132,7 +132,7 @@ function check_slider(classname) {
         }
     });
     if (score != -1) {
-        alert("Please move the slider to indicate your certainty.");
+        alert("Please move all sliders to indicate your certainty, the readability and the plausibility of this description.");
         score = 0;
     } else {
         return true;

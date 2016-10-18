@@ -10,7 +10,7 @@ var validation_score = 0;
 var repetition_count = 0;
 
 // task flow
-$(document).ready(function () {
+$(document).ready(function() {
     init_data();
     getIP();
     $("#intro1").show();
@@ -24,7 +24,7 @@ function to_informed_consent() {
 }
 
 function activate_stretch() {
-    $('.stretch').each(function () {
+    $('.stretch').each(function() {
         $(this).stretch_text();
     });
 }
@@ -63,7 +63,16 @@ function add_statement(number, content, category) {
             '<span id="slider_instr">How certain are you of your choice (in %)?</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output> ' +
-            // '<div class="slider_io_output_labels stretch">(low) - - - - - - (high)</div> ' +
+            '</div>' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">How readable do you find this text (in %)?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_readability" value="50" min="0" max="100" step="5" oninput="set_readability_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
+            '</div>' +
+            '<div class="slider_io">' +
+            '<span id="slider_instr">How plausible do you find this text (in %)?</span> ' +
+            '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_plausibility" value="50" min="0" max="100" step="5" oninput="set_plausibility_slider_value(' + number + ')">' +
+            '<output class="slider_io_output" id="plausibility_output_' + number + '">move the slider</output> ' +
             '</div>' +
             '</div>' +
             '</div>'
@@ -77,6 +86,19 @@ function set_certainty_slider_value(number) {
     var output = "#certainty_output_" + number;
     $(output).val($(input).val() + '%');
 }
+
+function set_readability_slider_value(number) {
+    var input = "#statement" + number + "_readability";
+    var output = "#readability_output_" + number;
+    $(output).val($(input).val() + '%');
+}
+
+function set_plausibility_slider_value(number) {
+    var input = "#statement" + number + "_plausibility";
+    var output = "#plausibility_output_" + number;
+    $(output).val($(input).val() + '%');
+}
+
 
 function to_main_statements() {
     get_unid(repetition_count);
@@ -100,6 +122,8 @@ function to_statement2() {
             type: data_statement1[2],
             evaluation: {
                 certainty: $("#statement1_certainty").val(),
+                plausibility: $("#statement1_plausibility").val(),
+                readability: $("#statement1_readability").val(),
                 choice: $("#statement1_input").val()
             }
         });
@@ -121,6 +145,8 @@ function to_statement3() {
             type: data_statement2[2],
             evaluation: {
                 certainty: $("#statement2_certainty").val(),
+                plausibility: $("#statement2_plausibility").val(),
+                readability: $("#statement2_readability").val(),
                 choice: $("#statement2_input").val()
             }
         });
@@ -142,6 +168,8 @@ function to_statement4() {
             type: data_statement3[2],
             evaluation: {
                 certainty: $("#statement3_certainty").val(),
+                plausibility: $("#statement3_plausibility").val(),
+                readability: $("#statement3_readability").val(),
                 choice: $("#statement3_input").val()
             }
         });
@@ -162,6 +190,8 @@ function to_transition() {
             type: data_statement4[2],
             evaluation: {
                 certainty: $("#statement4_certainty").val(),
+                plausibility: $("#statement4_plausibility").val(),
+                readability: $("#statement4_readability").val(),
                 choice: $("#statement4_input").val()
             }
         });
@@ -231,6 +261,8 @@ function get_data() {
     data.statement1_name = data_array[0].content.name;
     data.statement1_type = data_array[0].type;
     data.statement1_certainty = data_array[0].evaluation.certainty;
+    data.statement1_readability = data_array[0].evaluation.readability;
+    data.statement1_plausibility = data_array[0].evaluation.plausibility;
     data.statement1_choice = data_array[0].evaluation.choice;
     data.statement1_eval_defoucus = pagefocus_statement1.defocus;
     data.statement1_eval_refoucus = pagefocus_statement1.refocus;
@@ -242,6 +274,8 @@ function get_data() {
     data.statement2_name = data_array[1].content.name;
     data.statement2_type = data_array[1].type;
     data.statement2_certainty = data_array[1].evaluation.certainty;
+    data.statement2_readability = data_array[1].evaluation.readability;
+    data.statement2_plausibility = data_array[1].evaluation.plausibility;
     data.statement2_choice = data_array[1].evaluation.choice;
     data.statement2_eval_defoucus = pagefocus_statement2.defocus;
     data.statement2_eval_refoucus = pagefocus_statement2.refocus;
@@ -253,6 +287,8 @@ function get_data() {
     data.statement3_name = data_array[2].content.name;
     data.statement3_type = data_array[2].type;
     data.statement3_certainty = data_array[2].evaluation.certainty;
+    data.statement3_readability = data_array[2].evaluation.readability;
+    data.statement3_plausibility = data_array[2].evaluation.plausibility;
     data.statement3_choice = data_array[2].evaluation.choice;
     data.statement3_eval_defoucus = pagefocus_statement3.defocus;
     data.statement3_eval_refoucus = pagefocus_statement3.refocus;
@@ -264,6 +300,8 @@ function get_data() {
     data.statement4_name = data_array[3].content.name;
     data.statement4_type = data_array[3].type;
     data.statement4_certainty = data_array[3].evaluation.certainty;
+    data.statement4_readability = data_array[3].evaluation.readability;
+    data.statement4_plausibility = data_array[3].evaluation.plausibility;
     data.statement4_choice = data_array[3].evaluation.choice;
     data.statement4_eval_defoucus = pagefocus_statement4.defocus;
     data.statement4_eval_refoucus = pagefocus_statement4.refocus;
