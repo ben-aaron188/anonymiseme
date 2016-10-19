@@ -1,7 +1,7 @@
 var Client = require('./src/client.js');
 var Mock = require('./ukd/mock.js');
 
-var string_input = "Input here.";
+var string_input = "Input here";
 
 if (process.argv[2] == "alt") {
     Mock.log_mock(string_input);

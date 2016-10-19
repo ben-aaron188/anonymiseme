@@ -39,7 +39,9 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, 
     for (var i = 0; i < prep.terms.length; i++) {
         var el = prep.terms[i];
 
-        if (el.pos.Date || el.pos.Value && !_Util().inArray(el.text, used_dates)) {
+        if (el.text == "XXX") {
+            replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
+        } else if (el.pos.Date || el.pos.Value && !_Util().inArray(el.text, used_dates)) {
             Replacer.generate_replacement(el, true, complete);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + _Custom().check_date(el.text, el.replacement, complete) + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
@@ -86,6 +88,11 @@ Replacer.ext_get_replacement = function (entity, string, complete) {
         category,
         full_name = false,
         length = string.split(" ").length;
+
+    // catching XXX
+    if (string == "XXX") {
+        return string;
+    }
 
     if (entity == "DATE") {
         return _Custom().check_date(string, string, complete);

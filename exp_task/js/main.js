@@ -13,7 +13,7 @@ var text_timeout = 3000;
 
 
 // task flow
-$(document).ready(function() {
+$(document).ready(function () {
     init_data();
     getIP();
     $("#intro1").show();
@@ -27,7 +27,7 @@ function to_informed_consent() {
 }
 
 function activate_stretch() {
-    $('.stretch').each(function() {
+    $('.stretch').each(function () {
         $(this).stretch_text();
     });
 }
@@ -311,7 +311,7 @@ function get_data() {
 
 function hide_show_next() {
     $("#next").hide();
-    setTimeout(function() {
+    setTimeout(function () {
         $("#next").show();
     }, text_timeout);
 }
