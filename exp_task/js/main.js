@@ -1,7 +1,7 @@
 // globals
 var data_array = [];
-// var types = shuffle([0, 1, 2, 3]);
-var types = [0, 1, 2, 3];
+var types = shuffle([0, 1, 2, 3]);
+// var types = [0, 1, 2, 3];
 var data_statement1;
 var data_statement2;
 var data_statement3;
@@ -9,7 +9,7 @@ var data_statement4;
 var unid;
 var validation_score = 0;
 var repetition_count = 0;
-var text_timeout = 3000;
+var text_timeout = 30000;
 
 
 // task flow
@@ -36,8 +36,8 @@ function to_statement_evaluation() {
     $('body').prepend('<div id="statement_explanation">' +
         'Explanation</br>' +
         'You will now read descriptions of persons and cities - one at a time. Your task is to identify the person or city that is described without looking up any information. Some data have been anonymised so the descriptions differ in difficulty. Please do your best to correctly identify the person or city.</br>' +
-        'Please take your time with each description. You can only proceed with the task after a set time to give you enough time to carefully read the descriptions. Again, it is important that you think carefully who/what the texts describe since sometimes it takes considerable effort and people find it difficult to identify the person or city.</br></br>' +
-        'If you do not adhere to the instructions, you will have to start the task again and we may have to invalidate you participation for this task.</br>' +
+        'Please take your time with each description. The button to proceed will only appear after a set time to give you enough time to carefully read the descriptions.</br></br>Again, it is important that you think carefully who/what the texts describe since sometimes it takes considerable effort and people find it difficult to identify the person or city.</br></br>' +
+        'If you do not adhere to the instructions, you will have to start the task again and we may have to invalidate your participation for this task.</br>' +
         '</br>You will now start with the first of four descriptions. Good luck with identifying the person or city.' +
         '</div>'
     );
