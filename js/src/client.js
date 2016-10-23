@@ -8,9 +8,7 @@ function Client() {
 }
 
 Client.replace_combined = function (string_input, complete) {
-    var temp_prep = Client.preprocess_string(string_input);
-
-    _Replacer().string_replace_all(temp_prep, complete);
+    _Replacer().string_replace_all(string_input, complete);
 }
 
 Client.preprocess_string = function (string) {

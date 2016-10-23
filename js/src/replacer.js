@@ -21,15 +21,8 @@ function Replacer() {
  * @param preprocessed_object
  * @returns {string}
  */
-Replacer.string_replace_all = function (preprocessed_object, complete) {
-    var replaced = "";
-
-    for (var i = 0; i < preprocessed_object.terms.length; i++) {
-        var el = preprocessed_object.terms[i];
-        replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
-    }
-
-    Replacer.ner_entities(replaced, complete);
+Replacer.string_replace_all = function (input, complete) {
+    Replacer.ner_entities(input, complete);
 }
 
 Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, used_dates, complete) {

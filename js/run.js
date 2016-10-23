@@ -1,7 +1,7 @@
 var Client = require('./src/client.js');
 var Mock = require('./ukd/mock.js');
 
-var string_input = "Input here";
+var string_input = "Franz is a German citizen living in Manchester. He works for the University of Manchester since 2000.";
 
 if (process.argv[2] == "alt") {
     Mock.log_mock(string_input);
