@@ -322,7 +322,7 @@ Custom.not_valid = function (date) {
     if (date.includes("-")) {
         count++;
     }
-    if (Custom.includes_week_day(date)) {
+    if (Custom.includes_week_day(date) && date.split(" ") < 5) {
         count++;
     }
 
