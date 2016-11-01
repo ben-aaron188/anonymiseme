@@ -9,14 +9,16 @@ var data_statement4;
 var unid;
 var validation_score = 0;
 var repetition_count = 0;
-var text_timeout = 30000;
-
+var text_timeout = 3000;
+var t1;
 
 // task flow
-$(document).ready(function () {
+$(document).ready(function() {
     init_data();
     getIP();
     $("#intro1").show();
+    var text = intro_text;
+    $('body').prepend('<div id="intro1" class="text1">' + text + '</div>');
     $("#next").attr('onclick', 'to_informed_consent()');
 });
 
@@ -27,7 +29,7 @@ function to_informed_consent() {
 }
 
 function activate_stretch() {
-    $('.stretch').each(function () {
+    $('.stretch').each(function() {
         $(this).stretch_text();
     });
 }
@@ -112,6 +114,7 @@ function to_main_statements() {
 function to_statement1() {
     var data = get_content(get_type(), 0);
     data_statement1 = data;
+    start_timer();
     add_statement(1, data[1], data_statement1[0].category_str);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
     hide_show_next();
@@ -120,6 +123,7 @@ function to_statement1() {
 
 function to_statement2() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
+      statement1_elapsed = end_timer();
         data_array.push({
             content: data_statement1[0],
             text: data_statement1[1],
@@ -134,6 +138,7 @@ function to_statement2() {
         pagefocus_statement1 = pagefocus_get_data();
         var data = get_content(get_type(), 0);
         data_statement2 = data;
+        start_timer();
         add_statement(2, data[1], data_statement2[0].category_str);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
         hide_show_next();
@@ -143,6 +148,7 @@ function to_statement2() {
 
 function to_statement3() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
+      statement2_elapsed = end_timer();
         data_array.push({
             content: data_statement2[0],
             text: data_statement2[1],
@@ -157,6 +163,7 @@ function to_statement3() {
         pagefocus_statement2 = pagefocus_get_data();
         var data = get_content(get_type(), 1);
         data_statement3 = data;
+        start_timer();
         add_statement(3, data[1], data_statement3[0].category_str);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
         hide_show_next();
@@ -166,6 +173,7 @@ function to_statement3() {
 
 function to_statement4() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
+      statement3_elapsed = end_timer();
         data_array.push({
             content: data_statement3[0],
             text: data_statement3[1],
@@ -180,6 +188,7 @@ function to_statement4() {
         pagefocus_statement3 = pagefocus_get_data();
         var data = get_content(get_type(), 1);
         data_statement4 = data;
+        start_timer();
         add_statement(4, data[1], data_statement4[0].category_str);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
         hide_show_next();
@@ -189,6 +198,7 @@ function to_statement4() {
 
 function to_transition() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
+      statement4_elapsed = end_timer();
         data_array.push({
             content: data_statement4[0],
             text: data_statement4[1],
@@ -200,16 +210,29 @@ function to_transition() {
                 choice: $("#statement4_input").val()
             }
         });
+        var text = transition_text;
+        $('body').prepend('<div id="transition1" class="text1_">' + text + '</div>');
         pagefocus_statement4 = pagefocus_get_data();
         simple_transition($("#statement4_wrapper"), $("#transition1"));
-        $("#next").attr('onclick', 'to_demographics1()');
+        $("#next").attr('onclick', 'to_open_questions()');
     }
 }
 
+function to_open_questions() {
+    var text = open_question_text;
+    var input_field = '<span id="text_input1_instr">' + text + '</span> ' +
+        '<textarea type="text" class="open_question_input" id="openquestion" placehoder="Type your answer here"></textarea>';
+    $('body').prepend('<div id="open_question" class="text1_">' + input_field + '</div>');
+    simple_transition($("#transition1"), $("#open_question"));
+    $("#next").attr('onclick', 'to_demographics1()');
+}
+
 function to_demographics1() {
-    simple_transition($("#transition1"), $("#demographics1"));
-    $("#next").attr('onclick', 'to_demographics2()');
-    define_keys($("#age_sel"), 'number', 2);
+    if (check_choice($(".open_question_input"))) {
+        simple_transition($("#open_question"), $("#demographics1"));
+        $("#next").attr('onclick', 'to_demographics2()');
+        define_keys($("#age_sel"), 'number', 2);
+    }
 }
 
 function to_demographics2() {
@@ -224,6 +247,15 @@ function to_demographics2() {
 
 function to_outro() {
     if (check_fields($(".select_menu")) === true) {
+        var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
+            '<span id="debr">' + debriefing_long + '</span></br></br>' +
+            'Please fill in you participation code (e.g. AB1234) and Prolific participant ID.' +
+            '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="24" style="text-align: center; left: 20%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR PROLIFIC ID">' +
+            '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
+        var credits_dom = '<div id="credits">' +
+            'University of Amsterdam // Bennett Kleinberg: <a href="mailto:b.a.r.kleinberg@uva.nl?Subject=Online%20Experiment" target="_top">b.a.r.kleinberg@uva.nl</a>' +
+            '</div>';
+        $('body').prepend('<div id="outro" class="text1">' + outro_dom + '</div>' + credits_dom);
         simple_transition($("#demographics2"), $("#outro"));
         $("#partcode").text(unid);
         // $("#next").show();
@@ -264,6 +296,7 @@ function get_data() {
     data.statement1_eval_defoucus = pagefocus_statement1.defocus;
     data.statement1_eval_refoucus = pagefocus_statement1.refocus;
     data.statement1_eval_defocusduration = pagefocus_statement1.durationsum;
+    data.statement1_elapsed = statement1_elapsed;
 
     data.statement2_category = data_array[1].content.category;
     data.statement2_content = data_array[1].text;
@@ -277,6 +310,7 @@ function get_data() {
     data.statement2_eval_defoucus = pagefocus_statement2.defocus;
     data.statement2_eval_refoucus = pagefocus_statement2.refocus;
     data.statement2_eval_defocusduration = pagefocus_statement2.durationsum;
+    data.statement2_elapsed = statement2_elapsed;
 
     data.statement3_category = data_array[2].content.category;
     data.statement3_content = data_array[2].text;
@@ -290,6 +324,7 @@ function get_data() {
     data.statement3_eval_defoucus = pagefocus_statement3.defocus;
     data.statement3_eval_refoucus = pagefocus_statement3.refocus;
     data.statement3_eval_defocusduration = pagefocus_statement3.durationsum;
+    data.statement3_elapsed = statement3_elapsed;
 
     data.statement4_category = data_array[3].content.category;
     data.statement4_content = data_array[3].text;
@@ -303,6 +338,9 @@ function get_data() {
     data.statement4_eval_defoucus = pagefocus_statement4.defocus;
     data.statement4_eval_refoucus = pagefocus_statement4.refocus;
     data.statement4_eval_defocusduration = pagefocus_statement4.durationsum;
+    data.statement4_elapsed = statement4_elapsed;
+
+    data.openquestion = $("#openquestion").val();
 
     console.log(data);
 
@@ -311,7 +349,7 @@ function get_data() {
 
 function hide_show_next() {
     $("#next").hide();
-    setTimeout(function () {
+    setTimeout(function() {
         $("#next").show();
     }, text_timeout);
 }
@@ -330,4 +368,14 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
     return newarr;
+}
+
+function start_timer(){
+  t1 = now();
+}
+
+function end_timer(){
+  var t2 = now();
+  var elapsed = t2 - t1;
+  return elapsed;
 }

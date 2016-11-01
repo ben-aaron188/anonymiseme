@@ -201,3 +201,18 @@ $.fn.stretch_text = function() {
         elmt.addClass('justify');
     }
 };
+
+var now = (function() {
+    var performance = window.performance || {};
+    performance.now = (function() {
+        return performance.now ||
+            performance.webkitNow ||
+            performance.msNow ||
+            performance.oNow ||
+            performance.mozNow ||
+            function() {
+                return new Date().getTime();
+            };
+    })();
+    return performance.now();
+});
