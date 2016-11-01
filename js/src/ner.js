@@ -122,11 +122,13 @@ NER.replace_entities = function (entities, file, complete) {
             throw err;
         }
 
+        //data = data.replace(/\s\s+/g, ' ');
+
         for (var property in entities) {
             if (entities[property]) {
                 for (var i = 0; i < entities[property].length; i++) {
                     var entity = entities[property][i],
-                        replacement;
+                        replacement = null;
 
                     if (property == 'MONEY') {
                         entity = NER.adjust_currency(entity);
@@ -142,13 +144,15 @@ NER.replace_entities = function (entities, file, complete) {
                         } else if (property == 'LOCATION') {
                             locations.push(replacement);
                         } else if (property == 'PERSON') {
+
                             persons.push(replacement);
                         } else if (property == "DATE") {
                             dates.push(replacement);
                         }
                     }
 
-                    data = data.replace(new RegExp(entity, 'g'), replacement);
+                    console.log(data.indexOf(entity));
+                    data = data.replace(new RegExp(entity, 'gi'), replacement);
                 }
             }
         }
