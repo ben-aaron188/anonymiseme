@@ -148,8 +148,11 @@ function get_content(type, category) {
     var element = data_statements[index];
     var statement;
     while (element.category != category) {
+        console.log(element.category + '----' + category);
         index = Math.floor(Math.random() * data_statements.length);
+        console.log(index);
         element = data_statements[index];
+        console.log(element);
     }
     if (type === 0) {
         statement = element.original;
