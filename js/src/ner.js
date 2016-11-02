@@ -115,7 +115,9 @@ NER.replace_entities = function (entities, file, complete) {
     var organizations = [],
         locations = [],
         persons = [],
-        dates = [];
+        dates = [],
+        entity_arr = [],
+        replaced = [];
 
     fs.readFile(file + ".txt", 'utf8', function (err, data) {
         if (err) {
@@ -137,7 +139,8 @@ NER.replace_entities = function (entities, file, complete) {
                     if (complete) {
                         replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
                     } else {
-                        replacement = _Replacer().ext_get_replacement(property, entity, complete);
+                        replacement = NER.get_replacement(property, entity, complete, replaced);
+                        replaced.push(replacement);
 
                         if (property == 'ORGANIZATION') {
                             organizations.push(replacement);
@@ -151,21 +154,42 @@ NER.replace_entities = function (entities, file, complete) {
                         }
                     }
 
-                    console.log(data.indexOf(entity));
+                    if (data.indexOf(entity) != -1) {
+                        entity_arr.push(entity + " => " + replacement);
+                    }
+
                     data = data.replace(new RegExp(entity, 'gi'), replacement);
                 }
             }
         }
 
         NER.delete_file(file);
-        var output = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete);
+        var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced);
+        var output = res.replaced;
+
+        for (var i = 0; i < res.entities.length; i++) {
+            entity_arr.push(res.entities[i]);
+        }
 
         if (complete) {
             output = NER.replace_currencies(output);
         }
 
         console.log(output);
+        console.log("");
+        console.log(entity_arr);
     });
+}
+
+NER.get_replacement = function (property, entity, complete, replaced) {
+    var replacement = _Replacer().ext_get_replacement(property, entity, complete);
+
+    if (_Util().ident_inArray(replacement, replaced)) {
+        return NER.get_replacement(property, entity, complete, replaced);
+    } else {
+        return replacement;
+    }
+
 }
 
 NER.replace_currencies = function (data) {
