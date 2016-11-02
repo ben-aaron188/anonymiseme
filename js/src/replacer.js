@@ -23,7 +23,7 @@ function Replacer() {
  */
 Replacer.string_replace_all = function (input, complete) {
     Replacer.ner_entities(input, complete);
-}
+};
 
 Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, used_dates, complete) {
     var replaced = "";
@@ -56,7 +56,7 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, 
     }
 
     return replaced;
-}
+};
 
 Replacer.generate_replacement = function (el, is_date, complete) {
 
@@ -73,7 +73,7 @@ Replacer.generate_replacement = function (el, is_date, complete) {
             }
         }
     }
-}
+};
 
 Replacer.ext_get_replacement = function (entity, string, complete) {
     var term = nlp.text(string).sentences[0].terms[0],
@@ -93,14 +93,14 @@ Replacer.ext_get_replacement = function (entity, string, complete) {
         category = "Country";
         var is_city = term.pos.City;
 
-        if (is_city == true) {
+        if (is_city === true) {
             category = "City";
         }
 
     } else if (entity == "PERSON") {
         full_name = length > 1;
 
-        if (term.pos.FemalePerson == true) {
+        if (term.pos.FemalePerson === true) {
             category = "FemalePerson";
         } else {
             category = "MalePerson";
@@ -123,7 +123,7 @@ Replacer.ext_get_replacement = function (entity, string, complete) {
 
     return replacement;
 
-}
+};
 
 Replacer.get_replacement = function (category, special_spelling, full_name, length) {
     var alt_array = [];
@@ -165,7 +165,7 @@ Replacer.get_replacement = function (category, special_spelling, full_name, leng
         replacer = replacement;
     }
     return replacer;
-}
+};
 
 Replacer.define_replacement = function (term_object) {
     var category = term_object.tag;
@@ -178,7 +178,7 @@ Replacer.define_replacement = function (term_object) {
         category = nlp.text(first).sentences[0].terms[0].tag;
     }
 
-    if (_Util().ident_inArray(term_object.normal, replaced_arr) == false) {
+    if (_Util().ident_inArray(term_object.normal, replaced_arr) === false) {
         if (_Util().term_is_capitalised(term_object.text)) {
             term_object.replacement = Replacer.get_replacement(category, 'capitalise', full_name, length);
         } else if (term_object.is_acronym()) {
@@ -193,7 +193,7 @@ Replacer.define_replacement = function (term_object) {
 
         term_object.replacement = selected_from_object[0].replacement;
     }
-}
+};
 
 Replacer.add_to_temp = function (original, replacement) {
     var temp_obj = {
@@ -202,7 +202,7 @@ Replacer.add_to_temp = function (original, replacement) {
     };
     temp_replacers.push(temp_obj);
     replaced_arr.push(temp_obj.original);
-}
+};
 
 Replacer.ner_entities = function (stringinput, complete) {
     var filename = new Date().getTime();
@@ -210,7 +210,7 @@ Replacer.ner_entities = function (stringinput, complete) {
     fs.writeFile(filename + ".txt", stringinput, function () {
         _NER().get_entities(filename, complete);
     });
-}
+};
 
 function _Client() {
     if (!Client) {

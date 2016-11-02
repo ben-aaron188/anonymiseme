@@ -21,7 +21,7 @@ NER.get_entities = function (file, complete) {
         //console.log(entities);
         NER.replace_entities(NER.as_set(entities), file, complete);
     });
-}
+};
 
 /**
  * Converts the entity object to a set (math.).
@@ -51,7 +51,7 @@ NER.as_set = function (entities) {
         "DATE": entities['DATE'],
     };
 
-}
+};
 
 /**
  * Checks whtether the given element is in the array.
@@ -68,7 +68,7 @@ NER.in_array = function (element, array) {
     }
 
     return false;
-}
+};
 
 /**
  * Checks whether the given string contains a special character and returns this character if true, false otherwise.
@@ -86,7 +86,7 @@ NER.get_extension = function (element) {
     }
 
     return false;
-}
+};
 
 /**
  * Normalizes the given input.
@@ -104,7 +104,7 @@ NER.adjust_term = function (stringinput) {
         return stringinput.toLowerCase();
     }
 
-}
+};
 
 /**
  * Replaces all the recognised entities within a given text.
@@ -150,9 +150,13 @@ NER.replace_entities = function (entities, file, complete) {
                             dates.push(replacement);
                         }
                     }
-
-                    console.log(data.indexOf(entity));
+                    // console.log(data.substring(0, 22) == "Steven Paul Steve Jobs");
+                    // console.log(data.substring(0, 22) == "Steven Paul Steve Jobs");
+                    // console.log('after replacement: ' + data.indexOf(entity) + entity, replacement, property);
+                    // console.log(decodeURIComponent(data.substring(0, 22)) === "Steven Paul Steve Jobs");
+                    // console.log('before: ' + data.indexOf(encodeURIComponent(entity)));
                     data = data.replace(new RegExp(entity, 'gi'), replacement);
+                    console.log('after replacement: ' + data.indexOf(entity)  + " " + entity, replacement, property);
                 }
             }
         }
@@ -166,16 +170,16 @@ NER.replace_entities = function (entities, file, complete) {
 
         console.log(output);
     });
-}
+};
 
 NER.replace_currencies = function (data) {
     data = data.replace(/€/g, '');
     return data.replace(/\$/g, '');
-}
+};
 
 NER.adjust_currency = function (currency) {
     return parseFloat(currency.replace(/[^\d\.]/g, '')).toString();
-}
+};
 
 /**
  * Deletes the temp file.
@@ -184,7 +188,7 @@ NER.adjust_currency = function (currency) {
  */
 NER.delete_file = function (filename) {
     fs.unlinkSync(filename + ".txt");
-}
+};
 
 /**
  * Writes the anonymised file to a new textfile and stores it in the current working directory.
@@ -197,7 +201,7 @@ NER.write_anon = function (anonymised) {
             throw err;
         }
     });
-}
+};
 
 _Replacer = function () {
     if (!Replacer) {
