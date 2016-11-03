@@ -8,6 +8,7 @@ var lexicon = nlp.lexicon();
 var temp_replacers = [];
 var replaced_arr = [];
 var replacements = [];
+var replaced_multi_names = [];
 var NER = null;
 var Client = null;
 var Util = null;
@@ -40,6 +41,33 @@ Replacer.get_unique_replacement = function (el, bool, complete) {
     } else {
         replacements.push(el.replacement);
     }
+
+}
+
+Replacer.smart_name_rep = function (data, entity, replacement) {
+    return _Custom().smart_name_rep(data, entity, replacement);
+}
+
+Replacer.replace_multi_names = function (data) {
+    var entities = [];
+
+    for (var i = 0; i < replaced_multi_names.length; i++) {
+        var current = replaced_multi_names[i];
+        var res = Replacer.smart_name_rep(data, current.or, current.rep);
+
+        data = res.data;
+
+        if (res.entities) {
+            for (var i = 0; i < res.entities.length; i++) {
+                entities.push(res.entities[i]);
+            }
+        }
+    }
+
+    return {
+        data: data,
+        entities: entities
+    };
 
 }
 
@@ -77,15 +105,27 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, 
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
 
+            if (el.replacement.split(" ").length > 1) {
+                replaced_multi_names.push({or: el.text, rep: el.replacement});
+            }
+
             entities.push(el.text + " => " + el.replacement);
         } else {
             replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
         }
     }
 
+    var fin = Replacer.replace_multi_names(replaced);
+
+    if (fin.entities) {
+        for (var i = 0; i < fin.entities.length; i++) {
+            entities.push(fin.entities[i]);
+        }
+    }
+
     return {
-        replaced: replaced,
-        entities: entities
+        replaced: fin.data,
+        entities: _Util().remove_duplicates(entities)
     };
 }
 

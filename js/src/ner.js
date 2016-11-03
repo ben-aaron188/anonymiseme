@@ -18,7 +18,7 @@ function NER() {
 NER.get_entities = function (file, complete) {
     ner.fromFile(file + ".txt", function (entities) {
 
-        //console.log(entities);
+        console.log(entities);
         NER.replace_entities(NER.as_set(entities), file, complete);
     });
 }
@@ -124,8 +124,6 @@ NER.replace_entities = function (entities, file, complete) {
             throw err;
         }
 
-        //data = data.replace(/\s\s+/g, ' ');
-
         for (var property in entities) {
             if (entities[property]) {
                 for (var i = 0; i < entities[property].length; i++) {
@@ -147,6 +145,17 @@ NER.replace_entities = function (entities, file, complete) {
                         } else if (property == 'LOCATION') {
                             locations.push(replacement);
                         } else if (property == 'PERSON') {
+
+                            var res = _Replacer().smart_name_rep(data, entity, replacement);
+                            data = res.data;
+
+                            if (res.entities) {
+                                for (var i = 0; i < res.entities.length; i++) {
+                                    entity_arr.push(res.entities[i]);
+                                }
+
+                                persons.push(res.re_last);
+                            }
 
                             persons.push(replacement);
                         } else if (property == "DATE") {

@@ -424,6 +424,34 @@ Custom.return_ordinal = function (string) {
     }
 }
 
+Custom.smart_name_rep = function (data, entity, replacement) {
+    var names = entity.split(" ");
+    var entities = [];
+
+    if (names.length > 1) {
+        var re_names = replacement.split(" ");
+        var or_last = _Util().remove_term_terminator(names[names.length - 1]);
+        var re_last = _Util().remove_term_terminator(re_names[re_names.length - 1]);
+
+        if (data.indexOf(or_last) != -1) {
+            data = data.replace(new RegExp(entity, 'gi'), replacement);
+            entities.push(entity + " => " + replacement);
+            entities.push(or_last + " => " + re_last);
+
+            return {
+                data: data.replace(new RegExp(or_last, 'gi'), re_last),
+                entities: entities,
+                re_last: re_last
+            };
+        }
+    }
+
+    return {
+        data: data,
+        entities: null
+    };
+}
+
 function _Util() {
     if (!Util) {
         Util = require('./util.js');

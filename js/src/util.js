@@ -95,6 +95,18 @@ Util.get_term_terminator = function (stringinput) {
     return terminator;
 }
 
+Util.remove_duplicates = function (array) {
+    var set = [];
+
+    for (var i = 0; i < array.length; i++) {
+        if (!Util.ident_inArray(array[i], set)) {
+            set.push(array[i]);
+        }
+    }
+
+    return set;
+}
+
 Util.remove_term_terminator = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']'];
     var last_char = stringinput[stringinput.length - 1];
