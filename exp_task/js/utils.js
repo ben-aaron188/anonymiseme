@@ -3,9 +3,9 @@ var slider_moved_array = [];
 function check_fields(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -22,9 +22,9 @@ function check_fields(classname) {
 function check_choice(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -49,14 +49,14 @@ function has_second_language() {
 
 function define_keys(ID, allowedInput, allowedMax) {
     if (allowedInput == "number") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code != 8 && code !== 0 && (code < 48 || code > 57)) {
                 return false;
             }
         });
     } else if (allowedInput == "text") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code > 32 && (code < 65 || code > 90) &&
                 (code < 97 || code > 122)) {
@@ -99,7 +99,7 @@ function init_data() {
 }
 
 function simple_transition(current_div, next_div) {
-    current_div.hide(function() {
+    current_div.hide(function () {
         next_div.show();
     });
 }
@@ -113,7 +113,7 @@ function send_to_server() {
 }
 
 function getIP() {
-    $.get("http://ipinfo.io", function(response) {
+    $.get("http://ipinfo.io", function (response) {
         window.clientip = response.ip;
     }, "jsonp");
 }
@@ -121,7 +121,7 @@ function getIP() {
 function check_slider(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             class_values.push($(this).val().length);
             score = $.inArray(15, class_values);
@@ -148,21 +148,23 @@ function get_content(type, category) {
     var element = data_statements[index];
     var statement;
     while (element.category != category) {
-        console.log(element.category + '----' + category);
+        //console.log(element.category + '----' + category);
         index = Math.floor(Math.random() * data_statements.length);
-        console.log(index);
+        //console.log(index);
         element = data_statements[index];
-        console.log(element);
+        //console.log(element);
     }
     if (type === 0) {
         statement = element.original;
     } else if (type == 1) {
         var idx = Math.floor(Math.random() * 3) + 1;
-        statement = element.anon1["v" + idx];
+
+        statement = element.anon1["v" + idx].text;
     } else {
         statement = element["anon" + type];
     }
     data_statements.splice(index, 1);
+
     return [element, statement, type];
 }
 
@@ -180,7 +182,7 @@ function get_unid(val_score) {
 }
 
 // source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
-$.fn.stretch_text = function() {
+$.fn.stretch_text = function () {
     var elmt = $(this),
         cont_width = elmt.width(),
         txt = elmt.html(),
@@ -205,15 +207,15 @@ $.fn.stretch_text = function() {
     }
 };
 
-var now = (function() {
+var now = (function () {
     var performance = window.performance || {};
-    performance.now = (function() {
+    performance.now = (function () {
         return performance.now ||
             performance.webkitNow ||
             performance.msNow ||
             performance.oNow ||
             performance.mozNow ||
-            function() {
+            function () {
                 return new Date().getTime();
             };
     })();

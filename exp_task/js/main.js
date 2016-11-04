@@ -13,7 +13,7 @@ var text_timeout = 3000;
 var t1;
 
 // task flow
-$(document).ready(function() {
+$(document).ready(function () {
     init_data();
     getIP();
     $("#intro1").show();
@@ -29,7 +29,7 @@ function to_informed_consent() {
 }
 
 function activate_stretch() {
-    $('.stretch').each(function() {
+    $('.stretch').each(function () {
         $(this).stretch_text();
     });
 }
@@ -115,6 +115,7 @@ function to_statement1() {
     var data = get_content(get_type(), 0);
     data_statement1 = data;
     start_timer();
+
     add_statement(1, data[1], data_statement1[0].category_str);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
     hide_show_next();
@@ -123,7 +124,7 @@ function to_statement1() {
 
 function to_statement2() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
-      statement1_elapsed = end_timer();
+        statement1_elapsed = end_timer();
         data_array.push({
             content: data_statement1[0],
             text: data_statement1[1],
@@ -138,6 +139,7 @@ function to_statement2() {
         pagefocus_statement1 = pagefocus_get_data();
         var data = get_content(get_type(), 0);
         data_statement2 = data;
+
         start_timer();
         add_statement(2, data[1], data_statement2[0].category_str);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
@@ -148,7 +150,7 @@ function to_statement2() {
 
 function to_statement3() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
-      statement2_elapsed = end_timer();
+        statement2_elapsed = end_timer();
         data_array.push({
             content: data_statement2[0],
             text: data_statement2[1],
@@ -163,6 +165,7 @@ function to_statement3() {
         pagefocus_statement2 = pagefocus_get_data();
         var data = get_content(get_type(), 1);
         data_statement3 = data;
+
         start_timer();
         add_statement(3, data[1], data_statement3[0].category_str);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
@@ -173,7 +176,7 @@ function to_statement3() {
 
 function to_statement4() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
-      statement3_elapsed = end_timer();
+        statement3_elapsed = end_timer();
         data_array.push({
             content: data_statement3[0],
             text: data_statement3[1],
@@ -188,6 +191,7 @@ function to_statement4() {
         pagefocus_statement3 = pagefocus_get_data();
         var data = get_content(get_type(), 1);
         data_statement4 = data;
+
         start_timer();
         add_statement(4, data[1], data_statement4[0].category_str);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
@@ -198,7 +202,7 @@ function to_statement4() {
 
 function to_transition() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
-      statement4_elapsed = end_timer();
+        statement4_elapsed = end_timer();
         data_array.push({
             content: data_statement4[0],
             text: data_statement4[1],
@@ -349,7 +353,7 @@ function get_data() {
 
 function hide_show_next() {
     $("#next").hide();
-    setTimeout(function() {
+    setTimeout(function () {
         $("#next").show();
     }, text_timeout);
 }
@@ -370,12 +374,12 @@ function shuffle(array) {
     return newarr;
 }
 
-function start_timer(){
-  t1 = now();
+function start_timer() {
+    t1 = now();
 }
 
-function end_timer(){
-  var t2 = now();
-  var elapsed = t2 - t1;
-  return elapsed;
+function end_timer() {
+    var t2 = now();
+    var elapsed = t2 - t1;
+    return elapsed;
 }

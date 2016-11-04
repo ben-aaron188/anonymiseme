@@ -3,6 +3,8 @@ function Mock() {
 }
 
 Mock.mock = function (data) {
+    data = data.replace(/['"]+/g, '');
+    
     var elements = data.match(/\S+/g);
 
     for (var i = 0; i < elements.length; i++) {

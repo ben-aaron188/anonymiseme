@@ -18,7 +18,7 @@ function NER() {
 NER.get_entities = function (file, complete) {
     ner.fromFile(file + ".txt", function (entities) {
 
-        console.log(entities);
+        //console.log(entities);
         NER.replace_entities(NER.as_set(entities), file, complete);
     });
 }
@@ -193,9 +193,13 @@ NER.replace_entities = function (entities, file, complete) {
 NER.get_replacement = function (property, entity, complete, replaced) {
     var replacement = _Replacer().ext_get_replacement(property, entity, complete);
 
-    if (_Util().ident_inArray(replacement, replaced)) {
-        return NER.get_replacement(property, entity, complete, replaced);
-    } else {
+    try {
+        if (_Util().ident_inArray(replacement, replaced)) {
+            return NER.get_replacement(property, entity, complete, replaced);
+        } else {
+            return replacement;
+        }
+    } catch (e) {
         return replacement;
     }
 

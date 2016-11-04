@@ -34,14 +34,13 @@ Replacer.add_replaced_items = function (replaced) {
 }
 
 Replacer.get_unique_replacement = function (el, bool, complete) {
-    Replacer.generate_replacement(el, true, complete);
+    Replacer.generate_replacement(el, bool, complete);
 
     if (_Util().ident_inArray(el.replacement, replacements)) {
-        Replacer.generate_replacement(el, true, complete);
-    } else {
-        replacements.push(el.replacement);
+        Replacer.generate_replacement(el, bool, complete);
     }
 
+    replacements.push(el.replacement);
 }
 
 Replacer.smart_name_rep = function (data, entity, replacement) {

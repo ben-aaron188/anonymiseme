@@ -45,20 +45,25 @@ Util.shuffle = function (array) {
 Util.capitalise_string = function (stringinput) {
     var string_old = stringinput;
     var new_string = "";
-    var names = stringinput.split(" ");
 
-    if (names.length > 1) {
+    if (stringinput) {
+        var names = stringinput.split(" ");
 
-        for (var i = 0; i < names.length; i++) {
-            new_string += names[i][0].toUpperCase() + names[i].slice(1).toLowerCase() + " ";
+        if (names.length > 1) {
+
+            for (var i = 0; i < names.length; i++) {
+                new_string += names[i][0].toUpperCase() + names[i].slice(1).toLowerCase() + " ";
+            }
+
+            new_string = new_string.substring(0, new_string.length - 1);
+        } else {
+            new_string = string_old[0].toUpperCase() + string_old.slice(1).toLowerCase();
         }
 
-        new_string = new_string.substring(0, new_string.length - 1);
+        return new_string;
     } else {
-        new_string = string_old[0].toUpperCase() + string_old.slice(1).toLowerCase();
+        return stringinput;
     }
-
-    return new_string;
 }
 
 Util.term_is_capitalised = function (stringinput) {
