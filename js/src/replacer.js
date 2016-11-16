@@ -23,8 +23,8 @@ function Replacer() {
  * @param preprocessed_object
  * @returns {string}
  */
-Replacer.string_replace_all = function (input, complete) {
-    Replacer.ner_entities(input, complete);
+Replacer.string_replace_all = function (input, complete, string_input) {
+    Replacer.ner_entities(input, complete, string_input);
 }
 
 Replacer.add_replaced_items = function (replaced) {
@@ -274,11 +274,11 @@ Replacer.add_to_temp = function (original, replacement) {
     replaced_arr.push(temp_obj.original);
 }
 
-Replacer.ner_entities = function (stringinput, complete) {
+Replacer.ner_entities = function (stringinput, complete, string_input) {
     var filename = new Date().getTime();
 
     fs.writeFile(filename + ".txt", stringinput, function () {
-        _NER().get_entities(filename, complete);
+        _NER().get_entities(filename, complete, string_input);
     });
 }
 

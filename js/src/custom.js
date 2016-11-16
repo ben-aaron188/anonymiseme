@@ -243,7 +243,11 @@ Custom.is_numeric_date = function (date) {
         try {
             Date.parse(date);
         } catch (e) {
-            return false;
+            if (_Util().inArray(date, months) == true) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         return true;
@@ -322,14 +326,14 @@ Custom.not_valid = function (date) {
     if (date.includes("-")) {
         count++;
     }
-    if (Custom.includes_week_day(date) && date.split(" ") < 5) {
+    if (Custom.includes_month(date) && date.split(" ").length < 5) {
         count++;
     }
 
     return count != 1;
 }
 
-Custom.includes_week_day = function (date) {
+Custom.includes_month = function (date) {
 
     for (var i = 0; i < months.length; i++) {
         if (date.includes(months[i]) || date.includes(months[i].toLowerCase())) {
@@ -427,14 +431,15 @@ Custom.return_ordinal = function (string) {
 Custom.smart_name_rep = function (data, entity, replacement) {
     var names = entity.split(" ");
     var entities = [];
+    entity = new RegExp(entity.replace(/\s+/g, '\\s+'));
 
-    if (names.length > 1) {
+    if (names.length > 1 && data.indexOf(entity) == -1) {
         var re_names = replacement.split(" ");
         var or_last = _Util().remove_term_terminator(names[names.length - 1]);
         var re_last = _Util().remove_term_terminator(re_names[re_names.length - 1]);
 
         if (data.indexOf(or_last) != -1) {
-            data = data.replace(new RegExp(entity, 'gi'), replacement);
+            data = data.replace(entity, replacement);
             entities.push(entity + " => " + replacement);
             entities.push(or_last + " => " + re_last);
 

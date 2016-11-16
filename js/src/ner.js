@@ -15,11 +15,10 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, complete) {
+NER.get_entities = function (file, complete, string_input) {
     ner.fromFile(file + ".txt", function (entities) {
 
-        //console.log(entities);
-        NER.replace_entities(NER.as_set(entities), file, complete);
+        NER.replace_entities(NER.as_set(entities), file, complete, string_input);
     });
 }
 
@@ -48,9 +47,17 @@ NER.as_set = function (entities) {
         "LOCATION": entities['LOCATION'],
         "PERSON": entities['PERSON'],
         "MONEY": entities['MONEY'],
-        "DATE": entities['DATE'],
+        "DATE": NER.replace_white_spaces(entities['DATE']),
     };
 
+}
+
+NER.replace_white_spaces = function (entities) {
+    for (var i = 0; i < entities.length; i++) {
+        entities[i] = entities[i].replace(' ,', ',');
+    }
+
+    return entities;
 }
 
 /**
@@ -111,7 +118,7 @@ NER.adjust_term = function (stringinput) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, complete) {
+NER.replace_entities = function (entities, file, complete, data) {
     var organizations = [],
         locations = [],
         persons = [],
@@ -119,75 +126,71 @@ NER.replace_entities = function (entities, file, complete) {
         entity_arr = [],
         replaced = [];
 
-    fs.readFile(file + ".txt", 'utf8', function (err, data) {
-        if (err) {
-            throw err;
-        }
+    for (var property in entities) {
+        if (entities[property]) {
+            for (var i = 0; i < entities[property].length; i++) {
+                var entity = entities[property][i],
+                    replacement = null;
 
-        for (var property in entities) {
-            if (entities[property]) {
-                for (var i = 0; i < entities[property].length; i++) {
-                    var entity = entities[property][i],
-                        replacement = null;
+                if (property == 'MONEY') {
+                    entity = NER.adjust_currency(entity);
+                }
 
-                    if (property == 'MONEY') {
-                        entity = NER.adjust_currency(entity);
-                    }
+                if (complete) {
+                    replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
+                } else {
+                    replacement = NER.get_replacement(property, entity, complete, replaced);
+                    replaced.push(replacement);
 
-                    if (complete) {
-                        replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
-                    } else {
-                        replacement = NER.get_replacement(property, entity, complete, replaced);
-                        replaced.push(replacement);
+                    if (property == 'ORGANIZATION') {
+                        organizations.push(replacement);
+                    } else if (property == 'LOCATION') {
+                        locations.push(replacement);
+                    } else if (property == 'PERSON') {
+                        var res = _Replacer().smart_name_rep(data, entity, replacement);
+                        data = res.data;
 
-                        if (property == 'ORGANIZATION') {
-                            organizations.push(replacement);
-                        } else if (property == 'LOCATION') {
-                            locations.push(replacement);
-                        } else if (property == 'PERSON') {
-
-                            var res = _Replacer().smart_name_rep(data, entity, replacement);
-                            data = res.data;
-
-                            if (res.entities) {
-                                for (var i = 0; i < res.entities.length; i++) {
-                                    entity_arr.push(res.entities[i]);
-                                }
-
-                                persons.push(res.re_last);
+                        if (res.entities) {
+                            for (var i = 0; i < res.entities.length; i++) {
+                                entity_arr.push(res.entities[i]);
                             }
 
-                            persons.push(replacement);
-                        } else if (property == "DATE") {
-                            dates.push(replacement);
+                            persons.push(res.re_last);
                         }
-                    }
 
-                    if (data.indexOf(entity) != -1) {
-                        entity_arr.push(entity + " => " + replacement);
+                        persons.push(replacement);
+                    } else if (property == "DATE") {
+                        dates.push(replacement);
                     }
-
-                    data = data.replace(new RegExp(entity, 'gi'), replacement);
                 }
+
+                if (data.indexOf(entity) != -1) {
+                    entity_arr.push(entity + " => " + replacement);
+                }
+
+                entity = new RegExp(entity.replace(/\s+/g, '\\s+'));
+                data = data.replace(entity, replacement);
             }
         }
+    }
 
-        NER.delete_file(file);
-        var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced);
-        var output = res.replaced;
+    NER.delete_file(file);
+    var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced);
+    var output = res.replaced;
 
-        for (var i = 0; i < res.entities.length; i++) {
-            entity_arr.push(res.entities[i]);
-        }
+    entity_arr.push("Split NER and Compromise");
 
-        if (complete) {
-            output = NER.replace_currencies(output);
-        }
+    for (var i = 0; i < res.entities.length; i++) {
+        entity_arr.push(res.entities[i]);
+    }
 
-        console.log(output);
-        console.log("");
-        console.log(entity_arr);
-    });
+    if (complete) {
+        output = NER.replace_currencies(output);
+    }
+
+    console.log(entity_arr);
+    console.log();
+    console.log(output);
 }
 
 NER.get_replacement = function (property, entity, complete, replaced) {
