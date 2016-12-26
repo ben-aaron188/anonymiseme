@@ -15,10 +15,10 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, complete, string_input) {
+NER.get_entities = function (file, complete, string_input, partial) {
     ner.fromFile(file + ".txt", function (entities) {
 
-        NER.replace_entities(NER.as_set(entities), file, complete, string_input);
+        NER.replace_entities(NER.as_set(entities), file, complete, string_input, partial);
     });
 }
 
@@ -53,8 +53,10 @@ NER.as_set = function (entities) {
 }
 
 NER.replace_white_spaces = function (entities) {
-    for (var i = 0; i < entities.length; i++) {
-        entities[i] = entities[i].replace(' ,', ',');
+    if (entities) {
+        for (var i = 0; i < entities.length; i++) {
+            entities[i] = entities[i].replace(' ,', ',');
+        }
     }
 
     return entities;
@@ -118,7 +120,7 @@ NER.adjust_term = function (stringinput) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, complete, data) {
+NER.replace_entities = function (entities, file, complete, data, partial) {
     var organizations = [],
         locations = [],
         persons = [],
@@ -139,7 +141,12 @@ NER.replace_entities = function (entities, file, complete, data) {
                 if (complete) {
                     replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
                 } else {
-                    replacement = NER.get_replacement(property, entity, complete, replaced);
+                    if (partial) {
+                        replacement = _Util().get_term_beginning(entity) + _Replacer().ner_replace_unnamed(entity, property) + _Util().get_term_terminator(entity);
+                    } else {
+                        replacement = NER.get_replacement(property, entity, complete, replaced);
+                    }
+
                     replaced.push(replacement);
 
                     if (property == 'ORGANIZATION') {
@@ -168,14 +175,22 @@ NER.replace_entities = function (entities, file, complete, data) {
                     entity_arr.push(entity + " => " + replacement);
                 }
 
+                console.log();
+                console.log(entity);
+                console.log(replacement);
+
                 entity = new RegExp(entity.replace(/\s+/g, '\\s+'));
                 data = data.replace(entity, replacement);
+
+                console.log(data);
+                console.log();
             }
         }
     }
 
     NER.delete_file(file);
-    var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced);
+
+    var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced, partial);
     var output = res.replaced;
 
     entity_arr.push("Split NER and Compromise");

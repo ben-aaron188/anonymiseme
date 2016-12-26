@@ -5,6 +5,7 @@
 var nlp = require('../libs/compromise/nlp_compromise.min.js');
 var fs = require('fs');
 var lexicon = nlp.lexicon();
+var entity_count = [0, 0, 0, 0, 0]; // date value org place person
 var temp_replacers = [];
 var replaced_arr = [];
 var replacements = [];
@@ -23,8 +24,8 @@ function Replacer() {
  * @param preprocessed_object
  * @returns {string}
  */
-Replacer.string_replace_all = function (input, complete, string_input) {
-    Replacer.ner_entities(input, complete, string_input);
+Replacer.string_replace_all = function (input, complete, string_input, partial) {
+    Replacer.ner_entities(input, complete, string_input, partial);
 }
 
 Replacer.add_replaced_items = function (replaced) {
@@ -33,11 +34,28 @@ Replacer.add_replaced_items = function (replaced) {
     }
 }
 
-Replacer.get_unique_replacement = function (el, bool, complete) {
-    Replacer.generate_replacement(el, bool, complete);
+Replacer.get_unique_replacement = function (el, bool, complete, partial) {
+
+    if (partial) {
+        if (_Util().ident_inArray(el.text, replaced_arr) == false) {
+            Replacer.replace_unnamed(el);
+        } else {
+            var selected_from_object = temp_replacers.filter(function (x) {
+                return x.original === term_object.normal;
+            });
+
+            el.replacement = selected_from_object[0].replacement;
+        }
+    } else {
+        Replacer.generate_replacement(el, bool, complete);
+    }
 
     if (_Util().ident_inArray(el.replacement, replacements)) {
-        Replacer.generate_replacement(el, bool, complete);
+        if (partial) {
+            Replacer.replace_unnamed(el);
+        } else {
+            Replacer.generate_replacement(el, bool, complete);
+        }
     }
 
     replacements.push(el.replacement);
@@ -70,7 +88,7 @@ Replacer.replace_multi_names = function (data) {
 
 }
 
-Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, used_dates, complete, replaced_ner) {
+Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, used_dates, complete, replaced_ner, partial) {
     var replaced = "";
     var entities = [];
     var prep = _Client().preprocess_string(data);
@@ -82,25 +100,25 @@ Replacer.fine_tuning = function (data, used_orgs, used_locations, used_persons, 
         if (el.text == "XXX") {
             replaced += el.whitespace.preceding + el.text + el.whitespace.trailing;
         } else if (el.pos.Date || el.pos.Value && !_Util().inArray(el.text, used_dates)) {
-            Replacer.get_unique_replacement(el, true, complete);
+            Replacer.get_unique_replacement(el, true, complete, partial);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + _Custom().check_date(el.text, el.replacement, complete) + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
 
             entities.push(el.text + " => " + el.replacement);
         } else if (el.pos.Organization && !_Util().inArray(el.text, used_orgs)) {
-            Replacer.get_unique_replacement(el, false, complete);
+            Replacer.get_unique_replacement(el, false, complete, partial);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
 
             entities.push(el.text + " => " + el.replacement);
         } else if (el.pos.Place && !_Util().inArray(el.text, used_locations)) {
-            Replacer.get_unique_replacement(el, false, complete);
+            Replacer.get_unique_replacement(el, false, complete, partial);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
 
             entities.push(el.text + " => " + el.replacement);
         } else if (el.pos.Person && el.pos.Pronoun !== true && !_Util().inArray(el.text, used_persons)) {
-            Replacer.get_unique_replacement(el, false, complete);
+            Replacer.get_unique_replacement(el, false, complete, partial);
             replaced += el.whitespace.preceding + _Util().get_term_beginning(el.text) + el.replacement + _Util().get_term_terminator(el.text) + el.whitespace.trailing;
             Replacer.add_to_temp(el.normal, el.replacement);
 
@@ -274,12 +292,57 @@ Replacer.add_to_temp = function (original, replacement) {
     replaced_arr.push(temp_obj.original);
 }
 
-Replacer.ner_entities = function (stringinput, complete, string_input) {
+Replacer.ner_entities = function (stringinput, complete, string_input, partial) {
     var filename = new Date().getTime();
 
     fs.writeFile(filename + ".txt", stringinput, function () {
-        _NER().get_entities(filename, complete, string_input);
+        _NER().get_entities(filename, complete, string_input, partial);
     });
+}
+
+// date value org place person
+Replacer.replace_unnamed = function (elem) {
+
+    if (elem.pos.Date) {
+        entity_count[0]++;
+        elem.replacement = "Date" + entity_count[0];
+    } else if (elem.pos.Value) {
+        entity_count[1]++;
+        elem.replacement = "Value" + entity_count[1];
+    } else if (elem.pos.Person) {
+        entity_count[4]++;
+        elem.replacement = "Person" + entity_count[4];
+    } else if (elem.pos.Organization) {
+        entity_count[2]++;
+        elem.replacement = "Organization" + entity_count[2];
+    } else if (elem.pos.Place) {
+        entity_count[3]++;
+        elem.replacement = "Place" + entity_count[3];
+    } else {
+        elem.replacement = el.text;
+    }
+}
+
+Replacer.ner_replace_unnamed = function (entity, property) {
+
+    if (property == "DATE") {
+        entity_count[0]++;
+        return "Date" + entity_count[0];
+    } else if (property == "VALUE") {
+        entity_count[1]++;
+        return "Value" + entity_count[1];
+    } else if (property == "PERSON") {
+        entity_count[4]++;
+        return "Person" + entity_count[4];
+    } else if (property == "ORGANIZATION") {
+        entity_count[2]++;
+        return "Organization" + entity_count[2];
+    } else if (property == "LOCATION") {
+        entity_count[3]++;
+        return "Place" + entity_count[3];
+    } else {
+        return entity;
+    }
 }
 
 function _Client() {

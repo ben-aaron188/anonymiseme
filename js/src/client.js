@@ -7,8 +7,8 @@ function Client() {
     throw new Error('Replacer is a static class!');
 }
 
-Client.replace_combined = function (string_input, complete) {
-    _Replacer().string_replace_all(string_input.replace('"', ''), complete, string_input);
+Client.replace_combined = function (string_input, complete, partial) {
+    _Replacer().string_replace_all(string_input.replace('"', ''), complete, string_input, partial);
 }
 
 Client.preprocess_string = function (string) {
