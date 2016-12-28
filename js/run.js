@@ -1,7 +1,8 @@
 var Client = require('./src/client.js');
 var Mock = require('./ukd/mock.js');
 
-var string_input = "Peter went to Munich yesterday and met Peter in Munich";
+// var string_input = "Peter went to Munich yesterday and met Peter in Munich yesterday.";
+var string_input = "Peter went to Munich yesterday with Paul and Paul likes Peter and Munich.";
 
 if (process.argv[2] == "alt") {
     Mock.log_mock(string_input);

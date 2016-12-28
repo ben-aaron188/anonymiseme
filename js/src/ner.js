@@ -15,8 +15,8 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, complete, string_input, partial) {
-    ner.fromFile(file + ".txt", function (entities) {
+NER.get_entities = function(file, complete, string_input, partial) {
+    ner.fromFile(file + ".txt", function(entities) {
 
         NER.replace_entities(NER.as_set(entities), file, complete, string_input, partial);
     });
@@ -28,7 +28,7 @@ NER.get_entities = function (file, complete, string_input, partial) {
  * @param {Object} entities Found entities in given text
  * @returns {{ORGANIZATION: *, LOCATION: *}}
  */
-NER.as_set = function (entities) {
+NER.as_set = function(entities) {
     var locations = entities['LOCATION'];
     var organizations = entities['ORGANIZATION'];
 
@@ -52,7 +52,7 @@ NER.as_set = function (entities) {
 
 }
 
-NER.replace_white_spaces = function (entities) {
+NER.replace_white_spaces = function(entities) {
     if (entities) {
         for (var i = 0; i < entities.length; i++) {
             entities[i] = entities[i].replace(' ,', ',');
@@ -69,7 +69,7 @@ NER.replace_white_spaces = function (entities) {
  * @param {Array} array The given array
  * @returns {boolean}
  */
-NER.in_array = function (element, array) {
+NER.in_array = function(element, array) {
     for (var i = 0; i < array.length; i++) {
         if (array[i] == element) {
             return true;
@@ -85,7 +85,7 @@ NER.in_array = function (element, array) {
  * @param {String} element The considered string
  * @returns {*}
  */
-NER.get_extension = function (element) {
+NER.get_extension = function(element) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
 
     for (var i = 0; i < punctuation.length; i++) {
@@ -103,7 +103,7 @@ NER.get_extension = function (element) {
  * @param {String} stringinput The string to be adjusted
  * @returns {string}
  */
-NER.adjust_term = function (stringinput) {
+NER.adjust_term = function(stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
     var last_char = stringinput[stringinput.length - 1];
 
@@ -120,7 +120,7 @@ NER.adjust_term = function (stringinput) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, complete, data, partial) {
+NER.replace_entities = function(entities, file, complete, data, partial) {
     var organizations = [],
         locations = [],
         persons = [],
@@ -133,11 +133,9 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
             for (var i = 0; i < entities[property].length; i++) {
                 var entity = entities[property][i],
                     replacement = null;
-
                 if (property == 'MONEY') {
                     entity = NER.adjust_currency(entity);
                 }
-
                 if (complete) {
                     replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
                 } else {
@@ -146,9 +144,7 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
                     } else {
                         replacement = NER.get_replacement(property, entity, complete, replaced);
                     }
-
                     replaced.push(replacement);
-
                     if (property == 'ORGANIZATION') {
                         organizations.push(replacement);
                     } else if (property == 'LOCATION') {
@@ -156,32 +152,34 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
                     } else if (property == 'PERSON') {
                         var res = _Replacer().smart_name_rep(data, entity, replacement);
                         data = res.data;
-
                         if (res.entities) {
                             for (var i = 0; i < res.entities.length; i++) {
                                 entity_arr.push(res.entities[i]);
                             }
-
                             persons.push(res.re_last);
                         }
-
                         persons.push(replacement);
                     } else if (property == "DATE") {
                         dates.push(replacement);
                     }
                 }
-
-                if (data.indexOf(entity) != -1) {
-                    entity_arr.push(entity + " => " + replacement);
-                }
+                console.log(entity, data.indexOf(entity), replacement);
+                // entity_arr.push(entity + " => " + property);
+                // if (data.indexOf(entity) != -1) {
+                //     entity_arr.push(entity + " => " + property);
+                //     // entity_arr.push(entity + " => " + replacement);
+                // }
 
                 console.log();
                 console.log(entity);
-                console.log(replacement);
+                // console.log(replacement);
 
-                entity = new RegExp(entity.replace(/\s+/g, '\\s+'));
-                data = data.replace(entity, replacement);
-
+                if (data.indexOf(entity) != -1) {
+                    // entity_regex = new RegExp(entity.replace(/\s+/g, '\\s+'));
+                    entity_regex = new RegExp(entity, 'g');
+                    // console.log(entity_regex);
+                    data = data.replace(entity_regex, replacement);
+                }
                 console.log(data);
                 console.log();
             }
@@ -193,7 +191,7 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
     var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced, partial);
     var output = res.replaced;
 
-    entity_arr.push("Split NER and Compromise");
+    // entity_arr.push("Split NER and Compromise");
 
     for (var i = 0; i < res.entities.length; i++) {
         entity_arr.push(res.entities[i]);
@@ -203,12 +201,12 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
         output = NER.replace_currencies(output);
     }
 
-    console.log(entity_arr);
-    console.log();
+    // console.log(entity_arr);
+    // console.log();
     console.log(output);
-}
+};
 
-NER.get_replacement = function (property, entity, complete, replaced) {
+NER.get_replacement = function(property, entity, complete, replaced) {
     var replacement = _Replacer().ext_get_replacement(property, entity, complete);
 
     try {
@@ -223,12 +221,12 @@ NER.get_replacement = function (property, entity, complete, replaced) {
 
 }
 
-NER.replace_currencies = function (data) {
+NER.replace_currencies = function(data) {
     data = data.replace(/€/g, '');
     return data.replace(/\$/g, '');
 }
 
-NER.adjust_currency = function (currency) {
+NER.adjust_currency = function(currency) {
     return parseFloat(currency.replace(/[^\d\.]/g, '')).toString();
 }
 
@@ -237,7 +235,7 @@ NER.adjust_currency = function (currency) {
  *
  * @param {String} filename Name of the file to be deleted.
  */
-NER.delete_file = function (filename) {
+NER.delete_file = function(filename) {
     fs.unlinkSync(filename + ".txt");
 }
 
@@ -246,15 +244,15 @@ NER.delete_file = function (filename) {
  *
  * @param {String} anonymised The anonymised text
  */
-NER.write_anon = function (anonymised) {
-    fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
+NER.write_anon = function(anonymised) {
+    fs.writeFile(file + "_anonymised.txt", anonymised, function(err) {
         if (err) {
             throw err;
         }
     });
 }
 
-_Replacer = function () {
+_Replacer = function() {
     if (!Replacer) {
         Replacer = require('./replacer.js');
     }
