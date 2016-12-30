@@ -19,6 +19,88 @@ function Replacer() {
     throw new Error('Replacer is a static class!');
 }
 
+Replacer.partial_replacement = function (original, data, replacements) {
+    var prep = _Client().preprocess_string(original);
+    var replaced = [];
+
+    for (var i = 0; i < prep.terms.length; i++) {
+        var el = prep.terms[i],
+            entity = -1;
+
+        if (el.pos.Date) {
+            entity = "DATE";
+        } else if (el.pos.Value) {
+            entity = "VALUE";
+        } else if (el.pos.Organization) {
+            entity = "ORGANIZATION";
+        } else if (el.pos.Place) {
+            entity = "LOCATION";
+        } else if (el.pos.Person && el.pos.Pronoun !== true) {
+            entity = "PERSON";
+        }
+
+        if (entity != -1) {
+            replacements.push(
+                {
+                    index: original.indexOf(el.text),
+                    original: el.text,
+                    entity: entity
+                }
+            );
+        }
+    }
+
+    replacements = Replacer.sort(Replacer.toSet(replacements));
+
+    for (var i = 0; i < replacements.length; i++) {
+        var current = replacements[i];
+        var entity_regex = new RegExp(current.original, 'g');
+        var replacer = Replacer.ner_replace_unnamed("", current.entity);
+
+        replaced.push(current.original + " => " + replacer);
+        original = original.replace(entity_regex, replacer);
+    }
+
+    console.log(replaced);
+    console.log(original);
+}
+
+Replacer.toSet = function (replacements) {
+    var ripped = [];
+
+    for (var i = 0; i < replacements.length; i++) {
+        var current = replacements[i],
+            duplicate = false;
+
+        for (var j = 0; j < ripped.length; j++) {
+            if (_Util().remove_term_terminator(current.original).toLowerCase() == _Util().remove_term_terminator(ripped[j].original).toLowerCase()) {
+                duplicate = true;
+            }
+        }
+
+        if (!duplicate) {
+            ripped.push(current);
+        }
+
+    }
+
+    return ripped;
+}
+
+Replacer.sort = function (array) {
+    for (var i = 1; i < array.length; i++) {
+        for (var j = i - 1; j >= 0; j--) {
+            if (array[j].index > array[j + 1].index) {
+                var a = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = a;
+            }
+        }
+    }
+
+    return array;
+}
+
 /**
  *
  * @param preprocessed_object
@@ -36,26 +118,11 @@ Replacer.add_replaced_items = function (replaced) {
 
 Replacer.get_unique_replacement = function (el, bool, complete, partial) {
 
-    if (partial) {
-        if (_Util().ident_inArray(el.text, replaced_arr) == false) {
-            Replacer.replace_unnamed(el);
-        } else {
-            var selected_from_object = temp_replacers.filter(function (x) {
-                return x.original === term_object.normal;
-            });
 
-            el.replacement = selected_from_object[0].replacement;
-        }
-    } else {
-        Replacer.generate_replacement(el, bool, complete);
-    }
+    Replacer.generate_replacement(el, bool, complete);
 
     if (_Util().ident_inArray(el.replacement, replacements)) {
-        if (partial) {
-            Replacer.replace_unnamed(el);
-        } else {
-            Replacer.generate_replacement(el, bool, complete);
-        }
+        Replacer.generate_replacement(el, bool, complete);
     }
 
     replacements.push(el.replacement);
@@ -298,29 +365,6 @@ Replacer.ner_entities = function (stringinput, complete, string_input, partial) 
     fs.writeFile(filename + ".txt", stringinput, function () {
         _NER().get_entities(filename, complete, string_input, partial);
     });
-}
-
-// date value org place person
-Replacer.replace_unnamed = function (elem) {
-
-    if (elem.pos.Date) {
-        entity_count[0]++;
-        elem.replacement = "Date" + entity_count[0];
-    } else if (elem.pos.Value) {
-        entity_count[1]++;
-        elem.replacement = "Value" + entity_count[1];
-    } else if (elem.pos.Person) {
-        entity_count[4]++;
-        elem.replacement = "Person" + entity_count[4];
-    } else if (elem.pos.Organization) {
-        entity_count[2]++;
-        elem.replacement = "Organization" + entity_count[2];
-    } else if (elem.pos.Place) {
-        entity_count[3]++;
-        elem.replacement = "Place" + entity_count[3];
-    } else {
-        elem.replacement = el.text;
-    }
 }
 
 Replacer.ner_replace_unnamed = function (entity, property) {
