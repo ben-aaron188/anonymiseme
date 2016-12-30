@@ -43,7 +43,7 @@ Replacer.partial_replacement = function (original, data, replacements) {
             replacements.push(
                 {
                     index: original.indexOf(el.text),
-                    original: el.text,
+                    original: _Util().remove_term_terminator(el.text),
                     entity: entity
                 }
             );

@@ -169,7 +169,7 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
                     replacements.push(
                         {
                             index: data.indexOf(entity),
-                            original: entity,
+                            original: _Util().remove_term_terminator(entity),
                             entity: property
                         }
                     );
