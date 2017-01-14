@@ -21,20 +21,19 @@ function check_fields(classname) {
 
 function check_choice(classname) {
     class_values = [];
-    score = 0;
+    var value = 0;
+
     classname.each(function () {
         if ($(this).is(":visible")) {
-            $(this).each(function () {
-                class_values.push($(this).val().length);
-                score = $.inArray(0, class_values);
-            });
+            value = $(this).val();
         }
     });
-    if (score > -1) {
-        alert("Please write down your answer.");
-        score = 0;
-    } else {
+
+    if (value == 1 || value == 2 || value == 3 || value == 4) {
         return true;
+    } else {
+        alert("Please write down your answer.");
+        value = 0;
     }
 }
 

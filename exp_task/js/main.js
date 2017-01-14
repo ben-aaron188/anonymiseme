@@ -49,7 +49,7 @@ function to_statement_evaluation() {
 }
 
 function add_statement(number, content, category) {
-    var header = "Description " + number + "/4";
+    var header = "Statement " + number + "/4";
     if (!$('#statement' + number + '_wrapper').length) {
         pagefocus_reset();
         $('body').prepend(
@@ -59,26 +59,58 @@ function add_statement(number, content, category) {
             '</div>' +
             '<div class="statement_content" id="statement' + number + '_content">' + content +
             '</div>' +
-            '<div class="text_input1">' +
-            '<span id="text_input1_instr">Do you recognize this ' + category + '?</br>' +
-            'If you have an idea which ' + category + ' this text describes, please write down the name.</br>' +
-            'It is important that you do not look up any information.' +
-            '</span> ' +
-            '<input type="text" class="text_input1_text" id="statement' + number + '_input" placehoder="your answer">' +
-            '<div class="slider_io">' +
+            '<div class="statement_possibilities" id="statement' + number + '_possibilities">' +
+            '<div class="statement_possibility" id="statement' + number + '_possibility1">' +
+            "Travel scenario 1</br></br>" +
+            "Main persons (2): Jacob; Melissa</br>" +
+            "Cities (4): Quito; Cuzco; Lima; Santiago</br>" +
+            "Dates (3): July 2015; 6 weeks; 3 days</br>" +
+            "Additional persons (1): Nathan</br>" +
+            '</div>' +
+            '<div style="left: 50%;" class="statement_possibility" id="statement' + number + '_possibility2">' +
+            "Travel scenario 2</br></br>" +
+            "Main persons (2): Daniel; Harry</br>" +
+            "Cities (4): London; Manchester; Liverpool; Leeds</br>" +
+            "Dates (3): December 2016; 1 week; 2 days</br>" +
+            "Additional persons (1): Peter</br>" +
+            '</div>' +
+            '<div style="top: 50%;" class="statement_possibility" id="statement' + number + '_possibility3">' +
+            "Travel scenario 3</br></br>" +
+            "Main persons (2): Fred; Ronald</br>" +
+            "Cities (4): Paris; Bordeaux; Montpellier; Marseille</br>" +
+            "Dates (3): August 2014; 5 weeks; 4 days</br>" +
+            "Additional persons (1): Juli</br>" +
+            '</div>' +
+            '<div style="top: 50%; left: 50%;" class="statement_possibility" id="statement' + number + '_possibility4">' +
+            "Travel scenario 4</br></br>" +
+            "Main persons (2): Mary; James</br>" +
+            "Cities (4): Malaga; Rabat; Casablanca; Marrakesh</br>" +
+            "Dates (3) June 2012; 2 weeks; 8 days</br>" +
+            "Additional persons (1): Edward</br>" +
+            '</div>' +
+            '</div>' +
+            '<div class="statement_additional" id="statement' + number + '_additional">' +
+            '<div class="statement_instruction" id="statement' + number + '_instruction">' +
+            "Instructions here" +
+            '</div>' +
+            '<input type="text" maxlength="1" class="text_input1_text" id="statement' + number + '_input" placehoder="your answer">' +
+            '<div class="statement_evaluation" id="statement' + number + '_evaluation">' +
+            '<div style="top: 25%;" class="slider_io">' +
             '<span id="slider_instr">How certain are you of your choice (in %)?</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output> ' +
             '</div>' +
-            '<div class="slider_io">' +
+            '<div style="top: 55%;" class="slider_io">' +
             '<span id="slider_instr">How readable do you find this text (in %)?</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_readability" value="50" min="0" max="100" step="5" oninput="set_readability_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
             '</div>' +
-            '<div class="slider_io">' +
+            '<div style="top: 85%;" class="slider_io">' +
             '<span id="slider_instr">How plausible do you find this text (in %)?</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_plausibility" value="50" min="0" max="100" step="5" oninput="set_plausibility_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="plausibility_output_' + number + '">move the slider</output> ' +
+            '</div>' +
+            '</div>' +
             '</div>' +
             '</div>' +
             '</div>'

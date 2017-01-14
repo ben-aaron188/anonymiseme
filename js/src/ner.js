@@ -129,6 +129,9 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
         replaced = [],
         replacements = [];
 
+    //temp
+    console.log(entities);
+
     var first = data;
 
     for (var property in entities) {
