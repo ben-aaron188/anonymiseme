@@ -32,7 +32,7 @@ function check_choice(classname) {
     if (value == 1 || value == 2 || value == 3 || value == 4) {
         return true;
     } else {
-        alert("Please write down your answer.");
+        alert("Please give a valid answer. Type the number of the scenario that you think is correct.");
         value = 0;
     }
 }

@@ -471,7 +471,7 @@ h2 {
     margin: 0;
     position: absolute;
     text-align: left;
-    font-size: 1.15vw;
+    font-size: 1.3vw;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -580,13 +580,11 @@ h2 {
     border-bottom: 0.2vw solid white;
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 100%;
+    width: 90%;
     left: 0%;
     height: 46%;
     position: absolute;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 2%;
+    padding: 3%;
     text-align: left;
     font-size: 1.2vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;

@@ -35,12 +35,9 @@ function activate_stretch() {
 }
 
 function to_statement_evaluation() {
+  var text = main_explanation;
     $('body').prepend('<div id="statement_explanation">' +
-        'Explanation</br>' +
-        'You will now read descriptions of persons and cities - one at a time. Your task is to identify the person or city that is described without looking up any information. Some data have been anonymised so the descriptions differ in difficulty. Please do your best to correctly identify the person or city.</br>' +
-        'Please take your time with each description. The button to proceed will only appear after a set time to give you enough time to carefully read the descriptions.</br></br>Again, it is important that you think carefully who/what the texts describe since sometimes it takes considerable effort and people find it difficult to identify the person or city.</br></br>' +
-        'If you do not adhere to the instructions, you will have to start the task again and we may have to invalidate your participation for this task.</br>' +
-        '</br>You will now start with the first of four descriptions. Good luck with identifying the person or city.' +
+        text +
         '</div>'
     );
     simple_transition($("#informed_consent"), $("#statement_explanation"));
@@ -91,7 +88,7 @@ function add_statement(number, content, category) {
             '</div>' +
             '<div class="statement_additional" id="statement' + number + '_additional">' +
             '<div class="statement_instruction" id="statement' + number + '_instruction">' +
-            "Instructions here" +
+            "Below you can find four scenarios.</br>One of these scenarios was the basis for this text.</br></br>Which scenario number (e.g. 5) do you think was the basis for this text?" +
             '</div>' +
             '<input type="text" maxlength="1" class="text_input1_text" id="statement' + number + '_input" placehoder="your answer">' +
             '<div class="statement_evaluation" id="statement' + number + '_evaluation">' +
@@ -283,6 +280,7 @@ function to_demographics2() {
 
 function to_outro() {
     if (check_fields($(".select_menu")) === true) {
+      unblock_copy_pasting();
         var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
             '<span id="debr">' + debriefing_long + '</span></br></br>' +
             'Please fill in you participation code (e.g. AB1234) and Prolific participant ID.' +
