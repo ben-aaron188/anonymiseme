@@ -1,4 +1,3 @@
-var slider_moved_array = [];
 
 function check_fields(classname) {
     class_values = [];
@@ -135,10 +134,12 @@ function check_slider(classname) {
 }
 
 function get_type() {
-    var index = Math.floor(Math.random() * types.length);
-    var type = types[index];
-    types.splice(index, 1);
-    return type;
+    // var index = Math.floor(Math.random() * types.length);
+    // var type = types[index];
+    // types.splice(index, 1);
+    // return type;
+
+    return 0;
 }
 
 
@@ -158,13 +159,15 @@ function get_content(type, category) {
     } else if (type == 1) {
         var idx = Math.floor(Math.random() * 3) + 1;
 
-        statement = element.anon1["v" + idx].text;
+        statement = element.sner["v" + idx].content;
+    } else if(type == 2) {
+        statement = element.ukda;
     } else {
-        statement = element["anon" + type];
+        statement = element.human;
     }
-    data_statements.splice(index, 1);
+    //data_statements.splice(index, 1);
 
-    return [element, statement, type];
+    return [element, statement, type, element.choices];
 }
 
 function get_unid(val_score) {

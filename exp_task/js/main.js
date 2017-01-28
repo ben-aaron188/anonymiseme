@@ -1,13 +1,11 @@
 // globals
 var data_array = [];
 var types = shuffle([0, 1, 2, 3]);
-// var types = [0, 1, 2, 3];
 var data_statement1;
 var data_statement2;
 var data_statement3;
 var data_statement4;
 var unid;
-var validation_score = 0;
 var repetition_count = 0;
 var text_timeout = 3000;
 var t1;
@@ -48,7 +46,8 @@ function to_statement_evaluation() {
     // to statement
 }
 
-function add_statement(number, content, category) {
+function add_statement(number, content, choices) {
+
     var header = "Statement " + number + "/4";
     if (!$('#statement' + number + '_wrapper').length) {
         pagefocus_reset();
@@ -60,34 +59,10 @@ function add_statement(number, content, category) {
             '<div class="statement_content" id="statement' + number + '_content">' + content +
             '</div>' +
             '<div class="statement_possibilities" id="statement' + number + '_possibilities">' +
-            '<div class="statement_possibility" id="statement' + number + '_possibility1">' +
-            "Travel scenario 1</br></br>" +
-            "Main persons (2): Jacob; Melissa</br>" +
-            "Cities (4): Quito; Cuzco; Lima; Santiago</br>" +
-            "Dates (3): July 2015; 6 weeks; 3 days</br>" +
-            "Additional persons (1): Nathan</br>" +
-            '</div>' +
-            '<div style="left: 50%;" class="statement_possibility" id="statement' + number + '_possibility2">' +
-            "Travel scenario 2</br></br>" +
-            "Main persons (2): Daniel; Harry</br>" +
-            "Cities (4): London; Manchester; Liverpool; Leeds</br>" +
-            "Dates (3): December 2016; 1 week; 2 days</br>" +
-            "Additional persons (1): Peter</br>" +
-            '</div>' +
-            '<div style="top: 50%;" class="statement_possibility" id="statement' + number + '_possibility3">' +
-            "Travel scenario 3</br></br>" +
-            "Main persons (2): Fred; Ronald</br>" +
-            "Cities (4): Paris; Bordeaux; Montpellier; Marseille</br>" +
-            "Dates (3): August 2014; 5 weeks; 4 days</br>" +
-            "Additional persons (1): Juli</br>" +
-            '</div>' +
-            '<div style="top: 50%; left: 50%;" class="statement_possibility" id="statement' + number + '_possibility4">' +
-            "Travel scenario 4</br></br>" +
-            "Main persons (2): Mary; James</br>" +
-            "Cities (4): Malaga; Rabat; Casablanca; Marrakesh</br>" +
-            "Dates (3) June 2012; 2 weeks; 8 days</br>" +
-            "Additional persons (1): Edward</br>" +
-            '</div>' +
+            '<div class="statement_possibility" id="statement' + number + '_possibility1">' + choices.choice1 + '</div>' +
+            '<div style="left: 50%;" class="statement_possibility" id="statement' + number + '_possibility2">' + choices.choice2 + '</div>' +
+            '<div style="top: 50%;" class="statement_possibility" id="statement' + number + '_possibility3">' + choices.choice3 + '</div>' +
+            '<div style="top: 50%; left: 50%;" class="statement_possibility" id="statement' + number + '_possibility4">' + choices.choice4 + '</div>' +
             '</div>' +
             '<div class="statement_additional" id="statement' + number + '_additional">' +
             '<div class="statement_instruction" id="statement' + number + '_instruction">' +
@@ -148,7 +123,7 @@ function to_statement1() {
     data_statement1 = data;
     start_timer();
 
-    add_statement(1, data[1], data_statement1[0].category_str);
+    add_statement(1, data_statement1[1], data_statement1[3]);
     simple_transition($("#statement_explanation"), $("#statement1_wrapper"));
     hide_show_next();
     $("#next").attr('onclick', 'to_statement2()');
@@ -161,6 +136,7 @@ function to_statement2() {
             content: data_statement1[0],
             text: data_statement1[1],
             type: data_statement1[2],
+            solution: data_statement1[3].correct,
             evaluation: {
                 certainty: $("#statement1_certainty").val(),
                 plausibility: $("#statement1_plausibility").val(),
@@ -173,7 +149,7 @@ function to_statement2() {
         data_statement2 = data;
 
         start_timer();
-        add_statement(2, data[1], data_statement2[0].category_str);
+        add_statement(2, data_statement2[1], data_statement2[3]);
         simple_transition($("#statement1_wrapper"), $("#statement2_wrapper"));
         hide_show_next();
         $("#next").attr('onclick', 'to_statement3()');
@@ -187,6 +163,7 @@ function to_statement3() {
             content: data_statement2[0],
             text: data_statement2[1],
             type: data_statement2[2],
+            solution: data_statement2[3].correct,
             evaluation: {
                 certainty: $("#statement2_certainty").val(),
                 plausibility: $("#statement2_plausibility").val(),
@@ -199,7 +176,7 @@ function to_statement3() {
         data_statement3 = data;
 
         start_timer();
-        add_statement(3, data[1], data_statement3[0].category_str);
+        add_statement(3, data_statement3[1], data_statement3[3]);
         simple_transition($("#statement2_wrapper"), $("#statement3_wrapper"));
         hide_show_next();
         $("#next").attr('onclick', 'to_statement4()');
@@ -213,6 +190,7 @@ function to_statement4() {
             content: data_statement3[0],
             text: data_statement3[1],
             type: data_statement3[2],
+            solution: data_statement3[3].correct,
             evaluation: {
                 certainty: $("#statement3_certainty").val(),
                 plausibility: $("#statement3_plausibility").val(),
@@ -225,7 +203,7 @@ function to_statement4() {
         data_statement4 = data;
 
         start_timer();
-        add_statement(4, data[1], data_statement4[0].category_str);
+        add_statement(4, data_statement4[1], data_statement4[3]);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
         hide_show_next();
         $("#next").attr('onclick', 'to_transition()');
@@ -239,6 +217,7 @@ function to_transition() {
             content: data_statement4[0],
             text: data_statement4[1],
             type: data_statement4[2],
+            solution: data_statement4[3].correct,
             evaluation: {
                 certainty: $("#statement4_certainty").val(),
                 plausibility: $("#statement4_plausibility").val(),
