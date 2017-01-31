@@ -371,19 +371,24 @@ Replacer.ner_replace_unnamed = function (entity, property) {
 
     if (property == "DATE") {
         entity_count[0]++;
-        return "Date" + entity_count[0];
+        // return "Date" + entity_count[0];
+        return "[DATE_" + entity_count[0] +"]";
     } else if (property == "VALUE") {
         entity_count[1]++;
-        return "Value" + entity_count[1];
+        // return "Value" + entity_count[1];
+        return "[NUMBER_" + entity_count[1] + "]";
     } else if (property == "PERSON") {
         entity_count[4]++;
-        return "Person" + entity_count[4];
+        // return "Person" + entity_count[4];
+        return "[PERSON_" + entity_count[4] + "]";
     } else if (property == "ORGANIZATION") {
         entity_count[2]++;
-        return "Organization" + entity_count[2];
+        // return "Organization" + entity_count[2];
+        return "[COMPANY_" + entity_count[2] + "]";
     } else if (property == "LOCATION") {
         entity_count[3]++;
-        return "Place" + entity_count[3];
+        // return "Place" + entity_count[3];
+        return "[LOCATION_" + entity_count[3] + "]";
     } else {
         return entity;
     }
