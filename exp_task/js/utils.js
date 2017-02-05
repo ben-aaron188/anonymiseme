@@ -1,4 +1,3 @@
-
 function check_fields(classname) {
     class_values = [];
     score = 0;
@@ -134,12 +133,10 @@ function check_slider(classname) {
 }
 
 function get_type() {
-    // var index = Math.floor(Math.random() * types.length);
-    // var type = types[index];
-    // types.splice(index, 1);
-    // return type;
-
-    return 0;
+    var index = Math.floor(Math.random() * types.length);
+    var type = types[index];
+    types.splice(index, 1);
+    return type;
 }
 
 
@@ -147,25 +144,22 @@ function get_content(type, category) {
     var index = Math.floor(Math.random() * data_statements.length);
     var element = data_statements[index];
     var statement;
+
     while (element.category != category) {
-        //console.log(element.category + '----' + category);
         index = Math.floor(Math.random() * data_statements.length);
-        //console.log(index);
         element = data_statements[index];
-        //console.log(element);
     }
-    if (type === 0) {
+
+    if (type == 0) {
         statement = element.original;
     } else if (type == 1) {
-        var idx = Math.floor(Math.random() * 3) + 1;
-
-        statement = element.sner["v" + idx].content;
-    } else if(type == 2) {
+        statement = element.sner;
+    } else if (type == 2) {
         statement = element.ukda;
     } else {
         statement = element.human;
     }
-    //data_statements.splice(index, 1);
+
 
     return [element, statement, type, element.choices];
 }

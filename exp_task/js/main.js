@@ -33,7 +33,7 @@ function activate_stretch() {
 }
 
 function to_statement_evaluation() {
-  var text = main_explanation;
+    var text = main_explanation;
     $('body').prepend('<div id="statement_explanation">' +
         text +
         '</div>'
@@ -131,6 +131,7 @@ function to_statement2() {
         statement1_elapsed = end_timer();
         data_array.push({
             content: data_statement1[0],
+            category: data_statement1[0].category,
             text: data_statement1[1],
             type: data_statement1[2],
             solution: data_statement1[3].correct,
@@ -158,6 +159,7 @@ function to_statement3() {
         statement2_elapsed = end_timer();
         data_array.push({
             content: data_statement2[0],
+            category: data_statement2[0].category,
             text: data_statement2[1],
             type: data_statement2[2],
             solution: data_statement2[3].correct,
@@ -185,6 +187,7 @@ function to_statement4() {
         statement3_elapsed = end_timer();
         data_array.push({
             content: data_statement3[0],
+            category: data_statement3[0].category,
             text: data_statement3[1],
             type: data_statement3[2],
             solution: data_statement3[3].correct,
@@ -213,6 +216,7 @@ function to_transition() {
         data_array.push({
             content: data_statement4[0],
             text: data_statement4[1],
+            category: data_statement4[0].category,
             type: data_statement4[2],
             solution: data_statement4[3].correct,
             evaluation: {
@@ -240,11 +244,11 @@ function to_open_questions() {
 }
 
 function to_demographics1() {
-    if (check_choice($(".open_question_input"))) {
+    //if (check_choice($(".open_question_input"))) {
         simple_transition($("#open_question"), $("#demographics1"));
         $("#next").attr('onclick', 'to_demographics2()');
         define_keys($("#age_sel"), 'number', 2);
-    }
+    //}
 }
 
 function to_demographics2() {
@@ -259,7 +263,7 @@ function to_demographics2() {
 
 function to_outro() {
     if (check_fields($(".select_menu")) === true) {
-      unblock_copy_pasting();
+        unblock_copy_pasting();
         var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
             '<span id="debr">' + debriefing_long + '</span></br></br>' +
             'Please fill in you participation code (e.g. AB1234) and Prolific participant ID.' +
@@ -297,7 +301,7 @@ function get_data() {
     data.lang1_sel = $("#lang1_sel").val();
     data.lang2_sel = $("#lang2_sel").val();
 
-    data.statement1_category = data_array[0].content.category;
+    data.statement1_category = data_array[0].category;
     data.statement1_id = data_array[0].content.id;
     data.statement1_content = data_array[0].text;
     data.statement1_name = data_array[0].content.name;
@@ -311,7 +315,7 @@ function get_data() {
     data.statement1_eval_defocusduration = pagefocus_statement1.durationsum;
     data.statement1_elapsed = statement1_elapsed;
 
-    data.statement2_category = data_array[1].content.category;
+    data.statement2_category = data_array[1].category;
     data.statement2_content = data_array[1].text;
     data.statement2_id = data_array[1].content.id;
     data.statement2_name = data_array[1].content.name;
@@ -325,7 +329,7 @@ function get_data() {
     data.statement2_eval_defocusduration = pagefocus_statement2.durationsum;
     data.statement2_elapsed = statement2_elapsed;
 
-    data.statement3_category = data_array[2].content.category;
+    data.statement3_category = data_array[2].category;
     data.statement3_content = data_array[2].text;
     data.statement3_id = data_array[2].content.id;
     data.statement3_name = data_array[2].content.name;
@@ -339,7 +343,7 @@ function get_data() {
     data.statement3_eval_defocusduration = pagefocus_statement3.durationsum;
     data.statement3_elapsed = statement3_elapsed;
 
-    data.statement4_category = data_array[3].content.category;
+    data.statement4_category = data_array[3].category;
     data.statement4_content = data_array[3].text;
     data.statement4_id = data_array[3].content.id;
     data.statement4_name = data_array[3].content.name;

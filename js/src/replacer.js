@@ -55,10 +55,13 @@ Replacer.partial_replacement = function (original, data, replacements) {
     for (var i = 0; i < replacements.length; i++) {
         var current = replacements[i];
         var entity_regex = new RegExp(current.original, 'g');
-        var replacer = Replacer.ner_replace_unnamed("", current.entity);
 
-        replaced.push(current.original + " => " + replacer);
-        original = original.replace(entity_regex, replacer);
+        if (current.original != "a") {
+            var replacer = Replacer.ner_replace_unnamed("", current.entity);
+            
+            replaced.push(current.original + " => " + replacer);
+            original = original.replace(entity_regex, replacer);
+        }
     }
 
     console.log(replaced);
@@ -374,6 +377,7 @@ Replacer.ner_replace_unnamed = function (entity, property) {
         // return "Date" + entity_count[0];
         return "[DATE_" + entity_count[0] +"]";
     } else if (property == "VALUE") {
+        console.log(entity);
         entity_count[1]++;
         // return "Value" + entity_count[1];
         return "[NUMBER_" + entity_count[1] + "]";

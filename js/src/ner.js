@@ -130,7 +130,7 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
         replacements = [];
 
     //temp
-    console.log(entities);
+    //console.log(entities);
 
     var first = data;
 

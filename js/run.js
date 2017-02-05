@@ -1,8 +1,8 @@
 var Client = require('./src/client.js');
 var Mock = require('./ukd/mock.js');
 
-// var string_input = "Peter went to Munich yesterday and met Luke in Cologne yesterday.";
-var string_input = "Isabelle is a girl from Austin, Texas. Isabella was very young when her brother Logan was born On July 30, 1979. He became one of the most important persons in her life. Isabella didn’t know anything about technology and her brother taught her everything he knew. He even gave her a computer when he worked at Dell. Logan died of cancer 12 years after he gave Isabella her first computer. She was devastated but wanted to use all her computer knowledge. She applied for a job at Packard Bell in Barcelona in October 2004. She got hired by Charlie who saw a potential in the love she had developed for computers.";
+
+var string_input = "Jacob and Melissa have been friends since high school. In July 2015 they were traveling together for 6 weeks. This was their dream since they had been kids. They then began the trip in Quito and went to Lima, Cuzco and Santiago. Along the way they have occasionally been unlucky. For instance, Melissa lost her debit card the when they arrived in Quito and 3 days later Jacob tore his ankle during a hike to a waterfall. Nevertheless they could laugh about it. During the trip they met Nathan. They became friends and he joined them. Besides that it was very nice, it also gave benefits. They could rent a car and they did. It was the best time of their lives.";
 
 if (process.argv[2] == "alt") {
     Mock.log_mock(string_input);
