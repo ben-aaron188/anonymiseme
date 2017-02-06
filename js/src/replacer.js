@@ -58,7 +58,7 @@ Replacer.partial_replacement = function (original, data, replacements) {
 
         if (current.original != "a") {
             var replacer = Replacer.ner_replace_unnamed("", current.entity);
-            
+
             replaced.push(current.original + " => " + replacer);
             original = original.replace(entity_regex, replacer);
         }
@@ -375,7 +375,7 @@ Replacer.ner_replace_unnamed = function (entity, property) {
     if (property == "DATE") {
         entity_count[0]++;
         // return "Date" + entity_count[0];
-        return "[DATE/TIME_" + entity_count[0] +"]";
+        return "[DATETIME_" + entity_count[0] +"]";
     } else if (property == "VALUE") {
         console.log(entity);
         entity_count[1]++;
