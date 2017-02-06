@@ -375,7 +375,7 @@ Replacer.ner_replace_unnamed = function (entity, property) {
     if (property == "DATE") {
         entity_count[0]++;
         // return "Date" + entity_count[0];
-        return "[DATE_" + entity_count[0] +"]";
+        return "[DATE/TIME_" + entity_count[0] +"]";
     } else if (property == "VALUE") {
         console.log(entity);
         entity_count[1]++;
