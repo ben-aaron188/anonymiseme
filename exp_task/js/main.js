@@ -8,6 +8,7 @@ var data_statement4;
 var unid;
 var repetition_count = 0;
 var text_timeout = 3000;
+var min_char = 10;
 var t1;
 
 // task flow
@@ -244,11 +245,11 @@ function to_open_questions() {
 }
 
 function to_demographics1() {
-    //if (check_choice($(".open_question_input"))) {
+    if (check_input($("#openquestion"), min_char) === true) {
         simple_transition($("#open_question"), $("#demographics1"));
         $("#next").attr('onclick', 'to_demographics2()');
         define_keys($("#age_sel"), 'number', 2);
-    //}
+    }
 }
 
 function to_demographics2() {
@@ -266,9 +267,9 @@ function to_outro() {
         unblock_copy_pasting();
         var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
             '<span id="debr">' + debriefing_long + '</span></br></br>' +
-            'Please fill in you participation code (e.g. AB1234) and Prolific participant ID.' +
-            '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="24" style="text-align: center; left: 20%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR PROLIFIC ID">' +
-            '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 50%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
+            'Please fill in your Prolific participant ID and the participation code displayed above (e.g. AB1234) .' +
+            '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="24" style="text-align: center; left: 30%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR PROLIFIC ID">' +
+            '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 70%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
         var credits_dom = '<div id="credits">' +
             'University of Amsterdam // Bennett Kleinberg: <a href="mailto:b.a.r.kleinberg@uva.nl?Subject=Online%20Experiment" target="_top">b.a.r.kleinberg@uva.nl</a>' +
             '</div>';

@@ -17,6 +17,18 @@ function check_fields(classname) {
     }
 }
 
+function check_input(ID, min_length_of_input){
+  var alert_msg = "Please answer this question.";
+  var input_length = ID.val().length;
+  // console.log(input_length);
+  if(input_length < min_length_of_input){
+    alert(alert_msg);
+  } else {
+    return true;
+  }
+}
+
+
 function check_choice(classname) {
     class_values = [];
     var value = 0;
