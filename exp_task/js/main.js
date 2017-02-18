@@ -1,6 +1,7 @@
 // globals
 var data_array = [];
 var types = shuffle([0, 1, 2, 3]);
+var statement_array_proxy = shuffle([0, 1, 2, 3, 4, 5, 6, 7]);
 var data_statement1;
 var data_statement2;
 var data_statement3;
@@ -8,11 +9,11 @@ var data_statement4;
 var unid;
 var repetition_count = 0;
 var text_timeout = 3000;
-var min_char = 10;
+var min_char = 15;
 var t1;
 
 // task flow
-$(document).ready(function () {
+$(document).ready(function() {
     init_data();
     getIP();
     $("#intro1").show();
@@ -28,7 +29,7 @@ function to_informed_consent() {
 }
 
 function activate_stretch() {
-    $('.stretch').each(function () {
+    $('.stretch').each(function() {
         $(this).stretch_text();
     });
 }
@@ -44,72 +45,6 @@ function to_statement_evaluation() {
     // to statement
 }
 
-function add_statement(number, content, choices) {
-
-    var header = "Statement " + number + "/4";
-    if (!$('#statement' + number + '_wrapper').length) {
-        pagefocus_reset();
-        $('body').prepend(
-            // more info!!
-            '<div class="statement_wrapper" id="statement' + number + '_wrapper">' +
-            '<div class="statement_header" id="statement' + number + '_header">' + header +
-            '</div>' +
-            '<div class="statement_content" id="statement' + number + '_content">' + content +
-            '</div>' +
-            '<div class="statement_possibilities" id="statement' + number + '_possibilities">' +
-            '<div class="statement_possibility" id="statement' + number + '_possibility1">' + choices.choice1 + '</div>' +
-            '<div style="left: 50%;" class="statement_possibility" id="statement' + number + '_possibility2">' + choices.choice2 + '</div>' +
-            '<div style="top: 50%;" class="statement_possibility" id="statement' + number + '_possibility3">' + choices.choice3 + '</div>' +
-            '<div style="top: 50%; left: 50%;" class="statement_possibility" id="statement' + number + '_possibility4">' + choices.choice4 + '</div>' +
-            '</div>' +
-            '<div class="statement_additional" id="statement' + number + '_additional">' +
-            '<div class="statement_instruction" id="statement' + number + '_instruction">' +
-            "Below you can find four scenarios.</br>One of these scenarios was the basis for this text.</br></br>Which scenario number (e.g. 5) do you think was the basis for this text?" +
-            '</div>' +
-            '<input type="text" maxlength="1" class="text_input1_text" id="statement' + number + '_input" placehoder="your answer">' +
-            '<div class="statement_evaluation" id="statement' + number + '_evaluation">' +
-            '<div style="top: 25%;" class="slider_io">' +
-            '<span id="slider_instr">How certain are you of your choice (in %)?</span> ' +
-            '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_certainty" value="50" min="0" max="100" step="5" oninput="set_certainty_slider_value(' + number + ')">' +
-            '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output> ' +
-            '</div>' +
-            '<div style="top: 55%;" class="slider_io">' +
-            '<span id="slider_instr">How readable do you find this text (in %)?</span> ' +
-            '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_readability" value="50" min="0" max="100" step="5" oninput="set_readability_slider_value(' + number + ')">' +
-            '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
-            '</div>' +
-            '<div style="top: 85%;" class="slider_io">' +
-            '<span id="slider_instr">How plausible do you find this text (in %)?</span> ' +
-            '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_plausibility" value="50" min="0" max="100" step="5" oninput="set_plausibility_slider_value(' + number + ')">' +
-            '<output class="slider_io_output" id="plausibility_output_' + number + '">move the slider</output> ' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>'
-        );
-    }
-    // activate_stretch();
-}
-
-function set_certainty_slider_value(number) {
-    var input = "#statement" + number + "_certainty";
-    var output = "#certainty_output_" + number;
-    $(output).val($(input).val() + '%');
-}
-
-function set_readability_slider_value(number) {
-    var input = "#statement" + number + "_readability";
-    var output = "#readability_output_" + number;
-    $(output).val($(input).val() + '%');
-}
-
-function set_plausibility_slider_value(number) {
-    var input = "#statement" + number + "_plausibility";
-    var output = "#plausibility_output_" + number;
-    $(output).val($(input).val() + '%');
-}
-
 
 function to_main_statements() {
     get_unid(repetition_count);
@@ -117,7 +52,7 @@ function to_main_statements() {
 }
 
 function to_statement1() {
-    var data = get_content(get_type(), 0);
+    var data = get_content_2(get_type(), 0);
     data_statement1 = data;
     start_timer();
 
@@ -144,7 +79,7 @@ function to_statement2() {
             }
         });
         pagefocus_statement1 = pagefocus_get_data();
-        var data = get_content(get_type(), 0);
+        var data = get_content_2(get_type(), 0);
         data_statement2 = data;
 
         start_timer();
@@ -172,7 +107,7 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        var data = get_content(get_type(), 1);
+        var data = get_content_2(get_type(), 1);
         data_statement3 = data;
 
         start_timer();
@@ -200,7 +135,7 @@ function to_statement4() {
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        var data = get_content(get_type(), 1);
+        var data = get_content_2(get_type(), 1);
         data_statement4 = data;
 
         start_timer();
@@ -305,7 +240,8 @@ function get_data() {
     data.statement1_category = data_array[0].category;
     data.statement1_id = data_array[0].content.id;
     data.statement1_content = data_array[0].text;
-    data.statement1_name = data_array[0].content.name;
+    data.statement1_name = data_array[0].content.category_str;
+    data.statement1_correctoption = data_array[0].content.choices.correct;
     data.statement1_type = data_array[0].type;
     data.statement1_certainty = data_array[0].evaluation.certainty;
     data.statement1_readability = data_array[0].evaluation.readability;
@@ -319,7 +255,8 @@ function get_data() {
     data.statement2_category = data_array[1].category;
     data.statement2_content = data_array[1].text;
     data.statement2_id = data_array[1].content.id;
-    data.statement2_name = data_array[1].content.name;
+    data.statement2_name = data_array[1].content.category_str;
+    data.statement2_correctoption = data_array[1].content.choices.correct;
     data.statement2_type = data_array[1].type;
     data.statement2_certainty = data_array[1].evaluation.certainty;
     data.statement2_readability = data_array[1].evaluation.readability;
@@ -333,7 +270,8 @@ function get_data() {
     data.statement3_category = data_array[2].category;
     data.statement3_content = data_array[2].text;
     data.statement3_id = data_array[2].content.id;
-    data.statement3_name = data_array[2].content.name;
+    data.statement3_name = data_array[2].content.category_str;
+    data.statement3_correctoption = data_array[2].content.choices.correct;
     data.statement3_type = data_array[2].type;
     data.statement3_certainty = data_array[2].evaluation.certainty;
     data.statement3_readability = data_array[2].evaluation.readability;
@@ -347,7 +285,8 @@ function get_data() {
     data.statement4_category = data_array[3].category;
     data.statement4_content = data_array[3].text;
     data.statement4_id = data_array[3].content.id;
-    data.statement4_name = data_array[3].content.name;
+    data.statement4_name = data_array[3].content.category_str;
+    data.statement4_correctoption = data_array[3].content.choices.correct;
     data.statement4_type = data_array[3].type;
     data.statement4_certainty = data_array[3].evaluation.certainty;
     data.statement4_readability = data_array[3].evaluation.readability;
@@ -365,13 +304,6 @@ function get_data() {
     return data;
 }
 
-function hide_show_next() {
-    $("#next").hide();
-    setTimeout(function () {
-        $("#next").show();
-    }, text_timeout);
-}
-
 function shuffle(array) {
     var newarr = [];
     var currentIndex = array.length,
@@ -386,14 +318,4 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
     return newarr;
-}
-
-function start_timer() {
-    t1 = now();
-}
-
-function end_timer() {
-    var t2 = now();
-    var elapsed = t2 - t1;
-    return elapsed;
 }
