@@ -52,7 +52,7 @@ function to_main_statements() {
 }
 
 function to_statement1() {
-    var data = get_content_2(get_type(), 0);
+    var data = get_content_2(get_type(), 1);
     data_statement1 = data;
     start_timer();
 
@@ -79,7 +79,7 @@ function to_statement2() {
             }
         });
         pagefocus_statement1 = pagefocus_get_data();
-        var data = get_content_2(get_type(), 0);
+        var data = get_content_2(get_type(), 1);
         data_statement2 = data;
 
         start_timer();
@@ -107,7 +107,7 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
-        var data = get_content_2(get_type(), 0);
+        var data = get_content_2(get_type(), 1);
         data_statement3 = data;
 
         start_timer();
@@ -135,7 +135,7 @@ function to_statement4() {
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
-        var data = get_content_2(get_type(), 0);
+        var data = get_content_2(get_type(), 1);
         data_statement4 = data;
 
         start_timer();
