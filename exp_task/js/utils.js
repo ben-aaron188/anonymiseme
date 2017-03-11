@@ -27,7 +27,7 @@ function add_statement(number, content, choices) {
             '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output> ' +
             '</div>' +
             '<div style="top: 55%;" class="slider_io">' +
-            '<span id="slider_instr">How readable do you find this text (in %)?</span> ' +
+            '<span id="slider_instr">How easy to read do you find this text (in %)?</span> ' +
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_readability" value="50" min="0" max="100" step="5" oninput="set_readability_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
             '</div>' +
@@ -203,7 +203,7 @@ function check_slider(classname) {
         }
     });
     if (score != -1) {
-        alert("Please move all sliders to indicate your certainty, the readability and the plausibility of this description.");
+        alert("Please move all sliders to indicate your certainty, the ease of reading and the plausibility of this text.");
         score = 0;
     } else {
         return true;

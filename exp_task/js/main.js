@@ -8,7 +8,7 @@ var data_statement3;
 var data_statement4;
 var unid;
 var repetition_count = 0;
-var text_timeout = 3000;
+var text_timeout = 30000;
 var min_char = 15;
 var t1;
 
