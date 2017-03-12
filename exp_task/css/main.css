@@ -512,31 +512,29 @@ h2 {
 }
 
 .statement_content {
-    border: 0.2vw solid white;
+    /*border: 0.2vw solid white;*/
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 68%;
+    width: 55%;
     height: 40%;
     top: 10%;
     left: 1%;
-    padding-top: 2%;
+    padding-top: 3%;
     padding-left: 1%;
-    padding-right: 2%;
-    /*padding-bottom: 2%;*/
+    padding-right: 1%;
     position: absolute;
     text-align: left;
-    font-size: 1vw;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+    font-size: 1.1vw;
 }
 
 .statement_possibilities {
-    border: 0.2vw solid white;
+    /*border: 0.2vw solid white;*/
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 71%;
+    width: 65%;
     height: 45%;
     top: 50%;
-    left: 1%;
+    left: 2%;
     /*padding-top: 2%;*/
     /*padding-left: 1%;*/
     /*padding-bottom: 2%;*/
@@ -547,32 +545,32 @@ h2 {
 }
 
 .statement_possibility {
-    border: 0.1vw solid white;
+    border-top: 0.1vw solid white;
     overflow: scroll;
     background-color: #1C1C1C;
     padding-top: 1%;
-    padding-left: 2%;
-    width: 50%;
-    height: 50%;
+    padding-left: 3%;
+    padding-right: 3%;
+    width: 40%;
+    height: 40%;
     position: absolute;
     text-align: left;
-    font-size: 1vw;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+    font-size: 0.9vw;
 }
 
 .statement_additional {
     border: 0.2vw solid white;
     overflow: scroll;
     background-color: #1C1C1C;
-    width: 16%;
+    width: 20%;
     height: 85%;
     top: 10%;
-    left: 71%;
+    left: 65%;
     padding-left: 1%;
     padding-right: 2%;
     position: absolute;
     text-align: left;
-    font-size: 1vw;
+    font-size: 1.1vw;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
 }
 

@@ -1,1 +1,0 @@
-var = "Cristiano Ronaldo dos Santos Aveiro (born 5 February 1985) is a Portuguese professional footballer who plays for Spanish club Real Madrid and the Portugal national team."
