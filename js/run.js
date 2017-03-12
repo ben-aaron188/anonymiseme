@@ -2,7 +2,7 @@ var Client = require('./src/client.js');
 var Mock = require('./src/types/mock.js');
 
 
-var string_input = "Jacob and Melissa have been friends since high school. In July 2015 they were traveling together for 6 weeks. This was their dream since they had been kids. They then began the trip in Quito and went to Lima, Cuzco and Santiago. Along the way they have occasionally been unlucky. For instance, Melissa lost her debit card the when they arrived in Quito and 3 days later Jacob tore his ankle during a hike to a waterfall. Nevertheless they could laugh about it. During the trip they met Nathan. They became friends and he joined them. Besides that it was very nice, it also gave benefits. They could rent a car and they did. It was the best time of their lives.";
+var string_input = "Sophia was born on April 15, 1980. She wasn’t a very bright girl, though everybody loved her. She went to Toronto in April 2006 to live with her boyfriend Alexander who wasn’t very smart either. She got a job as a concierge at Blackberry. Even though everybody liked her personality she wasn’t very good at her job, so she got fired. Sophia and Alexander moved to Atlanta because of better job opportunities. After many solicitations she finally got a job as a deliveryman at Amazon. She had a steady income so she tried to have a baby. After 7 years she finally got pregnant. She named her newborn baby Jayden.";
 
 if (process.argv[2] == "alt") {
     Mock.log_mock(string_input);
