@@ -21,7 +21,7 @@ Mock.mock = function (data) {
         anonymized += ".";
     }
 
-    return anonymized;
+    return anonymized.replace(new RegExp("[0-9]", "g"), "X");
 }
 
 Mock.log_mock = function (string_input) {

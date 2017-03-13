@@ -100,11 +100,11 @@ NER.adjust_term = function (stringinput) {
 }
 
 NER.replace_pronouns = function (data) {
-    data = data.replace(/ he | she | it /g, " he/she/it ");
-    data = data.replace(/ He | She | It /g, " He/she/it ");
-    data = data.replace(/.He |.She |.It /g, ".He/she/it ");
-    data = data.replace(/ his | her /g, " his/her ");
-    data = data.replace(/.His |.Her /g, ".His/her ");
+    
+    data = data.replace(/ he | she /gi, " [HE/SHE/IT] ");
+    data = data.replace(/\.he |\.she /gi, ". [HE/SHE/IT] ");
+    data = data.replace(/ his | her /gi, " [HIS/HER] ");
+    data = data.replace(/\.his |\.her /gi, ". [HIS/HER] ");
 
     return data;
 }
@@ -126,8 +126,6 @@ NER.replace_entities = function (entities, file, data, type) {
         data = NER.replace_pronouns(data),
         first = data,
         res;
-
-    console.log(entities);
 
     for (var property in entities) {
         if (entities[property]) {
