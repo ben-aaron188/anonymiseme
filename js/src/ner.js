@@ -100,11 +100,13 @@ NER.adjust_term = function (stringinput) {
 }
 
 NER.replace_pronouns = function (data) {
-    
-    data = data.replace(/ he | she /gi, " [HE/SHE/IT] ");
-    data = data.replace(/\.he |\.she /gi, ". [HE/SHE/IT] ");
+
+    data = data.replace(/ he | she /gi, " [HE/SHE] ");
+    data = data.replace(/\.he |\.she /gi, ". [HE/SHE] ");
     data = data.replace(/ his | her /gi, " [HIS/HER] ");
     data = data.replace(/\.his |\.her /gi, ". [HIS/HER] ");
+    data = data.replace(/ him | her /gi, " [HIM/HER] ");
+    data = data.replace(/\.him |\.her /gi, ". [HIM/HER] ");
 
     return data;
 }
