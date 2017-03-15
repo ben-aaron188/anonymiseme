@@ -1,6 +1,6 @@
 var Util = require('../util.js');
 var NamedEntityReplacement = require('./namedEntity.js');
-var entity_count = [0, 0, 0, 0, 0, 0];
+var entity_count = [0, 0, 0, 0, 0, 0, 0];
 
 function Partial() {
     throw new Error('Partial is a static class!');
@@ -55,19 +55,35 @@ Partial.partial_replacement = function (original, data, replacements) {
 }
 
 Partial.replace_capital_firsts = function (output) {
-    var split = output.split(" ");
-    var adj_string = output;
+    var split = output.split(" "),
+        adj_string = output,
+        replacement;
 
     for (var i = 1; i < split.length; i++) {
 
         if (split[i].length > 0) {
             if (split[i][0] === split[i][0].toUpperCase() && split[i][0] !== "[" && split[i - 1][split[i - 1].length - 1] != ".") {
-                entity_count[5]++;
-                var replacement = "[OTHER_" + entity_count[5] + "]";
+
 
                 if (split[i][split[i].length - 1] == ".") {
+                    if (isNaN(split[i].substring(0, [split[i].length - 1]))) {
+                        entity_count[5]++;
+                        replacement = "[OTHER_" + entity_count[5] + "]";
+                    } else {
+                        entity_count[6]++;
+                        replacement = "[NUMERIC_" + entity_count[6] + "]";
+                    }
+
                     adj_string = adj_string.replace(new RegExp(split[i].substring(0, split[i].length - 1), 'g'), replacement);
                 } else {
+                    if (isNaN(split[i])) {
+                        entity_count[5]++;
+                        replacement = "[OTHER_" + entity_count[5] + "]";
+                    } else {
+                        entity_count[6]++;
+                        replacement = "[NUMERIC_" + entity_count[6] + "]";
+                    }
+
                     adj_string = adj_string.replace(new RegExp(split[i], 'g'), replacement);
                 }
             }
