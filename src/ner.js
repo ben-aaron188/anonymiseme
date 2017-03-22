@@ -1,8 +1,6 @@
-var node_ner = require('node-ner');
+const ner = require('ner');
+
 var fs = require('fs');
-var ner = new node_ner({
-    install_path: './libs/node_ner/stanford-ner-2014-10-26'
-});
 var Compromise = null;
 var Util = null;
 var NamedEntityReplacement = null;
@@ -17,9 +15,12 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, string_input, type) {
-    ner.fromFile(file + ".txt", function (entities) {
-        NER.replace_entities(NER.as_set(entities), file, string_input, type);
+NER.get_entities = function (string_input, type) {
+    ner.get({
+        port: 8080,
+        host: 'localhost'
+    }, string_input, function (err, res) {
+        NER.replace_entities(NER.as_set(res.entities), string_input, type);
     });
 }
 
@@ -116,7 +117,7 @@ NER.replace_pronouns = function (data) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, data, type) {
+NER.replace_entities = function (entities, data, type) {
     var organizations = [],
         locations = [],
         persons = [],
@@ -181,8 +182,6 @@ NER.replace_entities = function (entities, file, data, type) {
         }
     }
 
-    NER.delete_file(file);
-
     if (type == 2) {
         _Partial().partial_replacement(first, data, replacements);
     } else {
@@ -223,28 +222,6 @@ NER.get_replacement = function (property, entity, type, replaced) {
         return replacement;
     }
 
-}
-
-/**
- * Deletes the temp file.
- *
- * @param {String} filename Name of the file to be deleted.
- */
-NER.delete_file = function (filename) {
-    fs.unlinkSync(filename + ".txt");
-}
-
-/**
- * Writes the anonymised file to a new textfile and stores it in the current working directory.
- *
- * @param {String} anonymised The anonymised text
- */
-NER.write_anon = function (anonymised) {
-    fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
-        if (err) {
-            throw err;
-        }
-    });
 }
 
 function _Compromise() {

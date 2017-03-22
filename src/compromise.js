@@ -169,13 +169,4 @@ Compromise.add_to_temp = function (original, replacement) {
     replaced_arr.push(temp_obj.original);
 }
 
-Compromise.ner_entities = function (stringinput, type) {
-    var filename = new Date().getTime();
-
-    fs.writeFile(filename + ".txt", stringinput, function () {
-        NER.get_entities(filename, stringinput, type);
-    });
-}
-
-
 module.exports = Compromise;

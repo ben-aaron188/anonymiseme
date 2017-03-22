@@ -1,10 +1,11 @@
 var nlp = require('../libs/compromise/nlp_compromise.min.js');
+var Util = require('./util.js');
 var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var units = ["km", "mi", "metres", "miles", "kilometres", "seconds"];
 var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 var irreplacables = ["first", "one", "hour", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night", "now", "this month", "billion", "million", "thousand", "year"];
-var Util = require('./util.js');
+
 
 function Custom() {
     throw new Error('Custom is a static class!');
