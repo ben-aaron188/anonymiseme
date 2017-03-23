@@ -21,7 +21,15 @@ Mock.mock = function (data) {
         anonymized += ".";
     }
 
-    return anonymized.replace(new RegExp("[0-9]", "g"), "X");
+    var split = anonymized.split(" ");
+
+    for (var i = 0; i < split.length; i++) {
+        if (!isNaN(split[i])) {
+            split[i] = "XXX";
+        }
+    }
+
+    return split.join(" ");
 }
 
 Mock.log_mock = function (string_input) {
