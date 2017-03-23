@@ -28,7 +28,7 @@ Mock.mock = function (data) {
             split[i] = "XXX";
         }
     }
-
+    
     return split.join(" ");
 }
 
