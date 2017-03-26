@@ -2,8 +2,6 @@ var NamedEntityReplacement = require('./types/namedEntity.js');
 var nlp = require('../libs/compromise/nlp_compromise.min.js');
 var Custom = require('./custom.js');
 var Util = require('./util.js');
-var NER = require('./ner.js');
-var fs = require('fs');
 var temp_replacers = [];
 var replaced_arr = [];
 var replacements = [];
@@ -168,14 +166,5 @@ Compromise.add_to_temp = function (original, replacement) {
     temp_replacers.push(temp_obj);
     replaced_arr.push(temp_obj.original);
 }
-
-Compromise.ner_entities = function (stringinput, type) {
-    var filename = new Date().getTime();
-
-    fs.writeFile(filename + ".txt", stringinput, function () {
-        NER.get_entities(filename, stringinput, type);
-    });
-}
-
 
 module.exports = Compromise;

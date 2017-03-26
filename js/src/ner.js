@@ -1,12 +1,10 @@
-var node_ner = require('node-ner');
-var fs = require('fs');
-var ner = new node_ner({
-    install_path: './libs/node_ner/stanford-ner-2014-10-26'
-});
+const ner = require('ner');
+var Promise = require('promise');
 var Compromise = null;
 var Util = null;
 var NamedEntityReplacement = null;
 var Partial = null;
+
 
 function NER() {
     throw new Error('NER is a static class!');
@@ -17,11 +15,24 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, string_input, type) {
-    ner.fromFile(file + ".txt", function (entities) {
-        NER.replace_entities(NER.as_set(entities), file, string_input, type);
+NER.get_entities = function (string_input, type) {
+
+    var promise = new Promise(function (resolve, reject) {
+        ner.get({
+            port: 8080,
+            host: 'localhost'
+        }, string_input, function (err, res) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(NER.replace_entities(NER.as_set(res.entities), string_input, type));
+            }
+        });
     });
+
+    return promise;
 }
+
 
 /**
  * Converts the entity object to a set (math.).
@@ -116,7 +127,7 @@ NER.replace_pronouns = function (data) {
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, data, type) {
+NER.replace_entities = function (entities, data, type) {
     var organizations = [],
         locations = [],
         persons = [],
@@ -181,8 +192,6 @@ NER.replace_entities = function (entities, file, data, type) {
         }
     }
 
-    NER.delete_file(file);
-
     if (type == 2) {
         _Partial().partial_replacement(first, data, replacements);
     } else {
@@ -197,7 +206,7 @@ NER.replace_entities = function (entities, file, data, type) {
             output = NER.replace_currencies(output);
         }
 
-        console.log(output);
+        return output;
     }
 };
 
@@ -223,28 +232,6 @@ NER.get_replacement = function (property, entity, type, replaced) {
         return replacement;
     }
 
-}
-
-/**
- * Deletes the temp file.
- *
- * @param {String} filename Name of the file to be deleted.
- */
-NER.delete_file = function (filename) {
-    fs.unlinkSync(filename + ".txt");
-}
-
-/**
- * Writes the anonymised file to a new textfile and stores it in the current working directory.
- *
- * @param {String} anonymised The anonymised text
- */
-NER.write_anon = function (anonymised) {
-    fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
-        if (err) {
-            throw err;
-        }
-    });
 }
 
 function _Compromise() {

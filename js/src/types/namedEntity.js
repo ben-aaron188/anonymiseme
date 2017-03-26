@@ -1,8 +1,8 @@
-var nlp = require('../../libs/compromise/nlp_compromise.min.js');
-var Util = require("../util.js");
-var Custom = require("../custom.js");
-var additional_male_names = require('../../libs/lexicon/male.js');
 var additional_female_names = require('../../libs/lexicon/female.js');
+var additional_male_names = require('../../libs/lexicon/male.js');
+var nlp = require('../../libs/compromise/nlp_compromise.min.js');
+var Custom = require("../custom.js");
+var Util = require("../util.js");
 var lexicon = nlp.lexicon();
 
 function NamedEntityReplacement() {
@@ -54,7 +54,6 @@ NamedEntityReplacement.ext_get_replacement = function (entity, string, type) {
         full_name = false,
         length = string.split(" ").length;
 
-    // catching XXX
     if (string == "XXX") {
         return string;
     }
