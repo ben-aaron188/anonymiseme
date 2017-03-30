@@ -1,6 +1,6 @@
 // globals
 var data_array = [];
-var type = Math.floor(Math.random() * 3);
+var type = Math.floor(Math.random() * 4);
 
 var statement_array_proxy = shuffle([0, 1, 2, 3, 4, 5, 6, 7]);
 var data_statement1;
