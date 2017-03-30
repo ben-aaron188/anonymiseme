@@ -1,5 +1,5 @@
 function add_statement(number, content, choices) {
-    var header = "Statement " + number + "/4";
+    var header = "Statement " + number + "/5";
     if (!$('#statement' + number + '_wrapper').length) {
         pagefocus_reset();
         $('body').prepend(
@@ -67,9 +67,9 @@ function set_plausibility_slider_value(number) {
 function check_fields(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
-            $(this).each(function() {
+            $(this).each(function () {
                 class_values.push($(this).val().length);
                 score = $.inArray(0, class_values);
             });
@@ -99,7 +99,7 @@ function check_choice(classname) {
     class_values = [];
     var value = 0;
 
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             value = $(this).val();
         }
@@ -124,14 +124,14 @@ function has_second_language() {
 
 function define_keys(ID, allowedInput, allowedMax) {
     if (allowedInput == "number") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code != 8 && code !== 0 && (code < 48 || code > 57)) {
                 return false;
             }
         });
     } else if (allowedInput == "text") {
-        ID.keypress(function(e) {
+        ID.keypress(function (e) {
             var code = e.keyCode || e.which;
             if (code > 32 && (code < 65 || code > 90) &&
                 (code < 97 || code > 122)) {
@@ -174,7 +174,7 @@ function init_data() {
 }
 
 function simple_transition(current_div, next_div) {
-    current_div.hide(function() {
+    current_div.hide(function () {
         next_div.show();
     });
 }
@@ -188,7 +188,7 @@ function send_to_server() {
 }
 
 function getIP() {
-    $.get("http://ipinfo.io", function(response) {
+    $.get("http://ipinfo.io", function (response) {
         window.clientip = response.ip;
     }, "jsonp");
 }
@@ -196,7 +196,7 @@ function getIP() {
 function check_slider(classname) {
     class_values = [];
     score = 0;
-    classname.each(function() {
+    classname.each(function () {
         if ($(this).is(":visible")) {
             class_values.push($(this).val().length);
             score = $.inArray(15, class_values);
@@ -209,14 +209,6 @@ function check_slider(classname) {
         return true;
     }
 }
-
-function get_type() {
-    var index = Math.floor(Math.random() * types.length);
-    var type = types[index];
-    types.splice(index, 1);
-    return type;
-}
-
 
 function get_content(type, category) {
     var index = Math.floor(Math.random() * statement_array_proxy.length);
@@ -243,18 +235,22 @@ function get_content(type, category) {
     return [element, statement, type, element.choices];
 }
 
-function get_content_2(type, category) {
-    var available_elements = [];
-    var statement;
-    $(data_statements).each(function(i, eli) {
-        if (eli.category == category) {
-            available_elements.push(eli);
-        }
-    });
-    var selected_element = shuffle(available_elements)[0];
+function get_sample_content() {
+    var selected_element = data_statements[4];
+    var statement = selected_element.original;
+    var type = 0;
     data_statements.splice(data_statements.indexOf(selected_element), 1);
 
-    if (type === 0) {
+    return [selected_element, statement, type, selected_element.choices];
+}
+
+function get_content_2(type) {
+    var statement;
+
+    var selected_element = shuffle(data_statements)[0];
+    data_statements.splice(data_statements.indexOf(selected_element), 1);
+
+    if (type == 0) {
         statement = selected_element.original;
     } else if (type == 1) {
         statement = selected_element.sner;
@@ -269,7 +265,7 @@ function get_content_2(type, category) {
 
 function hide_show_next() {
     $("#next").hide();
-    setTimeout(function() {
+    setTimeout(function () {
         $("#next").show();
     }, text_timeout);
 }
@@ -299,7 +295,7 @@ function get_unid(val_score) {
 }
 
 // source" http://stackoverflow.com/questions/5976289/stretch-text-to-fit-width-of-div
-$.fn.stretch_text = function() {
+$.fn.stretch_text = function () {
     var elmt = $(this),
         cont_width = elmt.width(),
         txt = elmt.html(),
@@ -324,15 +320,15 @@ $.fn.stretch_text = function() {
     }
 };
 
-var now = (function() {
+var now = (function () {
     var performance = window.performance || {};
-    performance.now = (function() {
+    performance.now = (function () {
         return performance.now ||
             performance.webkitNow ||
             performance.msNow ||
             performance.oNow ||
             performance.mozNow ||
-            function() {
+            function () {
                 return new Date().getTime();
             };
     })();
