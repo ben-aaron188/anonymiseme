@@ -67,13 +67,13 @@ var data_statements = [
         id: 4,
         category: 1,
         category_str: "Travel",
-        original: "Test statement",
+        original: "It was July 2012 when Maggie and Judy landed in San Diego. They were going to take yoga classes for the next 11 days at the beach of Los Angeles. Teacher Robert, however, was not amused when Maggie and Judy were talking all the time and did not seem to take his classes seriously. Maggie could understand that Robert did not like that his yoga classes were being disturbed, but Judy didn’t like that Robert interfered in her talks with Maggie. The next morning Judy traveled to San Francisco alone, where she spent 8 days all by herself. Maggie felt sorry for Judy and didn’t want to complete Robert’s yoga course anymore. She booked a flight and they met again in New York.",
         choices: {
-            choice1: "<center>SCENARIO 1</center></br></br><u>Main persons:</u> Daniel; Harry</br><u>Cities:</u> London; Manchester; Liverpool; Leeds</br><u>Dates:</u> December 2016; 1 week; 2 days</br><u>Additional persons:</u> Peter",
-            choice2: "<center>SCENARIO 2</center></br></br><u>Main persons:</u> Fred; Ronald</br><u>Cities:</u> Berlin; Hamburg; Amsterdam; Marseille</br><u>Dates:</u> August 2014; 5 weeks; 4 days</br><u>Additional persons:</u> Jonathan",
-            choice3: "<center>SCENARIO 3</center></br></br><u>Main persons:</u> Martin; James</br><u>Cities:</u> Brussels; Cologne; Rotterdam; Paris</br><u>Dates:</u> June 2012; 2 weeks; 8 days</br><u>Additional persons:</u> Edward",
-            choice4: "<center>SCENARIO 4</center></br></br><u>Main persons:</u> Paul; Andrew</br><u>Cities:</u> Oslo; Stockholm; Gothenburg; Copenhagen</br><u>Dates:</u> September 2016; 1 month; 5 days</br><u>Additional persons:</u> John",
-            correct: 1
+            choice1: "<center>SCENARIO 1</center></br></br><u>Main persons:</u> Rose; Freya</br><u>Cities:</u> Miami; Tampa; Orlando; Jacksonville</br><u>Dates:</u>July 2009; 14 days; 7 days</br><u>Additional persons:</u> James",
+            choice2: "<center>SCENARIO 2</center></br></br><u>Main persons:</u> Luna; Alice</br><u>Cities:</u> San Sebastian; Cannes; Toulouse; Lyon</br><u>Dates:</u> August 2010; 15 days; 9 days</br><u>Additional persons:</u> Matt",
+            choice3: "<center>SCENARIO 3</center></br></br><u>Main persons:</u> Maggie; Judy</br><u>Cities:</u> San Diego; Los Angeles; San Francisco; New York</br><u>Dates:</u> July 2012; 11 days; 8 days</br><u>Additional persons:</u> Robert",
+            choice4: "<center>SCENARIO 4</center></br></br><u>Main persons:</u> Julia; Kathy</br><u>Cities:</u> Athens; Thessaloniki; Istanbul; Ankara</br><u>Dates:</u> June 2015; 12 days; 6 days</br><u>Additional persons:</u> Ronald",
+            correct: 3
         }
     }
 ];
