@@ -1,6 +1,7 @@
 // globals
 var data_array = [];
-var type = Math.floor(Math.random() * 4);
+// var type = Math.floor(Math.random() * 4);
+var type = randomdigit(0, 3);
 
 var statement_array_proxy = shuffle([0, 1, 2, 3, 4, 5, 6, 7]);
 var data_statement1;
@@ -10,9 +11,14 @@ var data_statement4;
 var data_statement5;
 var unid;
 var repetition_count = 0;
-var text_timeout = 3000;
+var text_timeout = 15000;
 var min_char = 15;
 var t1;
+
+function randomdigit(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 // task flow
 $(document).ready(function () {
@@ -327,16 +333,16 @@ function get_data() {
     data.statement4_eval_defocusduration = pagefocus_statement4.durationsum;
     data.statement4_elapsed = statement4_elapsed;
 
-    data.statement5_category = data_array[3].category;
-    data.statement5_content = data_array[3].text;
-    data.statement5_id = data_array[3].content.id;
-    data.statement5_name = data_array[3].content.category_str;
-    data.statement5_correctoption = data_array[3].content.choices.correct;
-    data.statement5_type = data_array[3].type;
-    data.statement5_certainty = data_array[3].evaluation.certainty;
-    data.statement5_readability = data_array[3].evaluation.readability;
-    data.statement5_plausibility = data_array[3].evaluation.plausibility;
-    data.statement5_choice = data_array[3].evaluation.choice;
+    data.statement5_category = data_array[4].category;
+    data.statement5_content = data_array[4].text;
+    data.statement5_id = data_array[4].content.id;
+    data.statement5_name = data_array[4].content.category_str;
+    data.statement5_correctoption = data_array[4].content.choices.correct;
+    data.statement5_type = data_array[4].type;
+    data.statement5_certainty = data_array[4].evaluation.certainty;
+    data.statement5_readability = data_array[4].evaluation.readability;
+    data.statement5_plausibility = data_array[4].evaluation.plausibility;
+    data.statement5_choice = data_array[4].evaluation.choice;
     data.statement5_eval_defoucus = pagefocus_statement5.defocus;
     data.statement5_eval_refoucus = pagefocus_statement5.refocus;
     data.statement5_eval_defocusduration = pagefocus_statement5.durationsum;

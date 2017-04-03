@@ -250,7 +250,7 @@ function get_content_2(type) {
     var selected_element = shuffle(data_statements)[0];
     data_statements.splice(data_statements.indexOf(selected_element), 1);
 
-    if (type == 0) {
+    if (type === 0) {
         statement = selected_element.original;
     } else if (type == 1) {
         statement = selected_element.sner;
