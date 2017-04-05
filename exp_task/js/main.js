@@ -238,7 +238,7 @@ function to_outro() {
         unblock_copy_pasting();
         var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
             '<span id="debr">' + debriefing_long + '</span></br></br>' +
-            'Please fill in your Prolific participant ID and the participation code displayed above (e.g. AB1234) .' +
+            'Please fill in your Prolific participant ID and the participation code displayed above (e.g. AB1234).</br>Click on SEND to finish the task (the submission may take some seconds).' +
             '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="24" style="text-align: center; left: 30%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR PROLIFIC ID">' +
             '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 70%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
         var credits_dom = '<div id="credits">' +
