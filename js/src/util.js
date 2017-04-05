@@ -2,6 +2,20 @@ function Util() {
     throw new Error('Util is a static class!');
 }
 
+Util.contains = function (source, text) {
+
+    for (var i = 0; i < source.length; i++) {
+        var current = source[i];
+
+        if (text.toLowerCase() == current.toLowerCase()) {
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
 Util.inArray = function (element, array) {
 
     for (var i = 0; i < array.length; i++) {

@@ -1,5 +1,9 @@
 function add_statement(number, content, choices) {
+<<<<<<< HEAD
     var header = "Statement " + number + "/4";
+=======
+    var header = "Statement " + number + "/5";
+>>>>>>> mar10
     if (!$('#statement' + number + '_wrapper').length) {
         pagefocus_reset();
         $('body').prepend(
@@ -27,7 +31,11 @@ function add_statement(number, content, choices) {
             '<output class="slider_io_output" id="certainty_output_' + number + '">move the slider</output> ' +
             '</div>' +
             '<div style="top: 55%;" class="slider_io">' +
+<<<<<<< HEAD
             '<span id="slider_instr">How readable do you find this text (in %)?</span> ' +
+=======
+            '<span id="slider_instr">How easy to read do you find this text (in %)?</span> ' +
+>>>>>>> mar10
             '<input type="range" class="slider_io_slider select_menu" id="statement' + number + '_readability" value="50" min="0" max="100" step="5" oninput="set_readability_slider_value(' + number + ')">' +
             '<output class="slider_io_output" id="readability_output_' + number + '">move the slider</output> ' +
             '</div>' +
@@ -203,20 +211,12 @@ function check_slider(classname) {
         }
     });
     if (score != -1) {
-        alert("Please move all sliders to indicate your certainty, the readability and the plausibility of this description.");
+        alert("Please move all sliders to indicate your certainty, the ease of reading and the plausibility of this text.");
         score = 0;
     } else {
         return true;
     }
 }
-
-function get_type() {
-    var index = Math.floor(Math.random() * types.length);
-    var type = types[index];
-    types.splice(index, 1);
-    return type;
-}
-
 
 function get_content(type, category) {
     var index = Math.floor(Math.random() * statement_array_proxy.length);
@@ -243,6 +243,7 @@ function get_content(type, category) {
     return [element, statement, type, element.choices];
 }
 
+<<<<<<< HEAD
 function get_content_2(type, category) {
     var available_elements = [];
     var statement;
@@ -252,6 +253,21 @@ function get_content_2(type, category) {
         }
     });
     var selected_element = shuffle(available_elements)[0];
+=======
+function get_sample_content() {
+    var selected_element = data_statements[4];
+    var statement = selected_element.original;
+    var type = 0;
+    data_statements.splice(data_statements.indexOf(selected_element), 1);
+
+    return [selected_element, statement, type, selected_element.choices];
+}
+
+function get_content_2(type) {
+    var statement;
+
+    var selected_element = shuffle(data_statements)[0];
+>>>>>>> mar10
     data_statements.splice(data_statements.indexOf(selected_element), 1);
 
     if (type === 0) {
@@ -269,7 +285,11 @@ function get_content_2(type, category) {
 
 function hide_show_next() {
     $("#next").hide();
+<<<<<<< HEAD
     setTimeout(function() {
+=======
+    setTimeout(function () {
+>>>>>>> mar10
         $("#next").show();
     }, text_timeout);
 }

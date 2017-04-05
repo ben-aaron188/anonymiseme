@@ -1,16 +1,32 @@
 // globals
 var data_array = [];
+<<<<<<< HEAD
 var types = shuffle([0, 1, 2, 3]);
+=======
+// var type = Math.floor(Math.random() * 4);
+var type = randomdigit(0, 3);
+
+>>>>>>> mar10
 var statement_array_proxy = shuffle([0, 1, 2, 3, 4, 5, 6, 7]);
 var data_statement1;
 var data_statement2;
 var data_statement3;
 var data_statement4;
+var data_statement5;
 var unid;
 var repetition_count = 0;
+<<<<<<< HEAD
 var text_timeout = 3000;
+=======
+var text_timeout = 15000;
+>>>>>>> mar10
 var min_char = 15;
 var t1;
+
+function randomdigit(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 // task flow
 $(document).ready(function() {
@@ -52,7 +68,11 @@ function to_main_statements() {
 }
 
 function to_statement1() {
+<<<<<<< HEAD
     var data = get_content_2(get_type(), 0);
+=======
+    var data = get_sample_content();
+>>>>>>> mar10
     data_statement1 = data;
     start_timer();
 
@@ -79,7 +99,11 @@ function to_statement2() {
             }
         });
         pagefocus_statement1 = pagefocus_get_data();
+<<<<<<< HEAD
         var data = get_content_2(get_type(), 0);
+=======
+        var data = get_content_2(type);
+>>>>>>> mar10
         data_statement2 = data;
 
         start_timer();
@@ -107,7 +131,11 @@ function to_statement3() {
             }
         });
         pagefocus_statement2 = pagefocus_get_data();
+<<<<<<< HEAD
         var data = get_content_2(get_type(), 1);
+=======
+        var data = get_content_2(type);
+>>>>>>> mar10
         data_statement3 = data;
 
         start_timer();
@@ -135,24 +163,28 @@ function to_statement4() {
             }
         });
         pagefocus_statement3 = pagefocus_get_data();
+<<<<<<< HEAD
         var data = get_content_2(get_type(), 1);
+=======
+        var data = get_content_2(type);
+>>>>>>> mar10
         data_statement4 = data;
 
         start_timer();
         add_statement(4, data_statement4[1], data_statement4[3]);
         simple_transition($("#statement3_wrapper"), $("#statement4_wrapper"));
         hide_show_next();
-        $("#next").attr('onclick', 'to_transition()');
+        $("#next").attr('onclick', 'to_statement5()');
     }
 }
 
-function to_transition() {
+function to_statement5() {
     if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
         statement4_elapsed = end_timer();
         data_array.push({
             content: data_statement4[0],
-            text: data_statement4[1],
             category: data_statement4[0].category,
+            text: data_statement4[1],
             type: data_statement4[2],
             solution: data_statement4[3].correct,
             evaluation: {
@@ -162,10 +194,38 @@ function to_transition() {
                 choice: $("#statement4_input").val()
             }
         });
+        pagefocus_statement4 = pagefocus_get_data();
+        var data = get_content_2(type);
+        data_statement5 = data;
+
+        start_timer();
+        add_statement(5, data_statement5[1], data_statement5[3]);
+        simple_transition($("#statement4_wrapper"), $("#statement5_wrapper"));
+        hide_show_next();
+        $("#next").attr('onclick', 'to_transition()');
+    }
+}
+
+function to_transition() {
+    if (check_choice($(".text_input1_text")) && check_slider($(".slider_io_output"))) {
+        statement5_elapsed = end_timer();
+        data_array.push({
+            content: data_statement5[0],
+            text: data_statement5[1],
+            category: data_statement5[0].category,
+            type: data_statement5[2],
+            solution: data_statement5[3].correct,
+            evaluation: {
+                certainty: $("#statement5_certainty").val(),
+                plausibility: $("#statement5_plausibility").val(),
+                readability: $("#statement5_readability").val(),
+                choice: $("#statement5_input").val()
+            }
+        });
         var text = transition_text;
         $('body').prepend('<div id="transition1" class="text1_">' + text + '</div>');
-        pagefocus_statement4 = pagefocus_get_data();
-        simple_transition($("#statement4_wrapper"), $("#transition1"));
+        pagefocus_statement5 = pagefocus_get_data();
+        simple_transition($("#statement5_wrapper"), $("#transition1"));
         $("#next").attr('onclick', 'to_open_questions()');
     }
 }
@@ -202,7 +262,11 @@ function to_outro() {
         unblock_copy_pasting();
         var outro_dom = 'Your participation code: <span id=partcode style="color: red">9871NO</span></br></br>' +
             '<span id="debr">' + debriefing_long + '</span></br></br>' +
+<<<<<<< HEAD
             'Please fill in your Prolific participant ID and the participation code displayed above (e.g. AB1234) .' +
+=======
+            'Please fill in your Prolific participant ID and the participation code displayed above (e.g. AB1234).</br>Click on SEND to finish the task (the submission may take some seconds).' +
+>>>>>>> mar10
             '<input type="text" id="crowdf" name="crowdf" class="select_menu" maxlength="40" size="24" style="text-align: center; left: 30%; top: 85%; height: 10%; width: 25%;" placeholder="YOUR PROLIFIC ID">' +
             '<input type="text" id="unidin" name="unidin" class="select_menu" maxlength="6" size="16" style="text-align: center; left: 70%; top: 85%; height: 10%; width: 25%; color: red" placeholder="PARTICIPATION CODE">';
         var credits_dom = '<div id="credits">' +
@@ -296,6 +360,21 @@ function get_data() {
     data.statement4_eval_refoucus = pagefocus_statement4.refocus;
     data.statement4_eval_defocusduration = pagefocus_statement4.durationsum;
     data.statement4_elapsed = statement4_elapsed;
+
+    data.statement5_category = data_array[4].category;
+    data.statement5_content = data_array[4].text;
+    data.statement5_id = data_array[4].content.id;
+    data.statement5_name = data_array[4].content.category_str;
+    data.statement5_correctoption = data_array[4].content.choices.correct;
+    data.statement5_type = data_array[4].type;
+    data.statement5_certainty = data_array[4].evaluation.certainty;
+    data.statement5_readability = data_array[4].evaluation.readability;
+    data.statement5_plausibility = data_array[4].evaluation.plausibility;
+    data.statement5_choice = data_array[4].evaluation.choice;
+    data.statement5_eval_defoucus = pagefocus_statement5.defocus;
+    data.statement5_eval_refoucus = pagefocus_statement5.refocus;
+    data.statement5_eval_defocusduration = pagefocus_statement5.durationsum;
+    data.statement5_elapsed = statement5_elapsed;
 
     data.openquestion = $("#openquestion").val();
 

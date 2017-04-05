@@ -1,19 +1,20 @@
 var nlp = require('../libs/compromise/nlp_compromise.min.js');
+var Util = require('./util.js');
 var weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var units = ["km", "mi", "metres", "miles", "kilometres", "seconds"];
 var abbrev = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 var irreplacables = ["first", "one", "hour", "hours", "minutes", "seconds", "millisceconds", "weeks", "days", "months", "night", "now", "this month", "billion", "million", "thousand", "year"];
-var Util = null;
+
 
 function Custom() {
     throw new Error('Custom is a static class!');
 }
 
-Custom.check_date = function (date, replacement, complete) {
-    date = _Util().remove_term_terminator(date);
+Custom.check_date = function (date, replacement, type) {
+    date = Util.remove_term_terminator(date);
 
-    if (complete) {
+    if (type == 1) {
         return "XXX";
     } else if (Custom.not_replacable(date)) {
         return date;
@@ -110,7 +111,7 @@ Custom.capitalise_array_entries = function () {
 Custom.not_replacable = function (date) {
     var upper_irreplacables = Custom.capitalise_array_entries();
 
-    if (_Util().inArray(date, irreplacables) || _Util().inArray(date, upper_irreplacables)) {
+    if (Util.ident_inArray(date, irreplacables) || Util.ident_inArray(date, upper_irreplacables)) {
         return true;
     } else {
         return false;
@@ -243,7 +244,7 @@ Custom.is_numeric_date = function (date) {
         try {
             Date.parse(date);
         } catch (e) {
-            if (_Util().inArray(date, months) == true) {
+            if (Util.inArray(date, months) == true) {
                 return true;
             } else {
                 return false;
@@ -435,8 +436,8 @@ Custom.smart_name_rep = function (data, entity, replacement) {
 
     if (names.length > 1 && data.indexOf(entity) == -1) {
         var re_names = replacement.split(" ");
-        var or_last = _Util().remove_term_terminator(names[names.length - 1]);
-        var re_last = _Util().remove_term_terminator(re_names[re_names.length - 1]);
+        var or_last = Util.remove_term_terminator(names[names.length - 1]);
+        var re_last = Util.remove_term_terminator(re_names[re_names.length - 1]);
 
         if (data.indexOf(or_last) != -1) {
             data = data.replace(entity, replacement);
@@ -455,14 +456,6 @@ Custom.smart_name_rep = function (data, entity, replacement) {
         data: data,
         entities: null
     };
-}
-
-function _Util() {
-    if (!Util) {
-        Util = require('./util.js');
-    }
-
-    return Util;
 }
 
 module.exports = Custom;

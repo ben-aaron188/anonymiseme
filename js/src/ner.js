@@ -1,10 +1,10 @@
-var node_ner = require('node-ner');
-var fs = require('fs');
-var Replacer = null;
+const ner = require('ner');
+var Promise = require('promise');
+var Compromise = null;
 var Util = null;
-var ner = new node_ner({
-    install_path: './libs/node_ner/stanford-ner-2014-10-26'
-});
+var NamedEntityReplacement = null;
+var Partial = null;
+
 
 function NER() {
     throw new Error('NER is a static class!');
@@ -15,12 +15,24 @@ function NER() {
  *
  * @param {String} file The name of the given file name
  */
-NER.get_entities = function (file, complete, string_input, partial) {
-    ner.fromFile(file + ".txt", function (entities) {
+NER.get_entities = function (string_input, type) {
 
-        NER.replace_entities(NER.as_set(entities), file, complete, string_input, partial);
+    var promise = new Promise(function (resolve, reject) {
+        ner.get({
+            port: 8080,
+            host: 'localhost'
+        }, string_input, function (err, res) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(NER.replace_entities(NER.as_set(res.entities), string_input, type));
+            }
+        });
     });
+
+    return promise;
 }
+
 
 /**
  * Converts the entity object to a set (math.).
@@ -63,23 +75,6 @@ NER.replace_white_spaces = function (entities) {
 }
 
 /**
- * Checks whtether the given element is in the array.
- *
- * @param {String|Number} element The search element
- * @param {Array} array The given array
- * @returns {boolean}
- */
-NER.in_array = function (element, array) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] == element) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-/**
  * Checks whether the given string contains a special character and returns this character if true, false otherwise.
  *
  * @param {String} element The considered string
@@ -107,7 +102,7 @@ NER.adjust_term = function (stringinput) {
     var punctuation = ['[', '.', ',', '/', '#', '!', '$', '%', '&', '*', ';', ':', '{', '}', '=', '-', '_', '`', '~', '(', ')', ']', '?'];
     var last_char = stringinput[stringinput.length - 1];
 
-    if (NER.in_array(last_char, punctuation)) {
+    if (_Util().ident_inArray(last_char, punctuation)) {
         return stringinput.substring(0, stringinput.length - 1).toLowerCase();
     } else {
         return stringinput.toLowerCase();
@@ -115,37 +110,49 @@ NER.adjust_term = function (stringinput) {
 
 }
 
+NER.replace_pronouns = function (data) {
+
+    data = data.replace(/ he | she /gi, " [HE/SHE] ");
+    data = data.replace(/\.he |\.she /gi, ". [HE/SHE] ");
+    data = data.replace(/ his | her /gi, " [HIS/HER] ");
+    data = data.replace(/\.his |\.her /gi, ". [HIS/HER] ");
+    data = data.replace(/ him | her /gi, " [HIM/HER] ");
+    data = data.replace(/\.him |\.her /gi, ". [HIM/HER] ");
+
+    return data;
+}
+
 /**
  * Replaces all the recognised entities within a given text.
  *
  * @param {String} entities The recognised entities
  */
-NER.replace_entities = function (entities, file, complete, data, partial) {
+NER.replace_entities = function (entities, data, type) {
     var organizations = [],
         locations = [],
         persons = [],
         dates = [],
         entity_arr = [],
         replaced = [],
-        replacements = [];
-
-    //temp
-    //console.log(entities);
-
-    var first = data;
+        replacements = [],
+        entity_regex,
+        data = NER.replace_pronouns(data),
+        first = data,
+        res;
 
     for (var property in entities) {
         if (entities[property]) {
             for (var i = 0; i < entities[property].length; i++) {
                 var entity = entities[property][i],
                     replacement = null;
+
                 if (property == 'MONEY') {
                     entity = NER.adjust_currency(entity);
                 }
-                if (complete) {
+                if (type == 1) {
                     replacement = _Util().get_term_beginning(entity) + "XXX" + _Util().get_term_terminator(entity);
                 } else {
-                    replacement = NER.get_replacement(property, entity, complete, replaced);
+                    replacement = NER.get_replacement(property, entity, type, replaced);
 
                     replaced.push(replacement);
                     if (property == 'ORGANIZATION') {
@@ -153,7 +160,7 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
                     } else if (property == 'LOCATION') {
                         locations.push(replacement);
                     } else if (property == 'PERSON') {
-                        var res = _Replacer().smart_name_rep(data, entity, replacement);
+                        res = _Compromise().smart_name_rep(data, entity, replacement);
                         data = res.data;
                         if (res.entities) {
                             for (var i = 0; i < res.entities.length; i++) {
@@ -185,40 +192,23 @@ NER.replace_entities = function (entities, file, complete, data, partial) {
         }
     }
 
-    NER.delete_file(file);
-
-    if (partial) {
-        _Replacer().partial_replacement(first, data, replacements);
+    if (type == 2) {
+        _Partial().partial_replacement(first, data, replacements);
     } else {
-        var res = _Replacer().fine_tuning(data, organizations, locations, persons, dates, complete, replaced, partial);
+        var res = _Compromise().fine_tuning(data, organizations, locations, persons, dates, replaced, type);
         var output = res.replaced;
 
         for (var i = 0; i < res.entities.length; i++) {
             entity_arr.push(res.entities[i]);
         }
 
-        if (complete) {
+        if (type == 0) {
             output = NER.replace_currencies(output);
         }
 
-        console.log(output);
+        return output;
     }
 };
-
-NER.get_replacement = function (property, entity, complete, replaced) {
-    var replacement = _Replacer().ext_get_replacement(property, entity, complete);
-
-    try {
-        if (_Util().ident_inArray(replacement, replaced)) {
-            return NER.get_replacement(property, entity, complete, replaced);
-        } else {
-            return replacement;
-        }
-    } catch (e) {
-        return replacement;
-    }
-
-}
 
 NER.replace_currencies = function (data) {
     data = data.replace(/€/g, '');
@@ -229,42 +219,51 @@ NER.adjust_currency = function (currency) {
     return parseFloat(currency.replace(/[^\d\.]/g, '')).toString();
 }
 
-/**
- * Deletes the temp file.
- *
- * @param {String} filename Name of the file to be deleted.
- */
-NER.delete_file = function (filename) {
-    fs.unlinkSync(filename + ".txt");
-}
+NER.get_replacement = function (property, entity, type, replaced) {
+    var replacement = _NamedEntityReplacement().ext_get_replacement(property, entity, type);
 
-/**
- * Writes the anonymised file to a new textfile and stores it in the current working directory.
- *
- * @param {String} anonymised The anonymised text
- */
-NER.write_anon = function (anonymised) {
-    fs.writeFile(file + "_anonymised.txt", anonymised, function (err) {
-        if (err) {
-            throw err;
+    try {
+        if (_Util().ident_inArray(replacement, replaced)) {
+            return _NamedEntityReplacement().get_replacement(property, entity, type, replaced);
+        } else {
+            return replacement;
         }
-    });
-}
-
-_Replacer = function () {
-    if (!Replacer) {
-        Replacer = require('./replacer.js');
+    } catch (e) {
+        return replacement;
     }
 
-    return Replacer;
-};
+}
+
+function _Compromise() {
+    if (!Compromise) {
+        Compromise = require('./compromise.js');
+    }
+
+    return Compromise;
+}
 
 function _Util() {
     if (!Util) {
-        Util = require('./util.js');
+        Util = require("./util.js");
     }
 
     return Util;
+}
+
+function _NamedEntityReplacement() {
+    if (!NamedEntityReplacement) {
+        NamedEntityReplacement = require("./types/namedEntity.js");
+    }
+
+    return NamedEntityReplacement;
+}
+
+function _Partial() {
+    if (!Partial) {
+        Partial = require("./types/partial.js");
+    }
+
+    return Partial;
 }
 
 module.exports = NER;
